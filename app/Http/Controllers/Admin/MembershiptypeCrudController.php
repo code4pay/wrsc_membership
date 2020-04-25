@@ -23,7 +23,7 @@ class MembershiptypeCrudController extends CrudController
     {
         $this->crud->setModel('App\Models\Membershiptype');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/membershiptype');
-        $this->crud->setEntityNameStrings('membershiptype', 'membershiptypes');
+        $this->crud->setEntityNameStrings('Membership type', 'Membership Types');
     }
 
     protected function setupListOperation()

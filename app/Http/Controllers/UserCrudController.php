@@ -18,7 +18,7 @@ class UserCrudController extends CrudController
     public function setup()
     {
         $this->crud->setModel(config('backpack.permissionmanager.models.user'));
-        $this->crud->setEntityNameStrings(trans('backpack::permissionmanager.user'), trans('backpack::permissionmanager.users'));
+        $this->crud->setEntityNameStrings('Member', 'Members');
         $this->crud->setRoute(backpack_url('user'));
     }
 
@@ -76,6 +76,8 @@ class UserCrudController extends CrudController
     public function setupCreateOperation()
     {
         $this->addUserFields();
+        $this->crud->removeField('courses');
+
         $this->crud->setValidation(StoreRequest::class);
     }
 
