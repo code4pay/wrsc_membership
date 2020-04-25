@@ -7,11 +7,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use OwenIt\Auditing\Contracts\Auditable;
 
-class User extends Authenticatable implements Auditable
+class User extends Authenticatable 
 {
-    use \OwenIt\Auditing\Auditable;
     use CrudTrait;
     use Notifiable;
     use HasRoles;
@@ -26,29 +24,28 @@ class User extends Authenticatable implements Auditable
         'last_name',
         'email',
         'password', 
-        'street_one',
-        'street_two',
+        'address',
+        'address',
         'city',
         'state',
         'country',
         'post_code',
+        'address_residential',
+        'city_residential',
+        'state_residential',
+        'country_residential',
+        'post_code_residential',
         'member_number',
         'wildman_number',
-        'mail_method',
-        'type',
-        'email_method',
-        'region_nowra_fsc',
+        'region_id',
         'mobile',
         'home_phone',
         'joined',
-        'renewal_receipt_number',
-        'renewal_receipt_date',
+        'lyssa_sereology_date',
+        'lyssa_sereology_value',
         'paid_to',
         'date_of_birth',
-        'gender',
-        'abl',
-        'junior_member',
-        'financial_member',
+        'member_type_id',
     ];
 
     /**

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\PermissionManager\app\Http\Requests\UserStoreCrudRequest as StoreRequest;
-use Backpack\PermissionManager\app\Http\Requests\UserUpdateCrudRequest as UpdateRequest;
+use App\Http\Requests\UserStoreCrudRequest as StoreRequest;
+use App\Http\Requests\UserUpdateCrudRequest as UpdateRequest;
 use Illuminate\Support\Facades\Hash;
 
 class UserCrudController extends CrudController
@@ -24,6 +24,7 @@ class UserCrudController extends CrudController
 
     public function setupListOperation()
     {
+        //turns on the export button on the first page. 
         $this->crud->enableExportButtons();
 
 
@@ -54,8 +55,10 @@ class UserCrudController extends CrudController
             ],
         ]);
 
+        //enable the selection of mutiple entries in list. 
         $this->crud->enableBulkActions();
-        // Role Filter
+
+        // Course Filter on Main members list page
         $this->crud->addFilter([
             'name'  => 'course',
             'type'  => 'dropdown',
@@ -152,18 +155,21 @@ class UserCrudController extends CrudController
                 'label' => 'Email',
                 'type'  => 'email',
                 'allows_null' => false,
+                'attributes' => ["autocomplete" => "new-password"],
             ],
             [
                 'tab' => 'main',
                 'name'  => 'password',
                 'label' => 'Password',
                 'type'  => 'password',
+                'attributes' => ["autocomplete" => "new-password"],
             ],
             [
                 'tab' => 'main',
                 'name'  => 'password_confirmation',
                 'label' => 'Password Confrimation',
                 'type'  => 'password',
+                'attributes' => ["autocomplete" => "off"],
             ],
             [   
                 'tab' => 'main',
