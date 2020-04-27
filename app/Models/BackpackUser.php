@@ -36,9 +36,23 @@ class BackpackUser extends User
         return $this->email;
     }
 
+    public function fullName() {
+        return $this->first_name.' '.$this->last_name;
+    }
     public function courses(){
         return $this->hasMany('App\Models\CourseUser');
     }
 
+    public function memberType() {
+        return $this->belongsTo('App\Models\Membershiptype');
+    }
+
+    public function region() {
+        return $this->belongsTo('App\Models\Region');
+    }
+
+    public function siblings() {
+        return $this->hasMany('App\Models\BackpackUser','id','primary_member_id');
+    }
 
 }

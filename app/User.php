@@ -41,8 +41,8 @@ class User extends Authenticatable
         'mobile',
         'home_phone',
         'joined',
-        'lyssa_sereology_date',
-        'lyssa_sereology_value',
+        'lyssa_serology_date',
+        'lyssa_serology_value',
         'paid_to',
         'date_of_birth',
         'member_type_id',
@@ -56,6 +56,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
 
     /**
      * The attributes that should be cast to native types.

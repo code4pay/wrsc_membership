@@ -43,9 +43,12 @@ class CreateUsersTable extends Migration
             $table->date('joined')->nullable();
             $table->date('application')->nullable();
             $table->date('paid_to')->nullable();
-            $table->date('lyssa_sereology_date')->nullable();
-            $table->date('lyssa_sereology_value')->nullable();
+            $table->date('lyssa_serology_date')->nullable();
+            $table->date('lyssa_serology_value')->nullable();
             $table->integer('member_type_id')->default(1);
+            $table->integer('primary_member_id')->nullable()->comment('if this is a related member this is the primary member.');
+            $table->date('tac_date')->nullable()->comment('Terms And Conditions acceptance date');
+
         });
     }
 

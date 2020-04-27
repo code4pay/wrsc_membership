@@ -179,6 +179,14 @@ class UserCrudController extends CrudController
                 'type' => 'custom_html',
                 'value' => '<hr/>'
             ],
+            [  
+                'label' => "Region",
+                'type' => 'select',
+                'name' => 'region_id', // the db column for the foreign key
+                'entity' => 'region', // the method that defines the relationship in your Model
+                'attribute' => 'region_name', // foreign key attribute that is shown to user
+                'model' => "App\Models\Region" // foreign key model
+            ],
             [
                 'tab' => 'main',
                 'name'  => 'address',
@@ -276,21 +284,67 @@ class UserCrudController extends CrudController
                 'name'  => 'member_number',
                 'label' => 'Membership Number',
                 'type'  => 'text',
-                'wrapperAttributes' => [    'class' => 'col-md-3']
+                'wrapperAttributes' => [    'class' => 'col-md-4']
             ],    
             [
                 'tab' => 'Membership Details',
                 'name'  => 'wildman_number',
                 'label' => 'Wildman Number',
                 'type'  => 'text',
-                'wrapperAttributes' => [    'class' => 'col-md-3']
+                'wrapperAttributes' => [    'class' => 'col-md-4']
             ],    
+            [  
+                'label' => "Member Type",
+                'type' => 'select',
+                'name' => 'member_type_id', // the db column for the foreign key
+                'entity' => 'memberType', // the method that defines the relationship in your Model
+                'attribute' => 'name', // foreign key attribute that is shown to user
+                'model' => "App\Models\Membershiptype" // foreign key model
+            ],
+            [       // Select2Multiple = n-n relationship (with pivot table)
+                'label' => "Siblings",
+                'type' => 'select2_multiple',
+                'name' => 'siblings', // the method that defines the relationship in your Model
+                //'entity' => 'siblings', // the method that defines the relationship in your Model
+                'attribute' => 'first_name', // foreign key attribute that is shown to user
+                'model' => "App\Models\Backpackuser", // foreign key model
+                'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
+                // 'select_all' => true, // show Select All and Clear buttons?
+            ],
             [
                 'tab' => 'Membership Details',
                 'name'  => 'joined',
                 'label' => 'Date Joined',
                 'type'  => 'date',
-            ],    
+            ],
+            [
+                'tab' => 'Membership Details',
+                'name'  => 'paid_to',
+                'label' => 'Paid To',
+                'type'  => 'date',
+            ],
+            [
+                'tab' => 'Membership Details',
+                'name'  => 'lyssa_serology_date',
+                'label' => 'Last Lyssa Test Date',
+                'type'  => 'date',
+                'wrapperAttributes' => [    'class' => 'col-md-4']
+            ],
+            [
+                'tab' => 'Membership Details',
+                'name'  => 'lyssa_serology_value',
+                'label' => 'Lyssa Serology Level',
+                'type'  => 'number',
+                'wrapperAttributes' => [    'class' => 'col-md-4']
+            ],
+            [
+                'tab' => 'Membership Details',
+                'name'  => 'tac_date',
+                'label' => 'Terms and Conditions Acceptance Date',
+                'type'  => 'date',
+            ],
+
+
         ]);
     }
 }

@@ -1,0 +1,28 @@
+---
+ip: "192.168.10.10"
+memory: 4096
+cpus: 2
+provider: virtualbox
+
+authorize: ~/.ssh/id_rsa.pub
+
+keys:
+    - ~/.ssh/id_rsa
+
+folders:
+    - map: ~/code/wrsc
+      to: /home/vagrant/wrsc
+      type: "nfs"
+
+
+sites:
+    - map: wrsc.test
+      to: /home/vagrant/wrsc/public
+
+databases:
+    - wrsc
+
+features:
+    - mariadb: false
+    - ohmyzsh: false
+    - webdriver: false

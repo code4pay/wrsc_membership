@@ -1,5 +1,10 @@
 # Notes
 
+## setting up database for dev
+In the root dir of the project run `php artisan migrate:fresh`
+The to add the first user ` php artisan wrsc:member`  it will then prompt you for the fields. 
+you should then be able to login.  If using Homestead it will be `http://localhost:8000` 
+
 ## Adding a new table 
 To add a new database table to the Admin panel with a link on the left hand side. 
 First run the schema generator to create the migration and the model 
@@ -41,6 +46,9 @@ Check the `app/Http/Controllers/UserCrudController.php` for examples
 These are the fields you add to your controller for them to show up on the form 
 Backback fields
 https://backpackforlaravel.com/docs/4.0/crud-fields
+
+
+
 
 
 # Form builder
