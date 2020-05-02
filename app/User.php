@@ -46,7 +46,8 @@ class User extends Authenticatable
         'paid_to',
         'date_of_birth',
         'member_type_id',
-        'comments'
+        'comments',
+        'image'
     ];
 
     /**
