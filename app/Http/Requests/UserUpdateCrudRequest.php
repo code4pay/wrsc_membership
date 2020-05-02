@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserUpdateCrudRequest extends FormRequest
@@ -33,7 +34,6 @@ class UserUpdateCrudRequest extends FormRequest
         if (!$userModel->find($userId)) {
             abort(400, 'Could not find that entry in the database.');
         }
-
         return [
             'email'    => 'required|unique:'.config('permission.table_names.users', 'users').',email,'.$userId,
             'password' => 'confirmed',
@@ -55,6 +55,20 @@ class UserUpdateCrudRequest extends FormRequest
             'lyssa_sereology_value',
             'paid_to',
             'member_type_id',         
+            
         ];
     }
+
+        /**
+     * Get the validation messages that apply to the request.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'primary_member_id.exists' => 'The primary member can not be themselves or a sibling',
+        ];
+    }
+  
 }

@@ -28,6 +28,10 @@ class MembershiptypeCrudController extends CrudController
 
     protected function setupListOperation()
     {
+
+     if(!backpack_user()->hasPermissionTo('manage membership types')) { abort(403, 'You do not have access to this');}
+      //  dd($this->crud->settings());
+      //  if (!$this->crud->settings()['update.access']) {abort(403, 'You do not have access to this action');}
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
         $this->crud->setFromDb();
     }

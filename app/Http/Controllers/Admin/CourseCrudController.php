@@ -42,16 +42,22 @@ class CourseCrudController extends CrudController
         $this->crud->setValidation(CourseRequest::class);
 
         // TODO: remove setFromDb() and manually define Fields
-        $this->crud->addFields([[
-            'name' => 'name',
-            'type' => 'text',
-            'label' => 'Name'],
+        $this->crud->addFields(
             [
-                'name' => 'description',
-                'type' => 'textarea',
-                'label' => 'Description'
-            ]]
-            );
+                [
+                    'name' => 'name',
+                    'type' => 'text',
+                    'label' => 'Name',
+                 
+                ],
+                [
+                    'name' => 'description',
+                    'type' => 'textarea',
+                    'label' => 'Description',
+                 
+                ]
+            ]
+        );
     }
 
     protected function setupUpdateOperation()

@@ -7,12 +7,25 @@ use Backpack\CRUD\app\Models\Traits\InheritsRelationsFromParentModel;
 use Backpack\CRUD\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Backpack\CRUD\app\Models\Traits\CrudTrait; // <------------------------------- this one
+use Spatie\Permission\Traits\HasRoles;// <---------------------- and this one
+use \Venturecraft\Revisionable\RevisionableTrait;
 class BackpackUser extends User
 {
     use InheritsRelationsFromParentModel;
     use Notifiable;
-
+    use RevisionableTrait;
+    use CrudTrait; // <----- this
+    use HasRoles; // <------ and this
     protected $table = 'users';
+
+
+    // this is here for the revsionable https://backpackforlaravel.com/docs/4.0/crud-operation-revisions
+    public function identifiableName()
+    {
+        return $this->fullname;
+    }
+
 
     /**
      * Send the password reset notification.
@@ -35,8 +48,11 @@ class BackpackUser extends User
     {
         return $this->email;
     }
-
-    public function fullName() {
+    /* Naming this 'get'*'Attribute' turns it into field attribute
+    *  but istill  won't get returned in JSON results see this link for
+    * that https://laravel.com/docs/7.x/eloquent-serialization#appending-values-to-json 
+    */
+    public function getFullnameAttribute() {
         return $this->first_name.' '.$this->last_name;
     }
     public function courses(){
@@ -44,7 +60,7 @@ class BackpackUser extends User
     }
 
     public function memberType() {
-        return $this->belongsTo('App\Models\Membershiptype');
+        return $this->belongsTo('App\Models\Membershiptype','member_type_id');
     }
 
     public function region() {
@@ -52,7 +68,11 @@ class BackpackUser extends User
     }
 
     public function siblings() {
-        return $this->hasMany('App\Models\BackpackUser','id','primary_member_id');
+        return $this->hasMany('App\Models\BackpackUser','primary_member_id');
     }
+    public function primary() {
+           return $this->belongsTo('App\Models\BackpackUser','primary_member_id','id');
+    } 
+
 
 }

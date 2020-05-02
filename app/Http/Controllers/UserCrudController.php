@@ -14,7 +14,7 @@ class UserCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
      use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-
+    use \Backpack\CRUD\app\Http\Controllers\Operations\RevisionsOperation;
     public function setup()
     {
         $this->crud->setModel(config('backpack.permissionmanager.models.user'));
@@ -83,8 +83,17 @@ class UserCrudController extends CrudController
 
     public function setupUpdateOperation()
     {
-    
-        $this->addUserFields();
+        if (!$this->crud->settings()['update.access']) {abort(403, 'You do not have access to this action');}
+        $userModel = config('backpack.permissionmanager.models.user');
+        $userModel = new $userModel();
+        $routeSegmentWithId = empty(config('backpack.base.route_prefix')) ? '2' : '3';
+
+        $userId = $this->request->get('id') ?? \Request::instance()->segment($routeSegmentWithId);
+        $user = $userModel->find($userId);
+        if (!$user) {
+            abort(400, 'Could not find that entry in the database.');
+        }
+        $this->addUserFields($user);
         $this->crud->setValidation(UpdateRequest::class);
     }
 
@@ -109,6 +118,7 @@ class UserCrudController extends CrudController
      */
     public function update()
     {
+
         $this->crud->request = $this->crud->validateRequest();
         $this->crud->request = $this->handlePasswordInput($this->crud->request);
         $this->crud->unsetValidation(); // validation has already been run
@@ -136,8 +146,10 @@ class UserCrudController extends CrudController
         return $request;
     }
 
-    protected function addUserFields()
+    protected function addUserFields(\App\Models\BackpackUser $user=NULL)
     {
+        $user_id = NULL;
+        if (isset($user)) {$user_id = $user->id;}
         $this->crud->addFields([
             [
                 'name'  => 'first_name',
@@ -276,9 +288,9 @@ class UserCrudController extends CrudController
                 'label' => 'Courses Completed',
                 'type'  => 'courses_completed',
                 'name'  => 'courses',
-                'user_id'  => 2,
                 'model'   => 'App\Models\CourseUser',
             ],
+
             [
                 'tab' => 'Membership Details',
                 'name'  => 'member_number',
@@ -286,6 +298,19 @@ class UserCrudController extends CrudController
                 'type'  => 'text',
                 'wrapperAttributes' => [    'class' => 'col-md-4']
             ],    
+            [
+                'label' => "Primary Member",
+                'type' => 'select2',
+                'placeholder' => "Select a category",
+                'minimum_input_length' => 2,
+                'name' => 'primary_member_id', // the method that defines the relationship in your Model
+                'entity' => 'primary',
+                'attribute' => 'fullname', // foreign key attribute that is shown to user
+                'options'   => (function ($query) use($user_id) {
+                    return $query->whereNull('primary_member_id')->where('id', '<>', $user_id)->get();
+                }), 
+                                #'data_source' => url("/api/primary_user"),
+            ],
             [
                 'tab' => 'Membership Details',
                 'name'  => 'wildman_number',
@@ -300,16 +325,6 @@ class UserCrudController extends CrudController
                 'entity' => 'memberType', // the method that defines the relationship in your Model
                 'attribute' => 'name', // foreign key attribute that is shown to user
                 'model' => "App\Models\Membershiptype" // foreign key model
-            ],
-            [       // Select2Multiple = n-n relationship (with pivot table)
-                'label' => "Siblings",
-                'type' => 'select2_multiple',
-                'name' => 'siblings', // the method that defines the relationship in your Model
-                //'entity' => 'siblings', // the method that defines the relationship in your Model
-                'attribute' => 'first_name', // foreign key attribute that is shown to user
-                'model' => "App\Models\Backpackuser", // foreign key model
-                'pivot' => true, // on create&update, do you need to add/delete pivot table entries?
-                // 'select_all' => true, // show Select All and Clear buttons?
             ],
             [
                 'tab' => 'Membership Details',
@@ -343,7 +358,27 @@ class UserCrudController extends CrudController
                 'label' => 'Terms and Conditions Acceptance Date',
                 'type'  => 'date',
             ],
+            [
+                'tab' => 'Siblings',
+                'label' => 'Siblings',
+                'type'  => 'sibling_members',
+                'name'  => 'sibling',
+                'model'   => 'App\Models\CourseUser',
+            ],
 
+            [
+               'tab' => 'Comments', 
+                'name' =>'comments',
+                'type' => 'repeatable2',
+                'fields' => [
+                    [   // Textarea
+                        'name' => 'comment',
+                        'label' => 'Comment',
+                        'type' => 'textarea'
+                    ],
+
+                ]
+            ]
 
         ]);
     }

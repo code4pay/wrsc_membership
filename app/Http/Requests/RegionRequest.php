@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CourseUserRequest extends FormRequest
+class RegionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,6 +14,7 @@ class CourseUserRequest extends FormRequest
      */
     public function authorize()
     {
+        // only allow updates if the user is logged in
         return backpack_auth()->check();
     }
 
@@ -23,11 +25,9 @@ class CourseUserRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
-             'user_id' => 'required|integer',
-             'course_id' => 'required|integer',
-             'date_completed' =>'nullable|date|before_or_equal:'.date("Y-m-d"),
+             'region_name' => 'required|min:2|max:255|unique:regions',
+             'description' => 'required|min:1',
         ];
     }
 

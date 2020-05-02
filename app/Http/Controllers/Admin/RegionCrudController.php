@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\CourseRequest;
+use App\Http\Requests\RegionRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -38,7 +38,7 @@ class RegionCrudController extends CrudController
 
     protected function setupCreateOperation()
     {
-        $this->crud->setValidation(CourseRequest::class);
+        $this->crud->setValidation(RegionRequest::class);
 
         $this->crud->addFields(
             [
