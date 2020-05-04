@@ -21,7 +21,144 @@ class UserCrudController extends CrudController
         $this->crud->setEntityNameStrings('Member', 'Members');
         $this->crud->setRoute(backpack_url('user'));
     }
+    protected function setupShowOperation()
+    {
+        $this->crud->set('show.setFromDb', false);
+        $this->crud->addColumn(
+            [
+                'label' => "First Name", // Table column heading
+                'type' => "text",
+                'name' => 'first_name', // the column that contains the ID of that connected entity;
+            ]
+        );
+        $this->crud->addColumn(
+            [
+                'label' => "Last Name", // Table column heading
+                'type' => "text",
+                'name' => 'last_name', // the column that contains the ID of that connected entity;
+            ]
+        );
+         $this->crud->addColumn(
+            [
+                'label' => "Email", // Table column heading
+                'type' => "email",
+                'name' => 'email', // the column that contains the ID of that connected entity;
+            ]
+        );       
+        $this->crud->addColumn(
+            [
+                // 1-n relationship
+                'label' => "Region", // Table column heading
+                'type' => "select",
+                'name' => 'region_id', // the column that contains the ID of that connected entity;
+                'entity' => 'region', // the method that defines the relationship in your Model
+                'attribute' => "region_name", // foreign key attribute that is shown to user
+                'model' => "App\Models\Region", // foreign key model
+            ]
+        );
+        $this->crud->addColumn(
+            [
+                // 1-n relationship
+                'label' => "Member Type", // Table column heading
+                'type' => "select",
+                'name' => 'member_type_id', // the column that contains the ID of that connected entity;
+                'entity' => 'memberType', // the method that defines the relationship in your Model
+                'attribute' => "name", // foreign key attribute that is shown to user
+                'model' => "App\Models\Membershiptype", // foreign key model
+            ]
+        );
+        $this->crud->addColumn(
+            [
+                // run a function on the CRUD model and show its return value
+                'name' => "postal_address_formatted",
+                'label' => "Postal Address", // Table column heading
+                'type' => "model_function",
+                'function_name' => 'formattedPostalAddress', // the method in your Model
+             ]
+            );
+        $this->crud->addColumn(
+            [
+                // run a function on the CRUD model and show its return value
+                'name' => "residential_address_formatted",
+                'label' => "Residential Address", // Table column heading
+                'type' => "model_function",
+                'function_name' => 'formattedResidentialAddress', // the method in your Model
+             ]
+            );
+        $this->crud->addColumn(
+            [
+                'label' => "Member Id", // Table column heading
+                'type' => "text",
+                'name' => 'member_number', // the column that contains the ID of that connected entity;
+            ]
+        );
+        $this->crud->addColumn(
+            [
+                'label' => "Wildman Number", // Table column heading
+                'type' => "text",
+                'name' => 'wildman_number', // the column that contains the ID of that connected entity;
+            ]
+        );
+        $this->crud->addColumn(
+            [
+                'label' => "Mobile", // Table column heading
+                'type' => "telephone",
+                'name' => 'mobile', // the column that contains the ID of that connected entity;
+            ]
+        );
+        $this->crud->addColumn(
+            [
+                'label' => "Home Phone", // Table column heading
+                'type' => "telephone",
+                'name' => 'home_phone', // the column that contains the ID of that connected entity;
+            ]
+        );
+        $this->crud->addColumn(
+            [
+                'label' => "Date Joined", // Table column heading
+                'type' => "date",
+                'name' => 'joined', // the column that contains the ID of that connected entity;
+            ]
+        );
+        $this->crud->addColumn(
+            [
+                'label' => "paid until", // Table column heading
+                'type' => "date",
+                'name' => 'paid_until', // the column that contains the ID of that connected entity;
+            ]
+        );
+        $this->crud->addColumn(
+            [
+                'label' => "Lyssa Date", // Table column heading
+                'type' => "date",
+                'name' => 'lyssa_serology_date', // the column that contains the ID of that connected entity;
+            ]
+        );
+        $this->crud->addColumn(
+            [
+                'label' => "Lyssa Value", // Table column heading
+                'type' => "integer",
+                'name' => 'lyssa_serology_value', // the column that contains the ID of that connected entity;
+            ]
+        );
+        $this->crud->addColumn(
+            [
+                'label' => "Primary Member", // Table column heading
+                'type' => "boolean",
+                'name' => 'last_name', // the column that contains the ID of that connected entity;
+            ]
+        );
 
+        $this->crud->addColumn(
+            [
+                'label' => "Terms and Conditions Date", // Table column heading
+                'type' => "date",
+                'name' => 'tac_date', // the column that contains the ID of that connected entity;
+            ]
+        );
+
+    }
+ 
     public function setupListOperation()
     {
         //turns on the export button on the first page. 
@@ -84,15 +221,7 @@ class UserCrudController extends CrudController
     public function setupUpdateOperation()
     {
         if (!$this->crud->settings()['update.access']) {abort(403, 'You do not have access to this action');}
-        $userModel = config('backpack.permissionmanager.models.user');
-        $userModel = new $userModel();
-        $routeSegmentWithId = empty(config('backpack.base.route_prefix')) ? '2' : '3';
-
-        $userId = $this->request->get('id') ?? \Request::instance()->segment($routeSegmentWithId);
-        $user = $userModel->find($userId);
-        if (!$user) {
-            abort(400, 'Could not find that entry in the database.');
-        }
+        $user = $this->getUser();
         $this->addUserFields($user);
         $this->crud->setValidation(UpdateRequest::class);
     }
@@ -145,6 +274,18 @@ class UserCrudController extends CrudController
 
         return $request;
     }
+    protected function getUser(){
+        $userModel = config('backpack.permissionmanager.models.user');
+        $userModel = new $userModel();
+        $routeSegmentWithId = empty(config('backpack.base.route_prefix')) ? '2' : '3';
+
+        $userId = $this->request->get('id') ?? \Request::instance()->segment($routeSegmentWithId);
+        $user = $userModel->find($userId);
+        if (!$user) {
+            abort(400, 'Could not find that entry in the database.');
+        }
+    }
+
 
     protected function addUserFields(\App\Models\BackpackUser $user=NULL)
     {
@@ -171,6 +312,19 @@ class UserCrudController extends CrudController
                 'allows_null' => false,
                 'attributes' => ["autocomplete" => "new-password"],
             ],
+            [
+                'tab' => 'main',
+                'name'  => 'mobile',
+                'label' => 'Mobile Phone',
+                'type'  => 'number',
+            ],   
+            [
+                'tab' => 'main',
+                'name'  => 'home_phone',
+                'label' => 'Home Phone',
+                'type'  => 'number',
+            ],  
+
             [
                 'tab' => 'main',
                 'name'  => 'password',
@@ -371,11 +525,10 @@ class UserCrudController extends CrudController
             ],
 
             [
-                'tab' => 'Siblings',
-                'label' => 'Siblings',
+                'tab' => 'Family members',
+                'label' => 'family',
                 'type'  => 'sibling_members',
-                'name'  => 'sibling',
-                'model'   => 'App\Models\CourseUser',
+                'name'  => 'sibling'
             ],
 
             [

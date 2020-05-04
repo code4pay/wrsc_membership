@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'WRSC Membership'),
 
     /*
     |--------------------------------------------------------------------------
@@ -30,9 +30,10 @@ return [
 
 
     /*
-    | Custom setting by Mike
+    | Custom settings by Mike
     */
     'log' => 'errorlog',
+    'logo' => env('APP_URL', 'http://localhost').'/images/wrsc.png',
 
     /*
     |--------------------------------------------------------------------------

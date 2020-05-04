@@ -56,6 +56,12 @@ class BackpackUser extends User
     public function getFullnameAttribute() {
         return $this->first_name.' '.$this->last_name;
     }
+    // Added this becuase the mailer uses name as a field automatically
+    // For sending
+    public function getNameAttribute() {
+        return $this->getFullnameAttribute();
+    }
+
     public function courses(){
         return $this->hasMany('App\Models\CourseUser');
     }
@@ -74,6 +80,24 @@ class BackpackUser extends User
     public function primary() {
            return $this->belongsTo('App\Models\BackpackUser','primary_member_id','id');
     } 
+
+
+    public function formattedPostalAddress () {
+        return '<address>'
+        .$this->address.'<br>'
+        .$this->city.'<br>'
+        .$this->state.'<br>'
+        .$this->post_code.'<br>'
+        .'</address>';
+    }
+    public function formattedResidentialAddress () {
+        return '<address>'
+        .$this->address_residential.'<br>'
+        .$this->city_residential.'<br>'
+        .$this->state_residential.'<br>'
+        .$this->post_code_residential.'<br>'
+        .'</address>';
+    }
 
     public function setImageAttribute($value)
     {

@@ -48,7 +48,8 @@ class CreateUsersTable extends Migration
             $table->integer('member_type_id')->default(1);
             $table->integer('primary_member_id')->nullable()->comment('if this is a related member this is the primary member.');
             $table->date('tac_date')->nullable()->comment('Terms And Conditions acceptance date');
-
+            $table->json('comments')->nullable();
+            $table->text('image')->nullable();
         });
     }
 
