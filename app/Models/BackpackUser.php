@@ -65,7 +65,9 @@ class BackpackUser extends User
     public function courses(){
         return $this->hasMany('App\Models\CourseUser');
     }
-
+    public function authorities(){
+        return $this->hasMany('App\Models\AuthoritiesUser');
+    }
     public function memberType() {
         return $this->belongsTo('App\Models\Membershiptype','member_type_id');
     }

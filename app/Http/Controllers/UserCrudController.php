@@ -543,7 +543,14 @@ class UserCrudController extends CrudController
                     ],
 
                 ]
-            ]
+                ],
+                [
+                'tab' => 'Authorities',
+                'label' => 'Authorities',
+                'type'  => 'authorities',
+                'name'  => 'authorities',
+                'model'   => 'App\Models\AuthoritiesUser',
+                ],
 
         ]);
     }

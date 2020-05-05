@@ -12,3 +12,4 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('course') }}'><i class='nav-icon fa fa-question'></i> Courses</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('region') }}'><i class='nav-icon fa fa-question'></i>Regions</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('membershiptype') }}'><i class='nav-icon fa fa-question'></i> Membership Types</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('authority') }}'><i class='nav-icon fa fa-question'></i> Authorities</a></li>
