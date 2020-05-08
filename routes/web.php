@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::resource('application', '\App\Http\Controllers\ApplicationController');
+Route::resource('tac_accept', '\App\Http\Controllers\TacsController');
 
 
 

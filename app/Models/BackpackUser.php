@@ -101,6 +101,19 @@ class BackpackUser extends User
         .'</address>';
     }
 
+    public function tokens () {
+        return $this->hasMany('App\Models\Token');
+    }
+
+    public function createToken($type) {
+        $token = new \App\Models\Token;
+        $token->user_id = $this->id;
+        $token->type = $type;
+        $token->token = str_random(50);
+        $token->save();
+        return $token->token;
+
+    }
     public function setImageAttribute($value)
     {
         $attribute_name = "image";
