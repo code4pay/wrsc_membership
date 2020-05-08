@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Requests\UserStoreCrudRequest as StoreRequest;
 use App\Http\Requests\UserUpdateCrudRequest as UpdateRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserCrudController extends CrudController
@@ -214,6 +215,7 @@ class UserCrudController extends CrudController
     {
         $this->addUserFields();
         $this->crud->removeField('courses');
+        $this->crud->removeField('authorities');
 
         $this->crud->setValidation(StoreRequest::class);
     }
@@ -228,10 +230,10 @@ class UserCrudController extends CrudController
 
     /**
      * Store a newly created resource in the database.
-     *
+     * StoreRequest
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store()
+    public function store(StoreRequest $request)
     {
         $this->crud->request = $this->crud->validateRequest();
         $this->crud->request = $this->handlePasswordInput($this->crud->request);
