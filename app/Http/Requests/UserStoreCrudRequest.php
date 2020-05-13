@@ -36,7 +36,7 @@ class UserStoreCrudRequest extends FormRequest
             //         $query->where('primary_member_id', '>', 0);
             //     })
             // ],
-            'password' => 'required|confirmed',
+            'password' => 'confirmed',
             'member_type_id' => 'required|integer'
         ];
     }

@@ -14,7 +14,7 @@ class UserCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
      use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+    #use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\RevisionsOperation;
     public function setup()
     {
@@ -159,22 +159,23 @@ class UserCrudController extends CrudController
         );
 
     }
+
+    public function email(Request $request){
+        dd($request);
+    }
  
     public function setupListOperation()
     {
         //turns on the export button on the first page. 
         $this->crud->enableExportButtons();
 
+        // This is an example of using custom bulk action. 
+        //$this->crud->addButtonFromView('bottom', 'email', 'email', 'beginning');
 
         $this->crud->setColumns([
             [
-                'name'  => 'first_name',
-                'label' => 'First Name',
-                'type'  => 'text',
-            ],
-            [
-                'name'  => 'last_name',
-                'label' => 'Last Name',
+                'name'  => 'name',
+                'label' => 'Name',
                 'type'  => 'text',
             ],
             [
@@ -184,12 +185,42 @@ class UserCrudController extends CrudController
             ],
 
             [ // n-n relationship (with pivot table)
-                'label'     => 'Courses', // Table column heading
+                'label'     => 'Region', // Table column heading
+                'type'      => 'select',
+                'name'      => 'region_id',
+                'entity'    => 'region', // the method that defines the relationship in your Model
+                'attribute' => 'region_name', // foreign key attribute that is shown to user
+            ],
+            [
+                'name'  => 'city',
+                'label' => 'City',
+                'type'  => 'text',
+            ],
+            [ // n-n relationship (with pivot table)
+                'label'     => 'Type', // Table column heading
+                'type'      => 'select',
+                'name'      => 'member_type_id',
+                'entity'    => 'memberType', // the method that defines the relationship in your Model
+                'attribute' => 'name', // foreign key attribute that is shown to user
+            ],
+            [ // n-n relationship (with pivot table)
+                'label'     => 'Authorities', // Table column heading
                 'type'      => 'select_multiple',
-                'name'      => 'courses',
-                'entity'    => 'courses', // the method that defines the relationship in your Model
-                'attribute' => 'course.name', // foreign key attribute that is shown to user
-                'model'     => '\App\Models\CourseUser', // foreign key model
+                'name'      => 'authorities',
+                'entity'    => 'authorities', // the method that defines the relationship in your Model
+                'attribute' => 'authority.name', // foreign key attribute that is shown to user
+                'model'     => '\App\Models\AuthorityUser', // foreign key model
+            ],
+
+            [
+                'name'  => 'lyssa_serology_value',
+                'label' => 'Lyssa Value',
+                'type'  => 'text',
+            ],
+            [
+                'name'  => 'lyssa_serology_date',
+                'label' => 'Lyssa Date',
+                'type'  => 'date',
             ],
         ]);
 
@@ -199,14 +230,56 @@ class UserCrudController extends CrudController
         // Course Filter on Main members list page
         $this->crud->addFilter([
             'name'  => 'course',
-            'type'  => 'dropdown',
+            'type'  => 'select2_multiple',
             'label' => 'Course',
         ],
         \App\Models\Course::all()->pluck('name', 'id')->toArray(),
+        function ($values) { // if the filter is active
+            foreach (json_decode($values) as $key => $value) {
+                $this->crud->addClause('whereHas', 'courses', function ($query) use ($value) {
+                    $query->where('course_id', '=', $value);
+                });
+         }
+        });
+
+
+        $this->crud->addFilter([
+            'name'  => 'autorities',
+            'type'  => 'dropdown',
+            'label' => 'Authorities',
+        ],
+        \App\Models\Authority::all()->pluck('name', 'id')->toArray(),
         function ($value) { // if the filter is active
-            $this->crud->addClause('whereHas', 'courses', function ($query) use ($value) {
-                $query->where('course_id', '=', $value);
+            $this->crud->addClause('whereHas', 'authorities', function ($query) use ($value) {
+                $query->where('authority_id', '=', $value);
             });
+        }); 
+        $this->crud->addFilter([
+            'name'  => 'regions',
+            'type'  => 'dropdown',
+            'label' => 'Region',
+        ],
+        \App\Models\Region::all()->pluck('region_name', 'id')->toArray(),
+        function ($value) { // if the filter is active
+            $this->crud->addClause('where', 'region_id', $value);
+        });
+        $this->crud->addFilter([
+            'type' => 'text',
+            'name' => 'city',
+            'label'=> 'City'
+          ], 
+          false, 
+          function($value) { // if the filter is active
+            $this->crud->addClause('where', 'city_residential', 'LIKE', "%$value%");
+          });;
+        $this->crud->addFilter([
+            'name'  => 'memberType',
+            'type'  => 'dropdown',
+            'label' => 'Member Type',
+        ],
+        \App\Models\Membershiptype::all()->pluck('name', 'id')->toArray(),
+        function ($value) { // if the filter is active
+            $this->crud->addClause('where', 'member_type_id', $value);
         });
 
     }
@@ -235,6 +308,11 @@ class UserCrudController extends CrudController
      */
     public function store(StoreRequest $request)
     {
+        //Allow new members to be created with out entering a password
+        // So set a random one. 
+        $password = str_random(50); 
+        $this->crud->request->request->set('password' ,$password);
+        $this->crud->request->request->set('password_confirmation' ,$password);
         $this->crud->request = $this->crud->validateRequest();
         $this->crud->request = $this->handlePasswordInput($this->crud->request);
         $this->crud->unsetValidation(); // validation has already been run
@@ -337,7 +415,7 @@ class UserCrudController extends CrudController
             [
                 'tab' => 'main',
                 'name'  => 'password_confirmation',
-                'label' => 'Password Confrimation',
+                'label' => 'Password Confirmation',
                 'type'  => 'password',
                 'attributes' => ["autocomplete" => "off"],
             ],
