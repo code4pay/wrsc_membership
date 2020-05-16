@@ -183,6 +183,7 @@ return [
         OwenIt\Auditing\AuditingServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        'Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider,
 
     ],
 
@@ -235,7 +236,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-	'Debugbar' => Barryvdh\Debugbar\Facade::class,
+    'Debugbar' => Barryvdh\Debugbar\Facade::class,
+    'DbView'          => 'Flynsarmy\DbBladeCompiler\Facades\DbView',
 
     ],
 

@@ -7,7 +7,11 @@ use App\Http\Requests\UserStoreCrudRequest as StoreRequest;
 use App\Http\Requests\UserUpdateCrudRequest as UpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Blade;
+use App\Models\EmailTemplate;
+use App\Mail\MemberRenewalRequest;
+use App\Models\BackpackUser;
+use Illuminate\Support\Facades\Mail;
 class UserCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
@@ -159,9 +163,41 @@ class UserCrudController extends CrudController
         );
 
     }
+public function bladeCompile($value, array $args = array())
+{
+    $generated = Blade::compileString($value);
 
-    public function email(Request $request){
-        dd($request);
+    ob_start() and extract($args, EXTR_SKIP);
+
+    // We'll include the view contents for parsing within a catcher
+    // so we can avoid any WSOD errors. If an exception occurs we
+    // will throw it out to the exception handler.
+    try
+    {
+        eval('?>'.$generated);
+    }
+
+    // If we caught an exception, we'll silently flush the output
+    // buffer so that no partially rendered views get thrown out
+    // to the client and confuse the user with junk.
+    catch (\Exception $e)
+    {
+        ob_get_clean(); throw $e;
+    }
+
+    $content = ob_get_clean();
+
+    return $content;
+}
+
+    public function emailRenewal(BackpackUser $user){
+        if (!$user) {
+            abort(400, 'Could not find that user.');
+        }
+        //return (new MemberRenewalRequest($user))->render();
+        Mail::to($user)->send(new MemberRenewalRequest($user));
+        $user->addComment('Emailed Renewal Request with total amount Payable $'. $user->totalRenewalAmount());
+
     }
  
     public function setupListOperation()
@@ -170,7 +206,7 @@ class UserCrudController extends CrudController
         $this->crud->enableExportButtons();
 
         // This is an example of using custom bulk action. 
-        //$this->crud->addButtonFromView('bottom', 'email', 'email', 'beginning');
+        $this->crud->addButtonFromView('bottom', 'email', 'email', 'beginning');
 
         $this->crud->setColumns([
             [
@@ -354,7 +390,11 @@ class UserCrudController extends CrudController
 
         return $request;
     }
-    protected function getUser(){
+    
+    /*
+    * @return App\Models\BackpackUser
+    */
+        protected function getUser(){
         $userModel = config('backpack.permissionmanager.models.user');
         $userModel = new $userModel();
         $routeSegmentWithId = empty(config('backpack.base.route_prefix')) ? '2' : '3';

@@ -1,4 +1,4 @@
-<a href="javascript:void(0)" onclick="importTransaction(this)" data-route="{{ url($crud->route.'/email') }}" class="btn btn-xs btn-default"><i class="fa fa-ban"></i> Moderate</a>
+<a href="javascript:void(0)" onclick="importTransaction(this)" data-route="{{ url('/email_renewals') }}" class="btn btn-xs btn-default"><i class="fa fa-ban"></i> Email Renewals</a>
 
 @push('after_scripts')
 <script>
@@ -11,13 +11,13 @@
           var button = $(button);
           var route = button.attr('data-route');
           var bulk = $(".crud_bulk_actions_row_checkbox:checked");
-          var emails = [];
-          bulk.each(function(){ emails.push(this.dataset.primaryKeyValue)});
+          var users= [];
+          bulk.each(function(){ users.push(this.dataset.primaryKeyValue)});
          // bulk.each(function(e){ console.log(this.dataset.primaryKeyValue) })
           $.ajax({
               url: route,
               type: 'POST',
-              data: {'ids':emails},
+              data: {'users':users},
               success: function(result) {
                   // Show an alert with the result
                   console.log(result,route);

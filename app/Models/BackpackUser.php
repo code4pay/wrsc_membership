@@ -114,6 +114,29 @@ class BackpackUser extends User
         return $token->token;
 
     }
+
+    public function renewalAmount()
+    {
+        if ($this->memberType->name == 'Honorary') {return 0;}
+        if ($this->primary_member_id){ return  5; }
+        return 15;
+
+    }
+    public function totalRenewalAmount()
+    {
+        $amount = $this->renewalAmount();
+        foreach($this->siblings()->get() as $sibling){
+            $amount = $amount + 5;
+        }
+        return $amount;
+    }
+
+    public function addComment($comment)
+    {
+        $comments = json_decode($this->comments);
+        array_push($comments,['comment'=> $comment]); 
+        $this->comments = json_encode($comments);
+    }
     public function setImageAttribute($value)
     {
         $attribute_name = "image";
