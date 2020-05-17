@@ -122,9 +122,9 @@ class BackpackUser extends User
         if ($this->memberType->name == 'Honorary' || $this->memberType->name == 'Life') {return 0;}
          
         //Family Members get a reduced rate.  
-        if ($this->primary_member_id){ 
-            $primary_member = $this->primary();
-            //If life or Honarary then family members are also free     
+        if ($this->primary_member_id ){ 
+            $primary_member = $this->primary()->first();
+            //If life or Honorary then family members are also free     
             if ($primary_member->memberType->name == 'Honorary' || $primary_member->memberType->name == 'Life' ) {
                 return 0 ;
             } else {
