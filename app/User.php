@@ -47,7 +47,9 @@ class User extends Authenticatable
         'date_of_birth',
         'member_type_id',
         'comments',
-        'image'
+        'image',
+        'receipt_date', 
+        'receipt_number',
     ];
 
     /**

@@ -1,4 +1,4 @@
-<a href="javascript:void(0)" onclick="importTransaction(this)" data-route="{{ url('/email_renewals') }}" class="btn btn-xs btn-default"><i class="fa fa-ban"></i> Email Renewals</a>
+<a href="javascript:void(0)" onclick="importTransaction(this)" data-route="{{ url('/email_renewals') }}" class="btn btn-xs btn-success"><i class="fa fa-envelope"></i> Email Renewals</a>
 
 @push('after_scripts')
 <script>
@@ -13,6 +13,9 @@
           var bulk = $(".crud_bulk_actions_row_checkbox:checked");
           var users= [];
           bulk.each(function(){ users.push(this.dataset.primaryKeyValue)});
+          if (!confirm("You are about to email " + users.length + " members ?")) {
+                return false;
+          } 
          // bulk.each(function(e){ console.log(this.dataset.primaryKeyValue) })
           $.ajax({
               url: route,

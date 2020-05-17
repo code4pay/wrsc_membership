@@ -273,7 +273,7 @@ public function bladeCompile($value, array $args = array())
         function ($values) { // if the filter is active
             foreach (json_decode($values) as $key => $value) {
                 $this->crud->addClause('whereHas', 'courses', function ($query) use ($value) {
-                    $query->where('course_id', '=', $value);
+                    $query->orwhere('course_id', '=', $value);
                 });
          }
         });
@@ -281,23 +281,27 @@ public function bladeCompile($value, array $args = array())
 
         $this->crud->addFilter([
             'name'  => 'autorities',
-            'type'  => 'dropdown',
+            'type'  => 'select2_multiple',
             'label' => 'Authorities',
         ],
         \App\Models\Authority::all()->pluck('name', 'id')->toArray(),
-        function ($value) { // if the filter is active
+        function ($values) { // if the filter is active
+            foreach (json_decode($values) as $key => $value) {
             $this->crud->addClause('whereHas', 'authorities', function ($query) use ($value) {
-                $query->where('authority_id', '=', $value);
+                $query->orWhere('authority_id', '=', $value);
             });
+            }
         }); 
         $this->crud->addFilter([
             'name'  => 'regions',
-            'type'  => 'dropdown',
+            'type'  => 'select2_multiple',
             'label' => 'Region',
         ],
         \App\Models\Region::all()->pluck('region_name', 'id')->toArray(),
-        function ($value) { // if the filter is active
-            $this->crud->addClause('where', 'region_id', $value);
+        function ($values) { // if the filter is active
+            foreach (json_decode($values) as $key => $value) {
+                $this->crud->addClause('orwhere', 'region_id', $value);
+            }
         });
         $this->crud->addFilter([
             'type' => 'text',
@@ -307,16 +311,46 @@ public function bladeCompile($value, array $args = array())
           false, 
           function($value) { // if the filter is active
             $this->crud->addClause('where', 'city_residential', 'LIKE', "%$value%");
-          });;
+          });
         $this->crud->addFilter([
             'name'  => 'memberType',
-            'type'  => 'dropdown',
+            'type'  => 'select2_multiple',
             'label' => 'Member Type',
         ],
         \App\Models\Membershiptype::all()->pluck('name', 'id')->toArray(),
-        function ($value) { // if the filter is active
-            $this->crud->addClause('where', 'member_type_id', $value);
+        function ($values) { // if the filter is active
+            foreach (json_decode($values) as $key => $value) {
+            $this->crud->addClause('Where', 'member_type_id', $value);
+            }
         });
+        $this->crud->addFilter([
+            'type' => 'dropdown',
+            'name' => 'paid_to',
+            'label'=> 'Paid To'
+          ],[ 
+         '2018-06-30' => '2018-06-30',
+         '2019-06-30' => '2019-06-30', 
+         '2020-06-30' => '2020-06-30', 
+         '2021-06-30' => '2021-06-30', 
+         '2022-06-30' => '2022-06-30', 
+         '2023-06-30' => '2023-06-30', 
+         '2023-06-30' => '2023-06-30', 
+         '2024-06-30' => '2024-06-30', 
+         '2025-06-30' => '2025-06-30', 
+         '2026-06-30' => '2026-06-30', 
+         '2027-06-30' => '2027-06-30', 
+         '2028-06-30' => '2028-06-30', 
+         '2029-06-30' => '2029-06-30', 
+         '2030-06-30' => '2030-06-30', 
+         '2031-06-30' => '2031-06-30', 
+         '2032-06-30' => '2032-06-30', 
+         '2033-06-30' => '2033-06-30', 
+         '2034-06-30' => '2034-06-30', 
+         '2035-06-30' => '2035-06-30', 
+          ],
+          function($value) { // if the filter is active
+            $this->crud->addClause('where', 'paid_to', $value);
+          });
 
     }
 
@@ -351,6 +385,10 @@ public function bladeCompile($value, array $args = array())
         $this->crud->request->request->set('password_confirmation' ,$password);
         $this->crud->request = $this->crud->validateRequest();
         $this->crud->request = $this->handlePasswordInput($this->crud->request);
+        $latest_membership_id = BackpackUser::max('member_number');
+        if (!$request->input('member_number')) {
+            $this->crud->request->request->set('member_number', $latest_membership_id+1);
+        }
         $this->crud->unsetValidation(); // validation has already been run
 
         return $this->traitStore();
@@ -425,7 +463,7 @@ public function bladeCompile($value, array $args = array())
                 'allows_null' => false,
             ],
             [
-                'tab' => 'main',
+                'tab' => 'Main',
                 'name'  => 'email',
                 'label' => 'Email',
                 'type'  => 'email',
@@ -433,34 +471,34 @@ public function bladeCompile($value, array $args = array())
                 'attributes' => ["autocomplete" => "new-password"],
             ],
             [
-                'tab' => 'main',
+                'tab' => 'Main',
                 'name'  => 'mobile',
                 'label' => 'Mobile Phone',
                 'type'  => 'number',
             ],   
             [
-                'tab' => 'main',
+                'tab' => 'Main',
                 'name'  => 'home_phone',
                 'label' => 'Home Phone',
                 'type'  => 'number',
             ],  
 
             [
-                'tab' => 'main',
+                'tab' => 'Main',
                 'name'  => 'password',
                 'label' => 'Password',
                 'type'  => 'password',
                 'attributes' => ["autocomplete" => "new-password"],
             ],
             [
-                'tab' => 'main',
+                'tab' => 'Main',
                 'name'  => 'password_confirmation',
                 'label' => 'Password Confirmation',
                 'type'  => 'password',
                 'attributes' => ["autocomplete" => "off"],
             ],
             [   
-                'tab' => 'main',
+                'tab' => 'Main',
                 'name' => 'separator',
                 'type' => 'custom_html',
                 'value' => '<hr/>'
@@ -474,14 +512,14 @@ public function bladeCompile($value, array $args = array())
                 'model' => "App\Models\Region" // foreign key model
             ],
             [
-                'tab' => 'main',
+                'tab' => 'Main',
                 'name'  => 'address',
                 'label' => 'Street Address Postal',
                 'type'  => 'text',
                 'allows_null' => false,
             ],    
             [
-                'tab' => 'main',
+                'tab' => 'Main',
                 'name'  => 'city',
                 'label' => 'City/Suburb Postal',
                 'type'  => 'text',
@@ -489,7 +527,7 @@ public function bladeCompile($value, array $args = array())
                 'allows_null' => false,
             ],    
             [
-                'tab' => 'main',
+                'tab' => 'Main',
                 'name'  => 'post_code',
                 'label' => 'Post Code Postal',
                 'type'  => 'text',
@@ -498,20 +536,20 @@ public function bladeCompile($value, array $args = array())
                 'allows_null' => false,
             ],
             [   
-                'tab' => 'main',
+                'tab' => 'Main',
                 'name' => 'separator2',
                 'type' => 'custom_html',
                 'value' => '<hr>'
             ],
             [
-                'tab' => 'main',
+                'tab' => 'Main',
                 'name'  => 'address_residential',
                 'label' => 'Street Address Residential',
                 'type'  => 'text',
                 'allows_null' => false,
             ],    
             [
-                'tab' => 'main',
+                'tab' => 'Main',
                 'name'  => 'city_residential',
                 'label' => 'City/Suburb Residential',
                 'type'  => 'text',
@@ -519,7 +557,7 @@ public function bladeCompile($value, array $args = array())
                 'allows_null' => false,
             ],    
             [
-                'tab' => 'main',
+                'tab' => 'Main',
                 'name'  => 'post_code_residential',
                 'label' => 'Post Code Residential',
                 'type'  => 'text',
@@ -529,7 +567,7 @@ public function bladeCompile($value, array $args = array())
             ],
                 [
                 // two interconnected entities
-                'tab' => 'permissions',
+                'tab' => 'Permissions',
                 'label'             => trans('backpack::permissionmanager.user_role_permission'),
                 'field_unique_name' => 'user_role_permission',
                 'type'              => 'checklist_dependency',
@@ -570,7 +608,7 @@ public function bladeCompile($value, array $args = array())
                 'name'  => 'member_number',
                 'label' => 'Membership Number',
                 'type'  => 'text',
-                'wrapperAttributes' => [    'class' => 'col-md-4']
+                'wrapperAttributes' => [    'class' => 'col-md-6']
             ],    
             [
                 'label' => "Primary Member",
@@ -590,7 +628,7 @@ public function bladeCompile($value, array $args = array())
                 'name'  => 'wildman_number',
                 'label' => 'Wildman Number',
                 'type'  => 'text',
-                'wrapperAttributes' => [    'class' => 'col-md-4']
+                'wrapperAttributes' => [    'class' => 'col-md-6']
             ],    
             [  
                 'label' => "Member Type",
@@ -605,6 +643,28 @@ public function bladeCompile($value, array $args = array())
                 'name'  => 'joined',
                 'label' => 'Date Joined',
                 'type'  => 'date',
+                'wrapperAttributes' => [    'class' => 'col-md-6']
+            ],
+            [
+                'tab' => 'Membership Details',
+                'name'  => 'tac_date',
+                'label' => 'Terms and Conditions Acceptance Date',
+                'type'  => 'date',
+                'wrapperAttributes' => [    'class' => 'col-md-6']
+            ],
+            [
+                'tab' => 'Membership Details',
+                'name'  => 'receipt_date',
+                'label' => 'Receipt Date',
+                'type'  => 'date',
+                'wrapperAttributes' => [    'class' => 'col-md-6']
+            ],
+            [
+                'tab' => 'Membership Details',
+                'name'  => 'receipt_number',
+                'label' => 'Receipt Number',
+                'type'  => 'text',
+                'wrapperAttributes' => [    'class' => 'col-md-6']
             ],
             [
                 'tab' => 'Membership Details',
@@ -617,20 +677,14 @@ public function bladeCompile($value, array $args = array())
                 'name'  => 'lyssa_serology_date',
                 'label' => 'Last Lyssa Test Date',
                 'type'  => 'date',
-                'wrapperAttributes' => [    'class' => 'col-md-4']
+                'wrapperAttributes' => [    'class' => 'col-md-6']
             ],
             [
                 'tab' => 'Membership Details',
                 'name'  => 'lyssa_serology_value',
                 'label' => 'Lyssa Serology Level',
                 'type'  => 'number',
-                'wrapperAttributes' => [    'class' => 'col-md-4']
-            ],
-            [
-                'tab' => 'Membership Details',
-                'name'  => 'tac_date',
-                'label' => 'Terms and Conditions Acceptance Date',
-                'type'  => 'date',
+                'wrapperAttributes' => [    'class' => 'col-md-6']
             ],
             [
                 'tab' => 'Membership Details',
@@ -661,6 +715,17 @@ public function bladeCompile($value, array $args = array())
                         'label' => 'Comment',
                         'type' => 'textarea'
                     ],
+                    [
+                        'name' =>'date',
+                        'label' => 'date',
+                        'type'=> 'date',
+                        'wrapper' => ['class' =>'d-none'] 
+                    ],
+                    [
+                        'name' => 'author',
+                        'label' => 'Author',
+                        'type' => 'text'
+                    ]
 
                 ]
                 ],

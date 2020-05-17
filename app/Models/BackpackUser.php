@@ -8,8 +8,10 @@ use Backpack\CRUD\app\Notifications\ResetPasswordNotification as ResetPasswordNo
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\app\Models\Traits\CrudTrait; // <------------------------------- this one
+use Illuminate\Queue\NullQueue;
 use Spatie\Permission\Traits\HasRoles;// <---------------------- and this one
 use Illuminate\Support\Str;
+use Monolog\Handler\NullHandler;
 use \Venturecraft\Revisionable\RevisionableTrait;
 class BackpackUser extends User
 {
@@ -117,8 +119,18 @@ class BackpackUser extends User
 
     public function renewalAmount()
     {
-        if ($this->memberType->name == 'Honorary') {return 0;}
-        if ($this->primary_member_id){ return  5; }
+        if ($this->memberType->name == 'Honorary' || $this->memberType->name == 'Life') {return 0;}
+         
+        //Family Members get a reduced rate.  
+        if ($this->primary_member_id){ 
+            $primary_member = $this->primary();
+            //If life or Honarary then family members are also free     
+            if ($primary_member->memberType->name == 'Honorary' || $primary_member->memberType->name == 'Life' ) {
+                return 0 ;
+            } else {
+                return  5;
+            }
+         }
         return 15;
 
     }
@@ -126,15 +138,15 @@ class BackpackUser extends User
     {
         $amount = $this->renewalAmount();
         foreach($this->siblings()->get() as $sibling){
-            $amount = $amount + 5;
+            $amount = $amount + $sibling->renewalAmount();
         }
         return $amount;
     }
 
-    public function addComment($comment)
+    public function addComment($comment,  $user='system')
     {
         $comments = json_decode($this->comments);
-        array_push($comments,['comment'=> $comment]); 
+        array_push($comments,['comment'=> $comment, 'date' => date('Y-m-d'), 'author' => $user]); 
         $this->comments = json_encode($comments);
     }
     public function setImageAttribute($value)

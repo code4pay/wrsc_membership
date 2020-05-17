@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MemberRenewalRequest;
+use Illuminate\Support\Facades\Auth;
 class EmailRenewalsController extends Controller
 {
     public function emailRenewals(Request $request){
@@ -16,7 +17,10 @@ class EmailRenewalsController extends Controller
         
         //return (new MemberRenewalRequest($user))->render();
         Mail::to($user)->send(new MemberRenewalRequest($user));
-        $user->addComment('Emailed Renewal Request with total amount Payable $'. $user->totalRenewalAmount());
+        $admin_user = Auth::user();
+        dd($admin_user);
+        $user->addComment('Emailed Renewal Request with total amount Payable $'. $user->totalRenewalAmount(), $admin_user->name);
+        $user->save();
         }
 
     }
