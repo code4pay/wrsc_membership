@@ -183,7 +183,7 @@ return [
         OwenIt\Auditing\AuditingServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        'Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider,
+        'Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider',
 
     ],
 
