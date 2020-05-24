@@ -12,12 +12,17 @@ use App\Models\EmailTemplate;
 use App\Mail\MemberRenewalRequest;
 use App\Models\BackpackUser;
 use Illuminate\Support\Facades\Mail;
+
 class UserCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
-     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation {
+        store as traitStore;
+    }
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation {
+        update as traitUpdate;
+    }
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     #use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\RevisionsOperation;
     public function setup()
@@ -43,13 +48,13 @@ class UserCrudController extends CrudController
                 'name' => 'last_name', // the column that contains the ID of that connected entity;
             ]
         );
-         $this->crud->addColumn(
+        $this->crud->addColumn(
             [
                 'label' => "Email", // Table column heading
                 'type' => "email",
                 'name' => 'email', // the column that contains the ID of that connected entity;
             ]
-        );       
+        );
         $this->crud->addColumn(
             [
                 // 1-n relationship
@@ -79,8 +84,8 @@ class UserCrudController extends CrudController
                 'label' => "Postal Address", // Table column heading
                 'type' => "model_function",
                 'function_name' => 'formattedPostalAddress', // the method in your Model
-             ]
-            );
+            ]
+        );
         $this->crud->addColumn(
             [
                 // run a function on the CRUD model and show its return value
@@ -88,8 +93,8 @@ class UserCrudController extends CrudController
                 'label' => "Residential Address", // Table column heading
                 'type' => "model_function",
                 'function_name' => 'formattedResidentialAddress', // the method in your Model
-             ]
-            );
+            ]
+        );
         $this->crud->addColumn(
             [
                 'label' => "Member Id", // Table column heading
@@ -148,6 +153,13 @@ class UserCrudController extends CrudController
         );
         $this->crud->addColumn(
             [
+                'name'  => 'lyssa_serology_comment',
+                'label' => 'Lyssa Serology comment',
+                'type'  => 'text',
+            ]
+        );
+        $this->crud->addColumn(
+            [
                 'label' => "Primary Member", // Table column heading
                 'type' => "boolean",
                 'name' => 'last_name', // the column that contains the ID of that connected entity;
@@ -161,52 +173,52 @@ class UserCrudController extends CrudController
                 'name' => 'tac_date', // the column that contains the ID of that connected entity;
             ]
         );
-
     }
-public function bladeCompile($value, array $args = array())
-{
-    $generated = Blade::compileString($value);
-
-    ob_start() and extract($args, EXTR_SKIP);
-
-    // We'll include the view contents for parsing within a catcher
-    // so we can avoid any WSOD errors. If an exception occurs we
-    // will throw it out to the exception handler.
-    try
+    public function bladeCompile($value, array $args = array())
     {
-        eval('?>'.$generated);
+        $generated = Blade::compileString($value);
+
+        ob_start() and extract($args, EXTR_SKIP);
+
+        // We'll include the view contents for parsing within a catcher
+        // so we can avoid any WSOD errors. If an exception occurs we
+        // will throw it out to the exception handler.
+        try {
+            eval('?>' . $generated);
+        }
+
+        // If we caught an exception, we'll silently flush the output
+        // buffer so that no partially rendered views get thrown out
+        // to the client and confuse the user with junk.
+        catch (\Exception $e) {
+            ob_get_clean();
+            throw $e;
+        }
+
+        $content = ob_get_clean();
+
+        return $content;
     }
 
-    // If we caught an exception, we'll silently flush the output
-    // buffer so that no partially rendered views get thrown out
-    // to the client and confuse the user with junk.
-    catch (\Exception $e)
+
+    public function emailRenewal(BackpackUser $user)
     {
-        ob_get_clean(); throw $e;
-    }
-
-    $content = ob_get_clean();
-
-    return $content;
-}
-
-    public function emailRenewal(BackpackUser $user){
         if (!$user) {
             abort(400, 'Could not find that user.');
         }
         //return (new MemberRenewalRequest($user))->render();
         Mail::to($user)->send(new MemberRenewalRequest($user));
-        $user->addComment('Emailed Renewal Request with total amount Payable $'. $user->totalRenewalAmount());
-
+        $user->addComment('Emailed Renewal Request with total amount Payable $' . $user->totalRenewalAmount());
     }
- 
+
     public function setupListOperation()
     {
         //turns on the export button on the first page. 
         $this->crud->enableExportButtons();
 
-        // This is an example of using custom bulk action. 
+        // Custom buttons on the bottom of the list
         $this->crud->addButtonFromView('bottom', 'email', 'email', 'beginning');
+        $this->crud->addButtonFromView('bottom', 'print', 'print', 'beginning');
 
         $this->crud->setColumns([
             [
@@ -258,100 +270,117 @@ public function bladeCompile($value, array $args = array())
                 'label' => 'Lyssa Date',
                 'type'  => 'date',
             ],
+            [
+                'name'  => 'lyssa_serology_comment',
+                'label' => 'Lyssa Serology comment',
+                'type'  => 'text',
+            ]
         ]);
 
         //enable the selection of mutiple entries in list. 
         $this->crud->enableBulkActions();
 
         // Course Filter on Main members list page
-        $this->crud->addFilter([
-            'name'  => 'course',
-            'type'  => 'select2_multiple',
-            'label' => 'Course',
-        ],
-        \App\Models\Course::all()->pluck('name', 'id')->toArray(),
-        function ($values) { // if the filter is active
-            foreach (json_decode($values) as $key => $value) {
-                $this->crud->addClause('whereHas', 'courses', function ($query) use ($value) {
-                    $query->orwhere('course_id', '=', $value);
-                });
-         }
-        });
+        $this->crud->addFilter(
+            [
+                'name'  => 'course',
+                'type'  => 'select2_multiple',
+                'label' => 'Course',
+            ],
+            \App\Models\Course::all()->pluck('name', 'id')->toArray(),
+            function ($values) { // if the filter is active
+                foreach (json_decode($values) as $key => $value) {
+                    $this->crud->addClause('whereHas', 'courses', function ($query) use ($value) {
+                        $query->orwhere('course_id', '=', $value);
+                    });
+                }
+            }
+        );
 
 
-        $this->crud->addFilter([
-            'name'  => 'autorities',
-            'type'  => 'select2_multiple',
-            'label' => 'Authorities',
-        ],
-        \App\Models\Authority::all()->pluck('name', 'id')->toArray(),
-        function ($values) { // if the filter is active
-            foreach (json_decode($values) as $key => $value) {
-            $this->crud->addClause('whereHas', 'authorities', function ($query) use ($value) {
-                $query->orWhere('authority_id', '=', $value);
-            });
+        $this->crud->addFilter(
+            [
+                'name'  => 'autorities',
+                'type'  => 'select2_multiple',
+                'label' => 'Authorities',
+            ],
+            \App\Models\Authority::all()->pluck('name', 'id')->toArray(),
+            function ($values) { // if the filter is active
+                foreach (json_decode($values) as $key => $value) {
+                    $this->crud->addClause('whereHas', 'authorities', function ($query) use ($value) {
+                        $query->orWhere('authority_id', '=', $value);
+                    });
+                }
             }
-        }); 
-        $this->crud->addFilter([
-            'name'  => 'regions',
-            'type'  => 'select2_multiple',
-            'label' => 'Region',
-        ],
-        \App\Models\Region::all()->pluck('region_name', 'id')->toArray(),
-        function ($values) { // if the filter is active
-            foreach (json_decode($values) as $key => $value) {
-                $this->crud->addClause('orwhere', 'region_id', $value);
+        );
+        $this->crud->addFilter(
+            [
+                'name'  => 'regions',
+                'type'  => 'select2_multiple',
+                'label' => 'Region',
+            ],
+            \App\Models\Region::all()->pluck('region_name', 'id')->toArray(),
+            function ($values) { // if the filter is active
+                foreach (json_decode($values) as $key => $value) {
+                    $this->crud->addClause('orwhere', 'region_id', $value);
+                }
             }
-        });
-        $this->crud->addFilter([
-            'type' => 'text',
-            'name' => 'city',
-            'label'=> 'City'
-          ], 
-          false, 
-          function($value) { // if the filter is active
-            $this->crud->addClause('where', 'city_residential', 'LIKE', "%$value%");
-          });
-        $this->crud->addFilter([
-            'name'  => 'memberType',
-            'type'  => 'select2_multiple',
-            'label' => 'Member Type',
-        ],
-        \App\Models\Membershiptype::all()->pluck('name', 'id')->toArray(),
-        function ($values) { // if the filter is active
-            foreach (json_decode($values) as $key => $value) {
-            $this->crud->addClause('Where', 'member_type_id', $value);
+        );
+        $this->crud->addFilter(
+            [
+                'type' => 'text',
+                'name' => 'city',
+                'label' => 'City'
+            ],
+            false,
+            function ($value) { // if the filter is active
+                $this->crud->addClause('where', 'city_residential', 'LIKE', "%$value%");
             }
-        });
-        $this->crud->addFilter([
-            'type' => 'dropdown',
-            'name' => 'paid_to',
-            'label'=> 'Paid To'
-          ],[ 
-         '2018-06-30' => '2018-06-30',
-         '2019-06-30' => '2019-06-30', 
-         '2020-06-30' => '2020-06-30', 
-         '2021-06-30' => '2021-06-30', 
-         '2022-06-30' => '2022-06-30', 
-         '2023-06-30' => '2023-06-30', 
-         '2023-06-30' => '2023-06-30', 
-         '2024-06-30' => '2024-06-30', 
-         '2025-06-30' => '2025-06-30', 
-         '2026-06-30' => '2026-06-30', 
-         '2027-06-30' => '2027-06-30', 
-         '2028-06-30' => '2028-06-30', 
-         '2029-06-30' => '2029-06-30', 
-         '2030-06-30' => '2030-06-30', 
-         '2031-06-30' => '2031-06-30', 
-         '2032-06-30' => '2032-06-30', 
-         '2033-06-30' => '2033-06-30', 
-         '2034-06-30' => '2034-06-30', 
-         '2035-06-30' => '2035-06-30', 
-          ],
-          function($value) { // if the filter is active
-            $this->crud->addClause('where', 'paid_to', $value);
-          });
-
+        );
+        $this->crud->addFilter(
+            [
+                'name'  => 'memberType',
+                'type'  => 'select2_multiple',
+                'label' => 'Member Type',
+            ],
+            \App\Models\Membershiptype::all()->pluck('name', 'id')->toArray(),
+            function ($values) { // if the filter is active
+                foreach (json_decode($values) as $key => $value) {
+                    $this->crud->addClause('Where', 'member_type_id', $value);
+                }
+            }
+        );
+        $this->crud->addFilter(
+            [
+                'type' => 'dropdown',
+                'name' => 'paid_to',
+                'label' => 'Paid To'
+            ],
+            [
+                '2018-06-30' => '2018-06-30',
+                '2019-06-30' => '2019-06-30',
+                '2020-06-30' => '2020-06-30',
+                '2021-06-30' => '2021-06-30',
+                '2022-06-30' => '2022-06-30',
+                '2023-06-30' => '2023-06-30',
+                '2023-06-30' => '2023-06-30',
+                '2024-06-30' => '2024-06-30',
+                '2025-06-30' => '2025-06-30',
+                '2026-06-30' => '2026-06-30',
+                '2027-06-30' => '2027-06-30',
+                '2028-06-30' => '2028-06-30',
+                '2029-06-30' => '2029-06-30',
+                '2030-06-30' => '2030-06-30',
+                '2031-06-30' => '2031-06-30',
+                '2032-06-30' => '2032-06-30',
+                '2033-06-30' => '2033-06-30',
+                '2034-06-30' => '2034-06-30',
+                '2035-06-30' => '2035-06-30',
+            ],
+            function ($value) { // if the filter is active
+                $this->crud->addClause('where', 'paid_to', $value);
+            }
+        );
     }
 
     public function setupCreateOperation()
@@ -365,7 +394,9 @@ public function bladeCompile($value, array $args = array())
 
     public function setupUpdateOperation()
     {
-        if (!$this->crud->settings()['update.access']) {abort(403, 'You do not have access to this action');}
+        if (!$this->crud->settings()['update.access']) {
+            abort(403, 'You do not have access to this action');
+        }
         $user = $this->getUser();
         $this->addUserFields($user);
         $this->crud->setValidation(UpdateRequest::class);
@@ -380,14 +411,14 @@ public function bladeCompile($value, array $args = array())
     {
         //Allow new members to be created with out entering a password
         // So set a random one. 
-        $password = str_random(50); 
-        $this->crud->request->request->set('password' ,$password);
-        $this->crud->request->request->set('password_confirmation' ,$password);
+        $password = str_random(50);
+        $this->crud->request->request->set('password', $password);
+        $this->crud->request->request->set('password_confirmation', $password);
         $this->crud->request = $this->crud->validateRequest();
         $this->crud->request = $this->handlePasswordInput($this->crud->request);
         $latest_membership_id = BackpackUser::max('member_number');
         if (!$request->input('member_number')) {
-            $this->crud->request->request->set('member_number', $latest_membership_id+1);
+            $this->crud->request->request->set('member_number', $latest_membership_id + 1);
         }
         $this->crud->unsetValidation(); // validation has already been run
 
@@ -428,11 +459,12 @@ public function bladeCompile($value, array $args = array())
 
         return $request;
     }
-    
+
     /*
     * @return App\Models\BackpackUser
     */
-        protected function getUser(){
+    protected function getUser()
+    {
         $userModel = config('backpack.permissionmanager.models.user');
         $userModel = new $userModel();
         $routeSegmentWithId = empty(config('backpack.base.route_prefix')) ? '2' : '3';
@@ -445,10 +477,12 @@ public function bladeCompile($value, array $args = array())
     }
 
 
-    protected function addUserFields(\App\Models\BackpackUser $user=NULL)
+    protected function addUserFields(\App\Models\BackpackUser $user = NULL)
     {
         $user_id = NULL;
-        if (isset($user)) {$user_id = $user->id;}
+        if (isset($user)) {
+            $user_id = $user->id;
+        }
         $this->crud->addFields([
             [
                 'name'  => 'first_name',
@@ -474,14 +508,14 @@ public function bladeCompile($value, array $args = array())
                 'tab' => 'Main',
                 'name'  => 'mobile',
                 'label' => 'Mobile Phone',
-                'type'  => 'number',
-            ],   
+                'type'  => 'text',
+            ],
             [
                 'tab' => 'Main',
                 'name'  => 'home_phone',
                 'label' => 'Home Phone',
-                'type'  => 'number',
-            ],  
+                'type'  => 'text',
+            ],
 
             [
                 'tab' => 'Main',
@@ -497,13 +531,13 @@ public function bladeCompile($value, array $args = array())
                 'type'  => 'password',
                 'attributes' => ["autocomplete" => "off"],
             ],
-            [   
+            [
                 'tab' => 'Main',
                 'name' => 'separator',
                 'type' => 'custom_html',
                 'value' => '<hr/>'
             ],
-            [  
+            [
                 'label' => "Region",
                 'type' => 'select',
                 'name' => 'region_id', // the db column for the foreign key
@@ -517,7 +551,7 @@ public function bladeCompile($value, array $args = array())
                 'label' => 'Street Address Postal',
                 'type'  => 'text',
                 'allows_null' => false,
-            ],    
+            ],
             [
                 'tab' => 'Main',
                 'name'  => 'city',
@@ -525,17 +559,17 @@ public function bladeCompile($value, array $args = array())
                 'type'  => 'text',
                 'wrapperAttributes' => ['class' => 'col-md-4'],
                 'allows_null' => false,
-            ],    
+            ],
             [
                 'tab' => 'Main',
                 'name'  => 'post_code',
                 'label' => 'Post Code Postal',
                 'type'  => 'text',
-                'attributes' => ['maxlength' =>4],
-                'wrapperAttributes' => [    'class' => 'col-md-3'],
+                'attributes' => ['maxlength' => 4],
+                'wrapperAttributes' => ['class' => 'col-md-3'],
                 'allows_null' => false,
             ],
-            [   
+            [
                 'tab' => 'Main',
                 'name' => 'separator2',
                 'type' => 'custom_html',
@@ -547,7 +581,7 @@ public function bladeCompile($value, array $args = array())
                 'label' => 'Street Address Residential',
                 'type'  => 'text',
                 'allows_null' => false,
-            ],    
+            ],
             [
                 'tab' => 'Main',
                 'name'  => 'city_residential',
@@ -555,17 +589,17 @@ public function bladeCompile($value, array $args = array())
                 'type'  => 'text',
                 'wrapperAttributes' => ['class' => 'col-md-4'],
                 'allows_null' => false,
-            ],    
+            ],
             [
                 'tab' => 'Main',
                 'name'  => 'post_code_residential',
                 'label' => 'Post Code Residential',
                 'type'  => 'text',
-                'attributes' => ['maxlength' =>4],
-                'wrapperAttributes' => [   'class' => 'col-md-4'],
+                'attributes' => ['maxlength' => 4],
+                'wrapperAttributes' => ['class' => 'col-md-4'],
                 'allows_null' => false,
             ],
-                [
+            [
                 // two interconnected entities
                 'tab' => 'Permissions',
                 'label'             => trans('backpack::permissionmanager.user_role_permission'),
@@ -608,8 +642,8 @@ public function bladeCompile($value, array $args = array())
                 'name'  => 'member_number',
                 'label' => 'Membership Number',
                 'type'  => 'text',
-                'wrapperAttributes' => [    'class' => 'col-md-6']
-            ],    
+                'wrapperAttributes' => ['class' => 'col-md-6']
+            ],
             [
                 'label' => "Primary Member",
                 'type' => 'select2',
@@ -618,19 +652,19 @@ public function bladeCompile($value, array $args = array())
                 'name' => 'primary_member_id', // the method that defines the relationship in your Model
                 'entity' => 'primary',
                 'attribute' => 'fullname', // foreign key attribute that is shown to user
-                'options'   => (function ($query) use($user_id) {
+                'options'   => (function ($query) use ($user_id) {
                     return $query->whereNull('primary_member_id')->where('id', '<>', $user_id)->get();
-                }), 
-                                #'data_source' => url("/api/primary_user"),
+                }),
+                #'data_source' => url("/api/primary_user"),
             ],
             [
                 'tab' => 'Membership Details',
                 'name'  => 'wildman_number',
                 'label' => 'Wildman Number',
                 'type'  => 'text',
-                'wrapperAttributes' => [    'class' => 'col-md-6']
-            ],    
-            [  
+                'wrapperAttributes' => ['class' => 'col-md-6']
+            ],
+            [
                 'label' => "Member Type",
                 'type' => 'select',
                 'name' => 'member_type_id', // the db column for the foreign key
@@ -643,28 +677,28 @@ public function bladeCompile($value, array $args = array())
                 'name'  => 'joined',
                 'label' => 'Date Joined',
                 'type'  => 'date',
-                'wrapperAttributes' => [    'class' => 'col-md-6']
+                'wrapperAttributes' => ['class' => 'col-md-6']
             ],
             [
                 'tab' => 'Membership Details',
                 'name'  => 'tac_date',
                 'label' => 'Terms and Conditions Acceptance Date',
                 'type'  => 'date',
-                'wrapperAttributes' => [    'class' => 'col-md-6']
+                'wrapperAttributes' => ['class' => 'col-md-6']
             ],
             [
                 'tab' => 'Membership Details',
                 'name'  => 'receipt_date',
                 'label' => 'Receipt Date',
                 'type'  => 'date',
-                'wrapperAttributes' => [    'class' => 'col-md-6']
+                'wrapperAttributes' => ['class' => 'col-md-6']
             ],
             [
                 'tab' => 'Membership Details',
                 'name'  => 'receipt_number',
                 'label' => 'Receipt Number',
                 'type'  => 'text',
-                'wrapperAttributes' => [    'class' => 'col-md-6']
+                'wrapperAttributes' => ['class' => 'col-md-6']
             ],
             [
                 'tab' => 'Membership Details',
@@ -677,15 +711,22 @@ public function bladeCompile($value, array $args = array())
                 'name'  => 'lyssa_serology_date',
                 'label' => 'Last Lyssa Test Date',
                 'type'  => 'date',
-                'wrapperAttributes' => [    'class' => 'col-md-6']
+                'wrapperAttributes' => ['class' => 'col-md-6']
             ],
             [
                 'tab' => 'Membership Details',
                 'name'  => 'lyssa_serology_value',
                 'label' => 'Lyssa Serology Level',
                 'type'  => 'number',
-                'wrapperAttributes' => [    'class' => 'col-md-6']
+                'wrapperAttributes' => ['class' => 'col-md-6']
             ],
+            [
+                'tab' => 'Membership Details',
+                'name'  => 'lyssa_serology_comment',
+                'label' => 'Lyssa Serology comment',
+                'type'  => 'text',
+            ],
+
             [
                 'tab' => 'Membership Details',
                 'label' => "Profile Image",
@@ -695,7 +736,7 @@ public function bladeCompile($value, array $args = array())
                 'crop' => true, // set to true to allow cropping, false to disable
                 'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio
                 // 'disk' => 's3_bucket', // in case you need to show images from a different disk
-                 //'prefix' => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
+                //'prefix' => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
             ],
 
             [
@@ -706,8 +747,8 @@ public function bladeCompile($value, array $args = array())
             ],
 
             [
-               'tab' => 'Comments', 
-                'name' =>'comments',
+                'tab' => 'Comments',
+                'name' => 'comments',
                 'type' => 'repeatable2',
                 'fields' => [
                     [   // Textarea
@@ -716,10 +757,10 @@ public function bladeCompile($value, array $args = array())
                         'type' => 'textarea'
                     ],
                     [
-                        'name' =>'date',
+                        'name' => 'date',
                         'label' => 'date',
-                        'type'=> 'date',
-                        'wrapper' => ['class' =>'d-none'] 
+                        'type' => 'date',
+                        'wrapper' => ['class' => 'd-none']
                     ],
                     [
                         'name' => 'author',
@@ -728,14 +769,14 @@ public function bladeCompile($value, array $args = array())
                     ]
 
                 ]
-                ],
-                [
+            ],
+            [
                 'tab' => 'Authorities',
                 'label' => 'Authorities',
                 'type'  => 'authorities',
                 'name'  => 'authorities',
                 'model'   => 'App\Models\AuthoritiesUser',
-                ],
+            ],
 
         ]);
     }
