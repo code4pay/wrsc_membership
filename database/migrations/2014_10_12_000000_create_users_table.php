@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
@@ -35,7 +35,7 @@ class CreateUsersTable extends Migration
             $table->string('country_residential')->default('Australia');
             $table->string('post_code_residential')->nullable();
 
-            $table->string('member_number')->nullable();
+            $table->string('member_number')->unique()->nullable();
             $table->string('wildman_number')->nullable();
             $table->integer('region_id')->nullable();
             $table->string('mobile')->nullable();
@@ -44,7 +44,7 @@ class CreateUsersTable extends Migration
             $table->date('application')->nullable();
             $table->date('paid_to')->nullable();
             $table->date('lyssa_serology_date')->nullable();
-            $table->date('lyssa_serology_value')->nullable();
+            $table->float('lyssa_serology_value',8,2)->nullable();
             $table->integer('member_type_id')->default(1);
             $table->integer('primary_member_id')->nullable()->comment('if this is a related member this is the primary member.');
             $table->date('tac_date')->nullable()->comment('Terms And Conditions acceptance date');

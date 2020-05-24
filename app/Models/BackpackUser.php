@@ -146,6 +146,7 @@ class BackpackUser extends User
     public function addComment($comment,  $user='system')
     {
         $comments = json_decode($this->comments);
+        if (!$comments) { $comments = [];}
         array_push($comments,['comment'=> $comment, 'date' => date('Y-m-d'), 'author' => $user]); 
         $this->comments = json_encode($comments);
     }

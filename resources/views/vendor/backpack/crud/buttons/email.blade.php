@@ -16,6 +16,7 @@
           if (!confirm("You are about to email " + users.length + " members ?")) {
                 return false;
           } 
+         
          // bulk.each(function(e){ console.log(this.dataset.primaryKeyValue) })
           $.ajax({
               url: route,
@@ -33,7 +34,7 @@
                   // Hide the modal, if any
                   $('.modal').modal('hide');
 
-                  crud.table.ajax.reload();
+                  //crud.table.ajax.reload();
               },
               error: function(result) {
                   // Show an alert with the result
