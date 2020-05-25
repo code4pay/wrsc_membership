@@ -22,12 +22,13 @@ class BackpackUser extends User
     use HasRoles; // <------ and this
     protected $table = 'users';
 
-
     // this is here for the revsionable https://backpackforlaravel.com/docs/4.0/crud-operation-revisions
     public function identifiableName()
     {
         return $this->fullname;
     }
+    // Don't store comment revisions as it tracks its own history
+    protected $dontKeepRevisionOf = ['comments'];
 
 
     /**
