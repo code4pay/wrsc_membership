@@ -50,6 +50,9 @@ class User extends Authenticatable
         'image',
         'receipt_date', 
         'receipt_number',
+        'dont_renew',
+        'tac_email_date',
+        'lyssa_serology_comment',
     ];
 
     /**
