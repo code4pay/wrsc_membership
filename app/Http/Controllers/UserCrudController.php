@@ -174,42 +174,7 @@ class UserCrudController extends CrudController
             ]
         );
     }
-    public function bladeCompile($value, array $args = array())
-    {
-        $generated = Blade::compileString($value);
 
-        ob_start() and extract($args, EXTR_SKIP);
-
-        // We'll include the view contents for parsing within a catcher
-        // so we can avoid any WSOD errors. If an exception occurs we
-        // will throw it out to the exception handler.
-        try {
-            eval('?>' . $generated);
-        }
-
-        // If we caught an exception, we'll silently flush the output
-        // buffer so that no partially rendered views get thrown out
-        // to the client and confuse the user with junk.
-        catch (\Exception $e) {
-            ob_get_clean();
-            throw $e;
-        }
-
-        $content = ob_get_clean();
-
-        return $content;
-    }
-
-
-    public function emailRenewal(BackpackUser $user)
-    {
-        if (!$user) {
-            abort(400, 'Could not find that user.');
-        }
-        //return (new MemberRenewalRequest($user))->render();
-        Mail::to($user)->send(new MemberRenewalRequest($user));
-        $user->addComment('Emailed Renewal Request with total amount Payable $' . $user->totalRenewalAmount());
-    }
 
     public function setupListOperation()
     {
@@ -217,8 +182,8 @@ class UserCrudController extends CrudController
         $this->crud->enableExportButtons();
 
         // Custom buttons on the bottom of the list
-        $this->crud->addButtonFromView('bottom', 'email', 'email', 'beginning');
-        $this->crud->addButtonFromView('bottom', 'print', 'print', 'beginning');
+        $this->crud->addButtonFromView('bottom', 'email', 'email', 'beginning'); #membership renewals
+        $this->crud->addButtonFromView('bottom', 'print', 'print', 'beginning');#membership renewals
 
         $this->crud->setColumns([
             [
@@ -232,7 +197,7 @@ class UserCrudController extends CrudController
                 'type'  => 'email',
             ],
 
-            [ // n-n relationship (with pivot table)
+            [
                 'label'     => 'Region', // Table column heading
                 'type'      => 'select',
                 'name'      => 'region_id',
@@ -296,8 +261,7 @@ class UserCrudController extends CrudController
                 }
             }
         );
-
-
+       
         $this->crud->addFilter(
             [
                 'name'  => 'autorities',
@@ -381,6 +345,17 @@ class UserCrudController extends CrudController
                 $this->crud->addClause('where', 'paid_to', $value);
             }
         );
+        $this->crud->addFilter([ // simple filter
+            'type' => 'simple',
+            'name' => 'tac_email_date',
+            'label'=> 'Not Emailed'
+          ], 
+          false, 
+          function() { // if the filter is active
+               $this->crud->addClause('whereNull', 'tac_email_date' ); // apply the "active" eloquent scope 
+          } );
+
+
     }
 
     public function setupCreateOperation()
@@ -726,6 +701,23 @@ class UserCrudController extends CrudController
                 'label' => 'Lyssa Serology comment',
                 'type'  => 'text',
             ],
+            [
+                'tab' => 'Membership Details',
+                'name'  => 'dont_renew',
+                'label' => 'Do Not Renew',
+                'type'  => 'checkbox',
+                'wrapperAttributes' => ['class' => 'col-md-4'],
+
+            ],
+            [
+                'tab' => 'Membership Details',
+                'name'  => 'tac_email_date',
+                'label' => 'T&C Sent',
+                'type'  => 'date',
+                'wrapperAttributes' => ['class' => 'col-md-4'],
+
+            ],
+
 
             [
                 'tab' => 'Membership Details',
@@ -735,7 +727,6 @@ class UserCrudController extends CrudController
                 'upload' => true,
                 'crop' => true, // set to true to allow cropping, false to disable
                 'aspect_ratio' => 1, // ommit or set to 0 to allow any aspect ratio
-                // 'disk' => 's3_bucket', // in case you need to show images from a different disk
                 //'prefix' => 'uploads/images/profile_pictures/' // in case your db value is only the file name (no path), you can use this to prepend your path to the image src (in HTML), before it's shown to the user;
             ],
 

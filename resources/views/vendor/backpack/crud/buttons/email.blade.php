@@ -1,4 +1,4 @@
-<a href="javascript:void(0)" onclick="importTransaction(this)" data-route="{{ url('/email_renewals') }}" class="btn btn-xs btn-success"><i class="fa fa-envelope"></i> Email Renewals</a>
+<a href="javascript:void(0)" onclick="importTransaction(this)" data-route="{{ url('/admin/email_renewals') }}" class="btn btn-xs btn-success"><i class="fa fa-envelope"></i> Email Renewals</a>
 
 @push('after_scripts')
 <script>
