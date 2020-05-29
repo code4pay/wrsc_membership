@@ -1,11 +1,11 @@
-<a href="javascript:void(0)" onclick="importTransaction(this)" data-route="{{ url('/admin/email_renewals') }}" class="btn btn-xs btn-success"><i class="fa fa-envelope"></i> Email Renewals</a>
+<a href="javascript:void(0)" onclick="bulkEmail(this)" data-route="{{ url('/admin/email_renewals') }}" class="btn btn-xs btn-success"><i class="fa fa-envelope"></i> Email Renewals</a>
 
 @push('after_scripts')
 <script>
-    if (typeof importTransaction != 'function') {
+    if (typeof  bulkEmail!= 'function') {
       $("[data-button-type=import]").unbind('click');
 
-      function importTransaction(button) {
+      function bulkEmail(button) {
           // ask for confirmation before deleting an item
           // e.preventDefault();
           var button = $(button);

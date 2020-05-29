@@ -104,6 +104,15 @@ class BackpackUser extends User
         .'</address>';
     }
 
+    public function hasAuthority($name) {
+        foreach ($this->authorities()->get() as $authority){
+            if ($authority->authority->name == $name) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function tokens () {
         return $this->hasMany('App\Models\Token');
     }
@@ -151,12 +160,14 @@ class BackpackUser extends User
         array_push($comments,['comment'=> $comment, 'date' => date('Y-m-d'), 'author' => $user]); 
         $this->comments = json_encode($comments);
     }
+
     public function setImageAttribute($value)
     {
         $attribute_name = "image";
-        $disk = config('backpack.base.root_disk_name'); // or use your own disk, defined in config/filesystems.php
-        $destination_path = "public/uploads/images/profile_pictures/"; // path relative to the disk above
-
+        $disk = 'private'; // or use your own disk, defined in config/filesystems.php
+        $destination_path = "profile_images"; // path relative to the disk above
+        
+        
         // if the image was erased
         if ($value==null) {
             // delete the image from disk
@@ -164,6 +175,11 @@ class BackpackUser extends User
 
             // set null in the database column
             $this->attributes[$attribute_name] = null;
+        }
+        //Only added for the initial import where they where all jpg's
+        if (ends_with($value, '.jpg')) {
+
+            $this->attributes[$attribute_name] = $value;
         }
 
         // if a base64 was sent, store it in the db

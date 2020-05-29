@@ -1,0 +1,2 @@
+<!-- note you need to include the renewals blade for this to work as it has the JS -->
+<a href="javascript:void(0)" onclick="downloadFiles(this)" data-route="{{ url('/print_membership_card') }}" class="btn btn-xs btn-success"><i class="fa fa-envelope"></i> Print Membership Cards</a>

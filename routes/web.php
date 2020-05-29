@@ -21,6 +21,9 @@ Route::resource('application', '\App\Http\Controllers\ApplicationController');
 Route::resource('tac_accept', '\App\Http\Controllers\TacsController');
 Route::post('admin/email_renewals', '\App\Http\Controllers\EmailRenewalsController@emailRenewals')->middleware('auth');
 Route::post('print_renewals', '\App\Http\Controllers\EmailRenewalsController@printRenewals')->middleware('auth');
+Route::post('admin/email_membership_card', '\App\Http\Controllers\MembershipCardController@emailMembershipCard')->middleware('auth');
+Route::post('print_membership_card', '\App\Http\Controllers\MembershipCardController@printMembershipCard')->middleware('auth');
+Route::get('profile_images/{fileName}', '\App\Http\Controllers\ProfileImagesController@showImage')->middleware('auth');
 
 
 
