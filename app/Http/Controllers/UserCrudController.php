@@ -184,6 +184,8 @@ class UserCrudController extends CrudController
         // Custom buttons on the bottom of the list
         $this->crud->addButtonFromView('bottom', 'email', 'email', 'beginning'); #membership renewals
         $this->crud->addButtonFromView('bottom', 'print', 'print', 'beginning');#membership renewals
+        $this->crud->addButtonFromView('bottom', 'print_membership_card', 'print_membership_card', 'beginning');#membership renewals
+        $this->crud->addButtonFromView('bottom', 'email_membership_card', 'email_membership_card', 'beginning');#membership renewals
 
         $this->crud->setColumns([
             [

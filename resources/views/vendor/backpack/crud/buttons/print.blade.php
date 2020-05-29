@@ -11,13 +11,15 @@
             var route = button.attr('data-route');
             var bulk = $(".crud_bulk_actions_row_checkbox:checked");
             var users = [];
+            var type = 'Renewals';
+            if (route == '/print_membership_card'){ type = 'Cards'}
             bulk.each(function() {
                 users.push({
                     'name': 'users[]',
                     'value': this.dataset.primaryKeyValue
                 })
             });
-            if (!confirm("You are about to download " + users.length + " membership Renewals ?")) {
+            if (!confirm("You are about to download " + users.length + " Membership "+ type +" ?")) {
 
                 return false;
             }

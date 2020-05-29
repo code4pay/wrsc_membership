@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class import extends Command
 {
@@ -118,6 +119,9 @@ class import extends Command
                             $member->lyssa_serology_value = $level_match[2] * 1;
                         }
                     }
+                }
+                if (Storage::disk('private')->exists('profile_images/' . $data[2].'.jpg' )){
+                    $member->image = 'profile_images/'.$data[2].'.jpg';
                 }
                 $member->paid_to = $this->extractDates($data[20]);
                 $member->receipt_date = $this->extractDates($data[19]);
