@@ -18,6 +18,9 @@ If you would do not want to renew on line, that is not a problem, email me and I
 Wherever possible, we will be emailing your acknowledgement letters along with a pdf of your membership card, which you may print out, load to your phone, or if you want a laminated one, please let me know.
 
 Click the link to renew your membership online <a href="{{url('/tac_accept')}}/{{$user->createToken('tac')}}"> Click here to renew </a> 
+
+If you don't wish to renew please <a href="{{url('/dont_renew')}}/{{$user->createToken('tac')}}"> Click here to let us know you won't be renewing </a> 
+
 If you have animals in care, and have not paid membership by the start of the new financial year ie 1 July 2020 then you are not covered by NPWS licence MWL000100253 or our insurance.
 
 
