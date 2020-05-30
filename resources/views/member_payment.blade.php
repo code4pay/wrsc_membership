@@ -15,20 +15,20 @@
     <div class="jumbotron col-md-6 offset-md-3 ">
       <h1 class="display-4">Membership Renewal</h1>
       <p class="lead ">Thank You for renewing {{$user->first_name}}!</p>
-      @if ($user->totalRenewalAmount() > 0 && !$user->primary_member_id ) 
-        <p class="lead ">Your renewal will be confirmed once your payment has been recieved.</p>
+      @if ($user->totalRenewalAmount() > 0 && !$user->primary_member_id )
+      <p class="lead ">Your renewal will be confirmed once your payment has been recieved.</p>
       @endif
       <hr class="my-4">
       <p>IF YOU HAVE ANY QUESTIONS ABOUT YOUR RENEWAL, EMAIL <a href="mailto:membership@wildlife-rescue.org.au">membership@wildlife-rescue.org.au</a> OR
         PHONE THE MEMBERSHIP OFFICER ON <a href="tel:0402403057">0402 403 057</a>
         </a></p>
     </div>
-    
-   @if ($user->totalRenewalAmount() > 0 && !$user->primary_member_id) 
+
+    @if ($user->totalRenewalAmount() > 0 && !$user->primary_member_id)
     <form class="col-md-6 offset-md-3" method="POST">
       {{ csrf_field() }}
       <input type="hidden" name="_method" value="PUT">
-      <input type="hidden" name="id" value="{{ $user->id }}"/>
+      <input type="hidden" name="id" value="{{ $user->id }}" />
 
       <div class="row">
         <p><strong>Renewal Fees. </strong> </p>
@@ -60,26 +60,41 @@
         </table>
       </div>
 
-      <div class="row">
-        Payment Options:
+      <h3> Payment Options: </h3>
+      <div class="row alert alert-success">
         <ul>
-          <li>Pay by direct deposit to:</li>
+          <li><strong>Pay by direct deposit to:</strong></li>
           <li>Account Name: Wildlife Rescue South Coast</li>
           <li>BSB: 633 000 Account: 152 817 854 </li>
           <li>Reference: Membership Number & Surname </li>
           <li>And please email this application form and receipt of your payment to:<a href="mailto:membership@wildlife-rescue.org.au"> membership@wildlife-rescue.org.au</a></li>
         </ul>
       </div>
-      <div class="row">
-        - Pay by cheque (made payable to Wildlife Rescue South Coast Inc) and post together with this application form PO Box 666, NOWRA NSW 2541<br>
+      <strong> OR</strong>
+      <div class="row alert alert-warning">
+        <ul>
+          <li> <strong>Pay by cheque </strong></li>
+          <li> (made payable to Wildlife Rescue South Coast Inc) and post together with this application form PO Box 666, NOWRA NSW 2541</li>
+        </ul>
       </div>
-      <div class="row">
-        <strong>OR</strong>
-      </div>
+      <strong>OR</strong>
       <div class="row" id="paypal-button-container"></div>
     </form>
-      @endif
+    @endif
   </div>
+<div class="modal" id="processing_payment" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Payment Process</h5>
+      </div>
+      <div class="modal-body">
+        <p>Processing  Payments Please wait.  </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 
 <script src="https://www.paypal.com/sdk/js?client-id=AQAaDbsCUhmLQ7BBxU-oR062GogX4Uc_PEhonnLDjNJ1fxfaj76Roo1Lyp2qMXAuUC3uDeRqXYlR_W7B&currency=AUD">
@@ -88,25 +103,47 @@
 <script>
   paypal.Buttons({
     createOrder: function(data, actions) {
+      
       // This function sets up the details of the transaction, including the amount and line item details.
       return actions.order.create({
         purchase_units: [{
           amount: {
             value: '{{$user->totalRenewalAmount()}}',
-            description: 'WRSC Renewal Fee'
+            description: 'WRSC Renewal Fee',
+            reference_id: '{{$user->member_number}}'
+            
           }
         }]
       });
     },
     onApprove: function(data, actions) {
+      $('#processing_payment').modal({ show:true});
       // This function captures the funds from the transaction.
       return actions.order.capture().then(function(details) {
+    
         // This function shows a transaction success message to your buyer.
-        alert('Transaction completed by ' + details.payer.name.given_name);
+        var jqxhr = $.post("/paid_paypal", 
+
+          {
+            'token' : '{{ $token }}',
+            'amount' : details.purchase_units[0].amount.value,
+            'member_number' : '{{ $user->member_number }}',
+            '_token' : '{{ csrf_token() }}'
+           })
+           .done(function(){
+            alert("Thank You for Your payment! ");
+            window.location = "https://www.wildlife-rescue.org.au/";
+           })
+          .fail(function() {
+            alert("Sorry An error Occurred,  Please email membership@wildlife-rescue.org.au for help.");
+            $('#processing_payment').modal({ show:false})
+          });
       });
     }
   }).render('#paypal-button-container');
   //This function displays Smart Payment Buttons on your web page.
 </script>
+<script type="text/javascript" src="/packages/backpack/base/js/bundle.js?v=4.0.61@1977e0cc52fa7cf9547eaeadf03f5cd88402b574"></script>
+
 
 </html>

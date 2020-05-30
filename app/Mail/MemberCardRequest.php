@@ -7,11 +7,13 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use PDF;
 
-class MemberRenewalRequest extends Mailable implements ShouldQueue //this email will use the queue always. 
+class MemberCardRequest extends Mailable  //this email will use the queue always. 
 {
     use Queueable, SerializesModels;
     public $user;
+    public $pdf;
 
     /**
      * Create a new message instance.
@@ -21,6 +23,7 @@ class MemberRenewalRequest extends Mailable implements ShouldQueue //this email 
     public function __construct(BackpackUser $user)
     {
           $this->user = $user;
+          $this->pdf = PDF::loadView('membership_card', ['users' => [$user]])->output();
     }
 
     /**
@@ -30,6 +33,9 @@ class MemberRenewalRequest extends Mailable implements ShouldQueue //this email 
      */
     public function build()
     {
-        return $this->markdown('emails.member.card')->from('membership@wildlife-rescue.org.au');
+        return $this->markdown('emails.member.membership_card')
+        ->attachData($this->pdf, 'wrsc_membership_card.pdf',['mime' => 'application/pdf'])
+        ->subject('WRSC Membership Card')
+        ->from('membership@wildlife-rescue.org.au');
     }
 }
