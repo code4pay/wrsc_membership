@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>WRSC Membership Renewal</title>
+    <title>WRSC Membership Non-Renewal</title>
 </head>
 
 <body>
     <div class="container-fluid-md">
-        <div class="jumbotron col-md-6 offset-md-3 ">
-            <h1 class="display-4">Membership Cancellation</h1>
+        <div class="jumbotron col-md-6 offset-md-3 alert-success " style=" margin-top: 1em;">
+            <h1 class="display-4">Non-renewal</h1>
             <p class="lead ">We will be sad to see you go, but we understand circumstances change, thankyou for your past support. </p>
             <p class="lead ">Please confirm that this is you by checking the details below and confirm your cancellation by clicking the button. </p>
             <hr class="my-4">
