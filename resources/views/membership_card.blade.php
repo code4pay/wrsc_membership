@@ -46,7 +46,12 @@ h1, h2,h3,h4 { text-align: center;}
 </div>
         </div>
         <div style="font-size: 7px; width: 20mm; float:right">
-            <img style="width:20mm;  padding-right: 1mm;" src="http://127.0.0.1/card/{{ $user->image }}" />
+        @if($user->image)
+                  <img style="width:20mm;  padding-right: 1mm;" src="http://127.0.0.1/card/{{ $user->image }}" />
+        @else
+                  <img style="width:20mm;  padding-right: 1mm;" src="http://127.0.0.1/images/blank.jpg" />
+        @endif
+
         </div>
       <div style="height:7mm; padding-left: 1mm; "> Authorised by: <img style="height:10mm; vertical-align:middle;" src="images/signature.png" > </div>
 </div>

@@ -132,9 +132,9 @@ class UserCrudController extends CrudController
         );
         $this->crud->addColumn(
             [
-                'label' => "paid until", // Table column heading
+                'label' => "Paid To", // Table column heading
                 'type' => "date",
-                'name' => 'paid_until', // the column that contains the ID of that connected entity;
+                'name' => 'paid_to', // the column that contains the ID of that connected entity;
             ]
         );
         $this->crud->addColumn(
@@ -226,22 +226,23 @@ class UserCrudController extends CrudController
                 'attribute' => 'authority.name', // foreign key attribute that is shown to user
                 'model'     => '\App\Models\AuthorityUser', // foreign key model
             ],
-
             [
-                'name'  => 'lyssa_serology_value',
-                'label' => 'Lyssa Value',
-                'type'  => 'text',
+                'name'  => 'dont_renew',
+                'label' => 'No Renew',
+                'type'  => 'boolean',
             ],
             [
-                'name'  => 'lyssa_serology_date',
-                'label' => 'Lyssa Date',
+                'name'  => 'paid_to',
+                'label' => 'Paid To',
                 'type'  => 'date',
             ],
             [
-                'name'  => 'lyssa_serology_comment',
-                'label' => 'Lyssa Serology comment',
-                'type'  => 'text',
-            ]
+                'name'  => 'paid_paypal_date',
+                'label' => 'Paid PayPal',
+                'type'  => 'date',
+            ],
+
+          
         ]);
 
         //enable the selection of mutiple entries in list. 
@@ -256,11 +257,16 @@ class UserCrudController extends CrudController
             ],
             \App\Models\Course::all()->pluck('name', 'id')->toArray(),
             function ($values) { // if the filter is active
-                foreach (json_decode($values) as $key => $value) {
-                    $this->crud->addClause('whereHas', 'courses', function ($query) use ($value) {
-                        $query->orwhere('course_id', '=', $value);
+                
+             $this->crud->addClause('whereHas', 'courses', function ($query) use ($values) {
+                    $query->where(function($subQuery) use ($values) {
+                     foreach (json_decode($values) as $key => $value) {
+                         $subQuery->orWhere('course_id', '=', $value);
+                        
+                        }
                     });
-                }
+                    });
+                
             }
         );
        
@@ -272,11 +278,16 @@ class UserCrudController extends CrudController
             ],
             \App\Models\Authority::all()->pluck('name', 'id')->toArray(),
             function ($values) { // if the filter is active
-                foreach (json_decode($values) as $key => $value) {
-                    $this->crud->addClause('whereHas', 'authorities', function ($query) use ($value) {
-                        $query->orWhere('authority_id', '=', $value);
+                    
+                $this->crud->addClause('whereHas', 'authorities', function ($query) use ($values) {
+                    $query->where(function($subQuery) use ($values) {
+                     foreach (json_decode($values) as $key => $value) {
+                         $subQuery->orWhere('authority_id', '=', $value);
+                        
+                        }
                     });
-                }
+                    });
+                
             }
         );
         $this->crud->addFilter(
@@ -287,9 +298,12 @@ class UserCrudController extends CrudController
             ],
             \App\Models\Region::all()->pluck('region_name', 'id')->toArray(),
             function ($values) { // if the filter is active
+                $this->crud->addClause('where', function ($query) use ($values) {
                 foreach (json_decode($values) as $key => $value) {
-                    $this->crud->addClause('orwhere', 'region_id', $value);
+                   
+                            $query->orWhere('region_id','=', $value);
                 }
+            });
             }
         );
         $this->crud->addFilter(
@@ -311,9 +325,12 @@ class UserCrudController extends CrudController
             ],
             \App\Models\Membershiptype::all()->pluck('name', 'id')->toArray(),
             function ($values) { // if the filter is active
-                foreach (json_decode($values) as $key => $value) {
-                    $this->crud->addClause('Where', 'member_type_id', $value);
-                }
+                $this->crud->addClause('where', function ($query) use ($values) {
+                    foreach (json_decode($values) as $key => $value) {
+                       
+                                $query->orWhere('member_type_id','=', $value);
+                    }
+                });
             }
         );
         $this->crud->addFilter(
@@ -347,6 +364,17 @@ class UserCrudController extends CrudController
                 $this->crud->addClause('where', 'paid_to', $value);
             }
         );
+
+        $this->crud->addFilter([ // simple filter
+            'type' => 'simple',
+            'name' => 'paid_paypal_date',
+            'label'=> 'Paid Paypal'
+          ], 
+          false, 
+          function() { // if the filter is active
+               $this->crud->addClause('whereNotNull', 'paid_paypal_date' ); // apply the "active" eloquent scope 
+          } );
+
         $this->crud->addFilter([ // simple filter
             'type' => 'simple',
             'name' => 'tac_email_date',
@@ -682,6 +710,22 @@ class UserCrudController extends CrudController
                 'name'  => 'paid_to',
                 'label' => 'Paid To',
                 'type'  => 'date',
+            ],
+            [
+                'tab' => 'Membership Details',
+                'name'  => 'paid_paypal_date',
+                'label' => 'PayPal Payment Date',
+                'type'  => 'date',
+                'wrapperAttributes' => ['readonly' => 'readonly']
+            ],
+
+            [
+                'tab' => 'Membership Details',
+                'name'  => 'paid_paypal_amount',
+                'label' => 'PayPal Payment Amount',
+                'type'  => 'number',
+                'prefix' => '$',
+                'wrapperAttributes' => ['readonly' => 'readonly']
             ],
             [
                 'tab' => 'Membership Details',

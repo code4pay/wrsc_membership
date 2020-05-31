@@ -29,6 +29,7 @@ class MembershipCardController extends Controller
 
     public function printMembershipCard(Request $request)
     {
+        ini_set("pcre.backtrack_limit", "9000000");
         $users = [];
         foreach ($request->get('users') as $user_id) {
             $user = \App\Models\BackpackUser::find($user_id);

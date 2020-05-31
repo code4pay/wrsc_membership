@@ -20,20 +20,21 @@ class TacsController extends Controller
     {
         $tokenValue = $request->input('token');
         if (!$tokenValue) {
-            abort(404, "Unkown Request");
+            abort(404, "Unkown Request Missing Token ");
         }
         $token = \App\Models\Token::where('token', $tokenValue)->first();
         if (!$token) {
-            abort(404, "Unkown Request");
+            abort(404, "Unkown Token");
         }
         // dd($token->user()->first());
         $tokenUser = $token->user()->first();
         $user = \App\Models\BackpackUser::where('member_number', $request->input('member_number'))->first();
         if (!$user) {
-            abort(404, "Unkown Request");
+            abort(404, "Unkown User");
         }
+        echo('<h1>'.$user->id .':'.$tokenUser->id.'</h1>');
         if ($user->id != $tokenUser->id) {
-            abort(404, "Unkown Request");
+            abort(404, "Mismatch Request");
         };
         $validatedData = $request->validate([
             'first_name' => 'required|max:255',
@@ -108,19 +109,19 @@ class TacsController extends Controller
     {
         $tokenValue = $request->input('token');
         if (!$tokenValue) {
-            abort(404, "Unkown Request");
+            abort(404, "Unkown Request missing token");
         }
         $token = \App\Models\Token::where('token', $tokenValue)->first();
         if (!$token) {
-            abort(404, "Unkown Request");
+            abort(404, "Unkown Token");
         }
         $tokenUser = $token->user()->first();
         $user = \App\Models\BackpackUser::where('member_number', $request->input('member_number'))->first();
         if (!$user) {
-            abort(404, "Unkown Request");
+            abort(404, "Unkown User");
         }
         if ($user->id != $tokenUser->id) {
-            abort(404, "Unkown Request");
+            abort(404, "Unkown Request Mismatch");
         };
         if ($request->input('amount')){
             $user->paid_paypal_date =  date('Y-m-d');

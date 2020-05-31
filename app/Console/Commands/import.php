@@ -61,9 +61,9 @@ class import extends Command
             'address' => 10,
             'city' => 11,
             'post_code' => 12,
-            'address_residential' => 10,
-            'city_residential' => 11,
-            'post_code_residential' => 12,
+            'address_residential' => 76,
+            'city_residential' => 77,
+            'post_code_residential' => 78,
             'member_number' => 2,
             'wildman_number' => 3,
             'mobile' => 14,
@@ -129,6 +129,11 @@ class import extends Command
                 $member->addComment($data[37]);
                 foreach ($fieldMappings as $field => $number) {
                     $member->$field = $data[$number];
+                }
+                if (!isset($data[76]) || !$data[76]){
+                    $member->address_residential = $data[10];
+                    $member->city_residential = $data[11];
+                    $member->post_code_residential = $data[12];
                 }
                 $member->save();
                 $this->addCourses($member, $data);
