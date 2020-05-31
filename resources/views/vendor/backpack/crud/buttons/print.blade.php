@@ -32,7 +32,7 @@
                 });
                 $.each(values, function() {
                     form.append($('<input/>', {
-                        type: 'text',
+                        type: 'hidden',
                         name: this.name,
                         value: this.value
                     }));
