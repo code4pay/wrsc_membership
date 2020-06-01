@@ -65,14 +65,23 @@ h1, h2,h3,h4 { text-align: center;}
   <div class="column">
         <h3>Conditions of Membership</h3>
         <h4>The WRSC member:</h4>
-        <ul>
-        <li> Agrees to comply with all DPIE/NPWS Licence conditions & WRSC constitution and policies.</li>
-        <li> @if(!$user->hasAuthority('Auth to rescue')) <del> @endif Is authorised to rescue native animals and must register such wildlife within 24 hours to the relevant co-ordinator.@if(!$user->hasAuthority('Auth to rescue')) </del> @endif </li>
-        <li> @if(!$user->hasAuthority('Auth to care')) <del> @endif Is authorised to partake in wildlife rehabilitation @if(!$user->hasAuthority('Auth to care')) </del> @endif </li>
-        <li> @if(!$user->hasAuthority('Auth to use firearm')) <del> @endif Holds a current NSW firearms licence and is authorised to assess and if required euthanase by firearm. @if(!$user->hasAuthority('Auth to use firearm')) </del> @endif </li>
-        <li> Must immediately notify Dept Primary Inds at <a href="mailto:invasive.species@dpi.nsw.gov.au">invasive.species@dpi.nsw.gov.au</a> upon advice or capture of a non-native reptile and follow any instructions.</li>
-        <li> Will permit the inspection of all protected animals held and any facilities associated with their care.</li>
-</ul>
+        @if($user->memberType->name == 'Junior')
+          <ul>
+          <li>Is a junior member of Wildlife Rescue South Coast.</li>
+          <li>May only participate in wildlife rescue and/or rehabilitation activities only when under the supervision of a suitably trained parent / guardian.</li>
+          <li>Is not eligible to vote at meetings</li>
+          </ul>  
+        @else
+          <ul>
+          <li> Agrees to comply with all DPIE/NPWS Licence conditions & WRSC constitution and policies.</li>
+          <li> @if(!$user->hasAuthority('Auth to rescue')) <del> @endif Is authorised to rescue native animals and must register such wildlife within 24 hours to the relevant co-ordinator.@if(!$user->hasAuthority('Auth to rescue')) </del> @endif </li>
+          <li> @if(!$user->hasAuthority('Auth to care')) <del> @endif Is authorised to partake in wildlife rehabilitation @if(!$user->hasAuthority('Auth to care')) </del> @endif </li>
+          <li> @if(!$user->hasAuthority('Auth to use firearm')) <del> @endif Holds a current NSW firearms licence and is authorised to assess and if required euthanase by firearm. @if(!$user->hasAuthority('Auth to use firearm')) </del> @endif </li>
+          <li> Must immediately notify Dept Primary Inds at <a href="mailto:invasive.species@dpi.nsw.gov.au">invasive.species@dpi.nsw.gov.au</a> upon advice or capture of a non-native reptile and follow any instructions.</li>
+          <li> Will permit the inspection of all protected animals held and any facilities associated with their care.</li>
+          </ul>
+        @endif
+
 </div>
 </div> 
 @endforeach
