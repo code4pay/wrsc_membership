@@ -97,7 +97,7 @@
 
 </body>
 
-<script src="https://www.paypal.com/sdk/js?client-id=AQAaDbsCUhmLQ7BBxU-oR062GogX4Uc_PEhonnLDjNJ1fxfaj76Roo1Lyp2qMXAuUC3uDeRqXYlR_W7B&currency=AUD">
+<script src="https://www.paypal.com/sdk/js?client-id=@php echo(config('app.paypal_key')) @endphp&currency=AUD">
 </script>
 
 <script>
