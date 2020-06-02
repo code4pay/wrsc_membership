@@ -140,7 +140,7 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
-    'paypal_key' => 'adasd', //env('PAYPAL_KEY'),
+    'paypal_key' => env('PAYPAL_KEY'),
 
     /*
     |--------------------------------------------------------------------------
