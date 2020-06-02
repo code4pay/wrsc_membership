@@ -35,7 +35,7 @@ class UserUpdateCrudRequest extends FormRequest
             abort(400, 'Could not find that entry in the database.');
         }
         return [
-            'email'    => 'required|unique:'.config('permission.table_names.users', 'users').',email,'.$userId,
+            'email'    => 'email',
             'password' => 'confirmed',
             'first_name'     => 'required',
             'last_name' => 'required',

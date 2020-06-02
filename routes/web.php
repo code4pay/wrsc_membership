@@ -32,6 +32,9 @@ Route::post('admin/email_membership_card', '\App\Http\Controllers\MembershipCard
 Route::post('print_membership_card', '\App\Http\Controllers\MembershipCardController@printMembershipCard')->middleware('auth');
 Route::get('profile_images/{fileName}', '\App\Http\Controllers\ProfileImagesController@showImage')->middleware('auth'); //protect profile images. 
 Route::get('card/profile_images/{fileName}', '\App\Http\Controllers\ProfileImagesController@showImage')->middleware('local_address'); //this is so pdf generator can access images only from 127.0.0.1
+Route::get('/',function () {
+    return redirect('/admin');
+});
 
 
 

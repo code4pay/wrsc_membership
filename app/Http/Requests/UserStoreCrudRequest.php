@@ -26,7 +26,7 @@ class UserStoreCrudRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'    => 'required|unique:'.config('permission.table_names.users', 'users').',email',
+            'email'    => 'email',
             'first_name'     => 'required',
             'last_name'     => 'required',
             //I cant get this workng the end query always ends up containing
