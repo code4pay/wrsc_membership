@@ -440,7 +440,7 @@ your payment.</span></b></font></font></p>
 				<p align="center"><font face="Arial, serif"><font size="2" style="font-size: 10pt">N/A</font></font></p>
 			</td>
 			<td width="84" style="border: 1px solid #000000; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
-				<p><font face="Arial, serif"><font size="2" style="font-size: 10pt">$30.00</font></font></p>
+				<p><font face="Arial, serif"><font size="2" style="font-size: 10pt">$15.00</font></font></p>
 			</td>
 			<td width="101" style="border: 1px solid #000000; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
 				<p><br/>
