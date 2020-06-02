@@ -12,10 +12,10 @@
 
 <body>
   <div class="container-fluid-md">
-    <div class="jumbotron col-md-6 offset-md-3 ">
+    <div class="jumbotron col-md-6 offset-md-3 alert-success" style="margin-top:1em">
       <h1 class="display-4">Membership Renewal</h1>
       <p class="lead ">Thank You for renewing {{$user->first_name}}!</p>
-      @if ($user->totalRenewalAmount() > 0 && !$user->primary_member_id )
+      @if ($user->totalRenewalAmount() > 0 && !$user->primary_member_id &&  $user->paid_to != '2021-06-30')
       <p class="lead ">Your renewal will be confirmed once your payment has been recieved.</p>
       @endif
       <hr class="my-4">
@@ -24,7 +24,7 @@
         </a></p>
     </div>
 
-    @if ($user->totalRenewalAmount() > 0 && !$user->primary_member_id)
+    @if ($user->totalRenewalAmount() > 0 && !$user->primary_member_id && $user->paid_to != '2021-06-30')
     <form class="col-md-6 offset-md-3" method="POST">
       {{ csrf_field() }}
       <input type="hidden" name="_method" value="PUT">

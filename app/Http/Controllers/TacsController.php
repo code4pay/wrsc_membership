@@ -32,7 +32,6 @@ class TacsController extends Controller
         if (!$user) {
             abort(404, "Unkown User");
         }
-        echo('<h1>'.$user->id .':'.$tokenUser->id.'</h1>');
         if ($user->id != $tokenUser->id) {
             abort(404, "Mismatch Request");
         };

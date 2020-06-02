@@ -40,7 +40,9 @@ class BackpackUser extends User
      */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new ResetPasswordNotification($token));
+        //turn off password reset for now.  
+    //    $this->notify(new ResetPasswordNotification($token));
+
     }
 
     /**

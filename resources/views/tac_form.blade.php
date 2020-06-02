@@ -12,7 +12,7 @@
 
 <body>
   <div class="container-fluid-md">
-    <div class="jumbotron col-md-6 offset-md-3 ">
+    <div class="jumbotron col-md-6 offset-md-3 alert-success" style="margin-top:1em">
       <h1 class="display-4">Membership Renewal Form </h1>
       <p class="lead ">To continue as a member of Wildlife Rescue South Coast please confirm your details below. </p>
       <hr class="my-4">
@@ -148,7 +148,7 @@
           </div>
         </div>
       </div>
-      @if (!$user->primary_member_id)
+      @if (!$user->primary_member_id && $user->paid_to != '2021-06-30')
       <div class="row">
         <p><strong>Renewal Fees. </strong> </p>
       </div>
