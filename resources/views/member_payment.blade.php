@@ -68,14 +68,15 @@
           <li>Account Name: Wildlife Rescue South Coast</li>
           <li>BSB: 633 000 Account: 152 817 854 </li>
           <li>Reference: Membership Number & Surname </li>
-          <li>And please email this application form and receipt of your payment to:<a href="mailto:membership@wildlife-rescue.org.au"> membership@wildlife-rescue.org.au</a></li>
+          <li>And please email the receipt of your payment to:<a href="mailto:membership@wildlife-rescue.org.au"> membership@wildlife-rescue.org.au</a></li>
         </ul>
       </div>
       <strong> OR</strong>
       <div class="row alert alert-warning">
         <ul>
           <li> <strong>Pay by cheque </strong></li>
-          <li> (made payable to Wildlife Rescue South Coast Inc) and post together with this application form PO Box 666, NOWRA NSW 2541</li>
+          <li> (made payable to Wildlife Rescue South Coast Inc) and post together with your name and membership number to PO Box 666, NOWRA NSW 2541</li>
+          
         </ul>
       </div>
       <strong>OR</strong>
