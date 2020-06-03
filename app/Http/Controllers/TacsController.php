@@ -122,7 +122,9 @@ class TacsController extends Controller
         if ($user->id != $tokenUser->id) {
             abort(404, "Unkown Request Mismatch");
         };
-        if ($request->input('amount')){
+        if ($request->input('amount'))
+            {
+            $user->addComment('Member Paid  by Paypal $'.$request->input('amount').' id:'.$request->input('order_id'));
             $user->paid_paypal_date =  date('Y-m-d');
             $user->paid_paypal_amount = $request->input('amount');
             $user->save();

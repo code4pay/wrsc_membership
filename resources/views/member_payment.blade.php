@@ -46,6 +46,7 @@
             <td>{{$user->name}}</td>
             <td>{{$user->memberType->name}}</td>
             <td>${{$user->renewalAmount()}}
+               
               @foreach ( $user->siblings as $familyUser)
           <tr>
             <td>{{$familyUser->name}}</td>
@@ -105,15 +106,8 @@
     createOrder: function(data, actions) {
       
       // This function sets up the details of the transaction, including the amount and line item details.
-      return actions.order.create({
-        purchase_units: [{
-          amount: {
-            value: '{{$user->totalRenewalAmount()}}',
-            description: 'WRSC Renewal Fee',
-            reference_id: '{{$user->member_number}}'
-            
-          }
-        }]
+      return actions.order.create({purchase_units: 
+        {!! $user->renewalAmountForPayPal() !!}
       });
     },
     onApprove: function(data, actions) {
@@ -121,13 +115,14 @@
       // This function captures the funds from the transaction.
       return actions.order.capture().then(function(details) {
     
+ console.log(details);
         // This function shows a transaction success message to your buyer.
         var jqxhr = $.post("/paid_paypal", 
-
           {
             'token' : '{{ $token }}',
             'amount' : details.purchase_units[0].amount.value,
             'member_number' : '{{ $user->member_number }}',
+            'order_id' : details.purchase_units[0].payments.captures[0].id,
             '_token' : '{{ csrf_token() }}'
            })
            .done(function(){

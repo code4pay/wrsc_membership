@@ -129,6 +129,31 @@ class BackpackUser extends User
 
     }
 
+    // sends back a json formmatted string for use with paypaljj
+    public function renewalAmountForPayPal()
+    {
+
+        $sibling_names ='';
+        foreach($this->siblings()->get() as $sibling){
+            $sibling_names .= ', '.$sibling ->fullname.' (' . $sibling->member_number. ')';
+        }
+
+       $purchaseUnits =[
+        [
+            
+            'amount' =>[ 
+              'value'=> $this->totalRenewalAmount(),
+                ]
+            ,
+            'description' => 'WRSC Renewal Fee for '.$this->fullname.' (' . $this->member_number. ')'. $sibling_names,
+        ] ];
+
+     
+       return json_encode($purchaseUnits,true);
+
+    }
+
+
     public function renewalAmount()
     {
         if ($this->memberType->name == 'Honorary' || $this->memberType->name == 'Life') {return 0;}
