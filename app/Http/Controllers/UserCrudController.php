@@ -314,6 +314,17 @@ class UserCrudController extends CrudController
         $this->crud->addFilter(
             [
                 'type' => 'text',
+                'name' => 'member_number',
+                'label' => 'M.Number'
+            ],
+            false,
+            function ($value) { // if the filter is active
+                $this->crud->addClause('where', 'member_number','=', $value);
+            }
+        );
+        $this->crud->addFilter(
+            [
+                'type' => 'text',
                 'name' => 'city',
                 'label' => 'City'
             ],
