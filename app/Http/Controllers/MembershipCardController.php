@@ -21,7 +21,7 @@ class MembershipCardController extends Controller
             //return (new MemberRenewalRequest($user))->render();
             Mail::to($user)->send(new MemberCardRequest($user));
             $admin_user = Auth::user();
-            $user->addComment('Emailed Membership Card', $admin_user->name);
+            $user->addComment('Emailed Membership Card', "$admin_user->first_name $admin_user->last_name");
             $user->save();
         }
         return 1;
@@ -41,7 +41,7 @@ class MembershipCardController extends Controller
             $pdf = PDF::loadView('membership_card', ['users' => $users]);
 
             $admin_user = Auth::user();
-            $user->addComment('Printed Membership Card', $admin_user->name);
+            $user->addComment('Printed Membership Card', "$admin_user->first_name $admin_user->last_name");
             $user->save();
             return $pdf->download('membership_cards.pdf');
     }

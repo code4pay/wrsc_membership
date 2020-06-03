@@ -20,7 +20,8 @@ class EmailRenewalsController extends Controller
             //return (new MemberRenewalRequest($user))->render();
             Mail::to($user)->send(new MemberRenewalRequest($user));
             $admin_user = Auth::user();
-            $user->addComment('Emailed Renewal Request with total amount Payable $' . $user->totalRenewalAmount(), $admin_user->name);
+            $user->tac_email_date = date('Y-m-d');
+            $user->addComment('Emailed Renewal Request with total amount Payable $' . $user->totalRenewalAmount(), "$admin_user->first_name $admin_user->last_name");
             $user->save();
         }
     }
@@ -37,9 +38,10 @@ class EmailRenewalsController extends Controller
         }
             $pdf = PDF::loadView('membership_renewal', ['users' => $users]);
 
-            return $pdf->download('renewal_documents.pdf');
             $admin_user = Auth::user();
-            $user->addComment('Printed Renewal Request ', $admin_user->name);
+            $user->tac_email_date = date('Y-m-d');
+            $user->addComment('Printed Renewal Request ', "$admin_user->first_name $admin_user->last_name");
             $user->save();
+            return $pdf->download('renewal_documents.pdf');
     }
 }
