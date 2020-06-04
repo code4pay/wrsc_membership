@@ -12,7 +12,7 @@
             var bulk = $(".crud_bulk_actions_row_checkbox:checked");
             var users = [];
             var type = 'Renewals';
-            if (route == '/print_membership_card'){ type = 'Cards'}
+            if (route.includes('print_membership_card')){ type = 'Cards'}
             bulk.each(function() {
                 users.push({
                     'name': 'users[]',
