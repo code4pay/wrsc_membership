@@ -203,11 +203,6 @@ class BackpackUser extends User
             // set null in the database column
             $this->attributes[$attribute_name] = null;
         }
-        //Only added for the initial import where they where all jpg's
-        if (ends_with($value, '.jpg')) {
-
-            $this->attributes[$attribute_name] = $value;
-        }
 
         // if a base64 was sent, store it in the db
         if (starts_with($value, 'data:image'))

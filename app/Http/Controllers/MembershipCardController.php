@@ -37,8 +37,14 @@ class MembershipCardController extends Controller
                 abort(400, 'Could not find that user.');
             }
             array_push($users, $user);
-        }
-            $pdf = PDF::loadView('membership_card', ['users' => $users]);
+        }     
+           $config = ['instanceConfigurator' => function($mpdf) {
+            $mpdf->curlAllowUnsafeSslRequests = true;
+            $mpdf->showImageErrors =true;
+        }];
+                    $pdf = PDF::loadView('membership_card', ['users' => $users],[],$config);
+        
+
 
             $admin_user = Auth::user();
             $user->addComment('Printed Membership Card', "$admin_user->first_name $admin_user->last_name");
