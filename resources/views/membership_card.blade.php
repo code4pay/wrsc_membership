@@ -56,13 +56,13 @@
         </div>
         <div style="font-size: 7px; width: 20mm; float:right">
           @if($user->image)
-          <img style="height:20mm; width:20mm  padding-right: 1mm;" src="http://127.0.0.1/card/{{ $user->image }}" />
+          <img style="height:20mm; width:20mm  padding-right: 1mm;" src="https://127.0.0.1/card/{{ $user->image }}" />
           @else
-          <img style="width:20mm;  padding-right: 1mm;" src="http://127.0.0.1/images/blank.jpg" />
+          <img style="width:20mm;  padding-right: 1mm;" src="https://127.0.0.1/images/blank.jpg" />
           @endif
 
         </div>
-        <div style="height:7mm; padding-left: 1mm; "> Authorised by: <img style="height:10mm; vertical-align:middle;" src="images/signature.png"> </div>
+        <div style="height:7mm; padding-left: 1mm; "> Authorised by: <img style="height:10mm; vertical-align:middle;" src="https://127.0.0.1/card/signature.png"> </div>
       </div>
       <div style="display: inline-block; padding-left: 1mm; ">
         This card confirms the holder is a member of Wildlife Rescue South Coast Inc. and is authorised to act on our behalf.<br />
