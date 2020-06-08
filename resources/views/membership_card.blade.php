@@ -49,7 +49,7 @@
             ABN: 49 616 307 526
           </address>
           <h2 style="margin:0;">VOLUNTEER</h2>
-          <div style="font-size:10px">
+          <div style="font-size:9px">
             Name: <strong>{{ $user->fullName }}</strong> <br />
             Number: <strong>{{ $user->member_number }}</strong>
           </div>
