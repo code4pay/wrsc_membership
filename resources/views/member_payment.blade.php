@@ -116,7 +116,6 @@
       // This function captures the funds from the transaction.
       return actions.order.capture().then(function(details) {
     
- console.log(details);
         // This function shows a transaction success message to your buyer.
         var jqxhr = $.post("/paid_paypal", 
           {

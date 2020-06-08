@@ -140,7 +140,19 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
+
+
+    /*
+    | Our Settings 
+    */
+
     'paypal_key' => env('PAYPAL_KEY'),
+    'send_renewals_from' => env('SEND_RENEWALS_FROM'),
+    'local_address' => env('LOCAL_ADDRESS'), # So we can allow access for PDF to get images. 
+    'bcc_emails_to' => env('BCC_EMAILS_TO'), # So we can allow access for PDF to get images. 
+
+
+
 
     /*
     |--------------------------------------------------------------------------

@@ -36,7 +36,7 @@ class MemberCardRequest extends Mailable  //this email will use the queue always
         return $this->markdown('emails.member.membership_card')
         ->attachData($this->pdf, 'wrsc_membership_card.pdf',['mime' => 'application/pdf'])
         ->subject('WRSC Membership Card')
-        ->bcc('membership@wildlife-rescue.org.au')
-        ->from('membership@wildlife-rescue.org.au');
+        ->bcc(config('app.bcc_emails_to'))
+        ->from(config('app.send_renewals_from'));
     }
 }

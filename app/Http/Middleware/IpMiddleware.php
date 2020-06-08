@@ -8,8 +8,10 @@ class IpMiddleware
 {
 
     public function handle($request, Closure $next)
-    {
-        if ($request->ip() != "127.0.0.1") {
+    {  
+
+        if ($request->ip() != config('app.local_address')) {
+
             return redirect('/admin');
         }
 

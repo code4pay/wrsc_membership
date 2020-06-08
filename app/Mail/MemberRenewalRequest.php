@@ -34,8 +34,8 @@ class MemberRenewalRequest extends Mailable implements ShouldQueue //this email 
         $curDir = dirname(__FILE__);
         $presidents_report = $curDir.'/../../storage/app/private/documents/presidents_report_2020.pdf';
         return $this->markdown('emails.member.renewal_request')
-        ->from('membership@wildlife-rescue.org.au')
-        ->bcc('membership@wildlife-rescue.org.au')
+        ->from(config('app.send_renewals_from'))
+        ->bcc(config('app.bcc_emails_to'))
         ->attach($presidents_report)
         ->subject('WRSC Membership Renewal')
         ;

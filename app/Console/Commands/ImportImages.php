@@ -74,8 +74,9 @@ class ImportImages extends Command
                     continue;
                 }
                 if (Storage::disk('private')->exists('profile_images/' . $data[2].'.jpg' )){
+                    print_r ("saving image for $data[2]\n");
                     $member->image = 'profile_images/'.$data[2].'.jpg';
-                    $member->save;
+                    $member->save();
                 }
             }
             fclose($handle);
