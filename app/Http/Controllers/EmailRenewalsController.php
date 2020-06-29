@@ -11,6 +11,10 @@ class EmailRenewalsController extends Controller
 {
     public function emailRenewals(Request $request)
     {
+        if (!backpack_user()->can('Send Renewals')){
+            abort(403, 'You do not have access to this action');
+           }
+        
         foreach ($request->get('users') as $user_id) {
             $user = \App\Models\BackpackUser::find($user_id);
             if (!$user) {
@@ -28,6 +32,9 @@ class EmailRenewalsController extends Controller
 
     public function printRenewals(Request $request)
     {
+        if (!backpack_user()->can('Send Renewals')){
+            abort(403, 'You do not have access to this action');
+           }
         $users = [];
         foreach ($request->get('users') as $user_id) {
             $user = \App\Models\BackpackUser::find($user_id);

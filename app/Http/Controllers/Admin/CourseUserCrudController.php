@@ -21,7 +21,10 @@ class CourseUserCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
     public function setup()
-    {
+    {        if (!backpack_user()->can('Manage Courses')){
+        abort(403, 'You do not have access to this action');
+       }
+
         $this->crud->setModel('App\Models\CourseUser');
         $this->crud->setTitle('Add a Course to User');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/courseuser');

@@ -2,6 +2,7 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="fa fa-dashboard nav-icon"></i> {{ trans('backpack::base.dashboard') }}</a></li>
 <!-- Users, Roles, Permissions -->
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon fa fa-user"></i> <span>Members</span></a></li>
+@role('admin')
 <li class="nav-item nav-dropdown">
 	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fa fa-group"></i>Admin</a>
 	<ul class="nav-dropdown-items">
@@ -13,4 +14,5 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('region') }}'><i class='nav-icon fa fa-question'></i>Regions</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('membershiptype') }}'><i class='nav-icon fa fa-question'></i> Membership Types</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('authority') }}'><i class='nav-icon fa fa-question'></i> Authorities</a></li>
+@endrole
 <!-- <li class='nav-item'><a class='nav-link' href='{{ backpack_url('email_template') }}'><i class='nav-icon fa fa-question'></i> Email_templates</a></li> -->
