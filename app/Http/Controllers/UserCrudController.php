@@ -393,6 +393,15 @@ class UserCrudController extends CrudController
 
         $this->crud->addFilter([ // simple filter
             'type' => 'simple',
+            'name' => 'dont_renew',
+            'label'=> 'Dont Renew'
+          ], 
+          false, 
+          function() { // if the filter is active
+               $this->crud->addClause('where', 'dont_renew', 1 ); // apply the "active" eloquent scope 
+          } );
+        $this->crud->addFilter([ // simple filter
+            'type' => 'simple',
             'name' => 'tac_email_date',
             'label'=> 'Not Emailed'
           ], 
