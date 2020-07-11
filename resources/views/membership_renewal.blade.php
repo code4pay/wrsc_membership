@@ -18,7 +18,7 @@
 <!-- Start Header -->
 <p align="right" style="margin-left: -0.5cm; margin-right: -0.24cm; text-indent: 0.25cm; margin-bottom: 0cm; font-variant: small-caps; line-height: 92%">
 <font color="#000000"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><b>WILDLIFE
-RESCUE SOUTH COAST INC</b></font></font></font><img src="/images/wrsc_small.png" name="image1.png" align="left" hspace="12" width="113" height="113" border="0"/>
+RESCUE SOUTH COAST INC</b></font></font></font><img src="images/wrsc_small.png" name="image1.png" align="left" hspace="12"  height="60" border="0"/>
 </p>
 <p align="right" style="margin-right: -0.24cm; margin-bottom: 0cm; font-variant: small-caps; line-height: 92%">
 <font color="#000000"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><b>PO
@@ -81,26 +81,23 @@ not being able to fully partake in activities, and because of the
 generosity of donors, we are discounting the renewal cost by 50% to
 $15 for Primary members for this year only.</font></font></font></p>
 <p align="justify" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
-<br/>
-
-</p>
-<p align="justify" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
 <font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">We
 have a major change to the way we are doing renewals this year. You
 now have the opportunity to renew online. </font></font></font>
 </p>
 <ul>
-	<li/>
-<p align="justify" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
+	<li>
 	<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">In
 	this email you will find a link to your membership record, where you
-	can check and update personal details.</font></font></font></p>
-	<li/>
-<p align="justify" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
+	can check and update personal details.</font></font></font>
+</li>
+<li>
 	<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">When
 	your details are correct, all you need to do is acknowledge the
 	terms and conditions and remit the funds as shown on the
-	acknowledgement screen</font></font></font></p>
+	acknowledgement screen</font></font></font>
+</li>
+
 </ul>
 <p align="justify" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
 <font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">If
@@ -117,7 +114,6 @@ you have animals in care, and have not paid membership by the start
 of the new financial year ie 1 July 2020 then you are not covered by
 NPWS licence MWL000100253 or our insurance.</span></span></font></font></span></font></span></p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
-<br/>
 
 </p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
@@ -128,7 +124,6 @@ look forward to facing it with your assistance.</font></font></font></p>
 <font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Yours
 Sincerely	</font></font></font></p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
-<br/>
 
 </p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
@@ -148,7 +143,7 @@ Officer</font></font></font></p>
 <!-- Start Header -->
 <p align="right" style="margin-left: -0.5cm; margin-right: -0.24cm; text-indent: 0.25cm; margin-bottom: 0cm; font-variant: small-caps; line-height: 92%">
 <font color="#000000"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><b>WILDLIFE
-RESCUE SOUTH COAST INC</b></font></font></font><img src="membership_renewals_html_92d2f9f312b72b4e.png" name="image1.png" align="left" hspace="12" width="113" height="113" border="0"/>
+RESCUE SOUTH COAST INC</b></font></font></font>
 </p>
 <p align="right" style="margin-right: -0.24cm; margin-bottom: 0cm; font-variant: small-caps; line-height: 92%">
 <font color="#000000"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><b>PO
@@ -234,7 +229,7 @@ your payment.</span></b></font></font></p>
 					</p>
 				</td>
 				<td width="194" style="border: 1px solid #808080; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
-					<p>{{ $user->postcode }}
+					<p>{{ $user->post_code }}
 					</p>
 				</td>
 			</tr>
@@ -244,7 +239,7 @@ your payment.</span></b></font></font></p>
 					Address (if different from above)</font></font></p>
 				</td>
 				<td colspan="2" width="418" style="border: 1px solid #808080; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
-					<p>{{ $user->address_residential }} {{ $user->city_residential }} {{$user->postcode_residential}}
+					<p>{{ $user->address_residential }} {{ $user->city_residential }} {{$user->post_code_residential}}
 
 					</p>
 				</td>

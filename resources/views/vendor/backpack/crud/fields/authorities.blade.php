@@ -6,9 +6,9 @@
 <tr><th>Authority Name</th><th>Description</th><th>Date Authorised</th><tr>
 @if (isset($field['value']))
 @foreach ($field['value'] as  $attributes)
-    <tr> <td>{{ $attributes->authority->name }} </td><td>{{ $attributes['comment'] }} </td><td>{{ $attributes['date_authorised'] }}</td><td>@if ($crud->hasAccess('delete'))
+    <tr> <td>{{ $attributes->authority->name }} </td><td>{{ $attributes['comment'] }} </td><td>{{ $attributes['date_authorised'] }}</td><td>
 	<a href="javascript:void(0)" onclick="deleteEntry(this)" data-route="/admin/authoritiesuser/{{ $attributes['id'] }}" class="btn btn-sm btn-link" data-button-type="delete"><i class="fa fa-trash"></i> {{ trans('backpack::crud.delete') }}</a>
-@endif</td> </tr>
+</td> </tr>
 
 
      @endforeach

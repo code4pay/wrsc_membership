@@ -124,10 +124,7 @@ class TacsController extends Controller
         };
         if ($request->input('amount'))
             {
-            $user->addComment('Member Paid  by Paypal $'.$request->input('amount').' id:'.$request->input('order_id'));
-            $user->paid_paypal_date =  date('Y-m-d');
-            $user->paid_paypal_amount = $request->input('amount');
-            $user->save();
+                $user->paypalRenewal($request->input('amount'), $request->input('order_id'));
         }
 
     }

@@ -253,6 +253,7 @@ class UserCrudController extends CrudController
         //enable the selection of mutiple entries in list. 
         $this->crud->enableBulkActions();
 
+      
         // Course Filter on Main members list page
         $this->crud->addFilter(
             [
@@ -408,7 +409,38 @@ class UserCrudController extends CrudController
           false, 
           function() { // if the filter is active
                $this->crud->addClause('whereNull', 'tac_email_date' ); // apply the "active" eloquent scope 
-          } );
+          } );  
+
+        $this->crud->addFilter([ // simple filter
+            'type' => 'dropdown',
+            'name' => 'tac_date',
+            'label'=> 'T&C'
+          ], 
+          [
+             1 =>'Accepted',
+             2 => 'Not Accepted'
+          ],
+          function($value) { 
+              if ($value == 1) {
+               $this->crud->addClause('whereNotNull', 'tac_date' ); 
+              } else {
+               $this->crud->addClause('whereNull', 'tac_date' ); 
+              }
+          } );  
+          // This is a default filter to not list non active members
+          $this->crud->addFilter([ 
+            'type'  => 'simple',
+            'name'  => 'inactive_members',
+            'label' => 'Show Inactive Members',
+          ],
+          false, // the simple filter has no values, just the "Draft" label specified above
+          function () { // if the filter is active (the GET parameter "checkbox" exits)
+              $this->crud->addClause('where', 'member_type_id', '=','8');
+          },
+          function () { // if the filter is NOT active (the GET parameter "checkbox" does not exit)
+              $this->crud->addClause('where', 'member_type_id', '<>','8');
+          });
+
 
 
     }
@@ -527,6 +559,70 @@ class UserCrudController extends CrudController
                 'allows_null' => false,
             ],
             [
+                'label' => "Region",
+                'type' => 'select',
+                'name' => 'region_id', // the db column for the foreign key
+                'entity' => 'region', // the method that defines the relationship in your Model
+                'attribute' => 'region_name', // foreign key attribute that is shown to user
+                'model' => "App\Models\Region" // foreign key model
+            ],       
+            [
+                'label' => "Primary Member",
+                'type' => 'select2',
+                'placeholder' => "Select a category",
+                'minimum_input_length' => 2,
+                'name' => 'primary_member_id', // the method that defines the relationship in your Model
+                'entity' => 'primary',
+                'attribute' => 'fullname', // foreign key attribute that is shown to user
+                'options'   => (function ($query) use ($user_id) {
+                    return $query->whereNull('primary_member_id')->where('id', '<>', $user_id)->get();
+                }),
+                #'data_source' => url("/api/primary_user"),
+            ],
+            [
+                'label' => "Member Type",
+                'type' => 'select',
+                'name' => 'member_type_id', // the db column for the foreign key
+                'entity' => 'memberType', // the method that defines the relationship in your Model
+                'attribute' => 'name', // foreign key attribute that is shown to user
+                'model' => "App\Models\Membershiptype", // foreign key model
+                'wrapperAttributes' => ['class' => 'col-md-4']
+            ],
+            [   // select2_from_array
+                'name' => 'dob',
+                'label' => "Year Of Birth (Only if less than 18)",
+                'type' => 'select2_from_array',
+                'options' => [
+                   
+                    '2000' => '2000',
+                    '2001' => '2001',
+                    '2002' => '2002',
+                    '2003' => '2003',
+                    '2004' => '2004',
+                    '2005' => '2005',
+                    '2006' => '2006',
+                    '2007' => '2007',
+                    '2008' => '2008',
+                    '2009' => '2009',
+                    '2010' => '2010',
+                    '2011' => '2011',
+                    '2012' => '2012',
+                    '2013' => '2013',
+                    '2014' => '2014',
+                    '2015' => '2015',
+                    '2016' => '2016',
+                    '2017' => '2017',
+                    '2018' => '2018',
+                    '2019' => '2019',
+                    '2020' => '2020',
+                    '2021' => '2021',
+                    '2022' => '2022',
+                ],
+                'allows_null' => true,
+                'default' =>null,
+                'wrapperAttributes' => ['class' => 'col-md-4']
+            ],
+            [
                 'tab' => 'Main',
                 'name'  => 'email',
                 'label' => 'Email',
@@ -567,14 +663,7 @@ class UserCrudController extends CrudController
                 'type' => 'custom_html',
                 'value' => '<hr/>'
             ],
-            [
-                'label' => "Region",
-                'type' => 'select',
-                'name' => 'region_id', // the db column for the foreign key
-                'entity' => 'region', // the method that defines the relationship in your Model
-                'attribute' => 'region_name', // foreign key attribute that is shown to user
-                'model' => "App\Models\Region" // foreign key model
-            ],
+
             [
                 'tab' => 'Main',
                 'name'  => 'address',
@@ -674,19 +763,7 @@ class UserCrudController extends CrudController
                 'type'  => 'text',
                 'wrapperAttributes' => ['class' => 'col-md-6']
             ],
-            [
-                'label' => "Primary Member",
-                'type' => 'select2',
-                'placeholder' => "Select a category",
-                'minimum_input_length' => 2,
-                'name' => 'primary_member_id', // the method that defines the relationship in your Model
-                'entity' => 'primary',
-                'attribute' => 'fullname', // foreign key attribute that is shown to user
-                'options'   => (function ($query) use ($user_id) {
-                    return $query->whereNull('primary_member_id')->where('id', '<>', $user_id)->get();
-                }),
-                #'data_source' => url("/api/primary_user"),
-            ],
+ 
             [
                 'tab' => 'Membership Details',
                 'name'  => 'wildman_number',
@@ -694,14 +771,7 @@ class UserCrudController extends CrudController
                 'type'  => 'text',
                 'wrapperAttributes' => ['class' => 'col-md-6']
             ],
-            [
-                'label' => "Member Type",
-                'type' => 'select',
-                'name' => 'member_type_id', // the db column for the foreign key
-                'entity' => 'memberType', // the method that defines the relationship in your Model
-                'attribute' => 'name', // foreign key attribute that is shown to user
-                'model' => "App\Models\Membershiptype" // foreign key model
-            ],
+           
             [
                 'tab' => 'Membership Details',
                 'name'  => 'joined',
@@ -719,14 +789,14 @@ class UserCrudController extends CrudController
             [
                 'tab' => 'Membership Details',
                 'name'  => 'receipt_date',
-                'label' => 'Receipt Date',
+                'label' => 'Payment Received Date (D/D)',
                 'type'  => 'date',
                 'wrapperAttributes' => ['class' => 'col-md-6']
             ],
             [
                 'tab' => 'Membership Details',
                 'name'  => 'receipt_number',
-                'label' => 'Receipt Number',
+                'label' => 'Receipt Number and Amount',
                 'type'  => 'text',
                 'wrapperAttributes' => ['class' => 'col-md-6']
             ],
