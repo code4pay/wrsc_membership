@@ -6,9 +6,9 @@
 <tr><th>Course Name</th><th>Date_completed</th><th>Comment</th><th>Course By</th><tr>
 @if (isset($field['value']))
 @foreach ($field['value'] as  $attributes)
-    <tr> <td>{{ $attributes->course->name }} </td><td>{{ $attributes['date_completed'] }} </td><td>{{ $attributes['comment'] }}</td><td>{{ $attributes['course_by'] }}</td><td>@if ($crud->hasAccess('delete'))
+    <tr> <td>{{ $attributes->course->name }} </td><td>{{ $attributes['date_completed'] }} </td><td>{{ $attributes['comment'] }}</td><td>{{ $attributes['course_by'] }}</td><td>
 	<a href="javascript:void(0)" onclick="deleteEntry(this)" data-route="/admin/courseuser/{{ $attributes['id'] }}" class="btn btn-sm btn-link" data-button-type="delete"><i class="fa fa-trash"></i> {{ trans('backpack::crud.delete') }}</a>
-@endif</td> </tr>
+</td> </tr>
 
 
      @endforeach

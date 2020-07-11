@@ -153,6 +153,20 @@ class BackpackUser extends User
 
     }
 
+    public function paypalRenewal($amount, $orderId)
+    {
+
+        $this->addComment('Member Paid  by Paypal $' . $amount . ' id:' . $orderId);
+        $this->paid_paypal_date =  date('Y-m-d');
+        $this->paid_paypal_amount = $amount;
+        $this->save();
+        foreach ($this->siblings()->get() as $sibling) {
+            $sibling->paid_paypal_date =  date('Y-m-d');
+            $sibling->addComment('Membership Paid via Paypal by Primary Member $' . $amount . ' id:' . $orderId);
+            $sibling->save();
+        }
+    }
+
 
     public function renewalAmount()
     {
@@ -187,6 +201,8 @@ class BackpackUser extends User
         array_push($comments,['comment'=> $comment, 'date' => date('Y-m-d'), 'author' => $user]); 
         $this->comments = json_encode($comments);
     }
+
+
 
     public function setImageAttribute($value)
     {
