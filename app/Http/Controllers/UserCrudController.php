@@ -33,7 +33,6 @@ class UserCrudController extends CrudController
     }
     protected function setupShowOperation()
     { 
-
         $this->crud->set('show.setFromDb', false);
         $this->crud->addColumn(
             [
@@ -204,9 +203,13 @@ class UserCrudController extends CrudController
         if (!backpack_user()->can('List Members')){
     #     abort(403, 'You do not have access to this action');
         }
-        if (!backpack_user()->can('Edit Members')){
+        if (!backpack_user()->can('Modify All')){
             $this->crud->denyAccess('update');
             $this->crud->denyAccess('create');
+            $this->crud->denyAccess('revisions');
+        }
+        if (!backpack_user()->can('Read All')){
+            $this->crud->denyAccess('show');
         }
         //turns on the export button on the first page. 
         $this->crud->enableExportButtons();
@@ -220,6 +223,7 @@ class UserCrudController extends CrudController
         $this->crud->addButtonFromView('bottom', 'print_membership_card', 'print_membership_card', 'beginning');#membership renewals
         $this->crud->addButtonFromView('bottom', 'email_membership_card', 'email_membership_card', 'beginning');#membership renewals
         }
+
         $this->crud->setColumns([
             [
                 'name'  => 'first_name',
@@ -231,12 +235,34 @@ class UserCrudController extends CrudController
                 'label' => 'Last Name',
                 'type'  => 'text',
             ],
-            [
+        ]);
+        if (backpack_user()->can('Read Email Address') || backpack_user()->can('Read All') ){
+        $this->crud->addColumns([
+             [
                 'name'  => 'email',
                 'label' => 'Email',
                 'type'  => 'email',
             ],
+        ]);
+        }
+        if (backpack_user()->can('Read Phone Numbers') ){
+        $this->crud->addColumns([
+             [
+                'name'  => 'mobile',
+                'label' => 'Mobile',
+                'type'  => 'text',
+            ],
+            [
 
+                'name'  => 'home_phone',
+                'label' => 'Home Phone',
+                'type'  => 'text',
+            
+            ],
+        ]);
+        }
+         if( backpack_user()->can('Read All')){
+            $this->crud->addColumns([
             [
                 'label'     => 'Region', // Table column heading
                 'type'      => 'select',
@@ -256,6 +282,10 @@ class UserCrudController extends CrudController
                 'entity'    => 'memberType', // the method that defines the relationship in your Model
                 'attribute' => 'name', // foreign key attribute that is shown to user
             ],
+            ]);
+        }
+         if( backpack_user()->can('Read Authorities')){
+             $this->crud->addColumn(
             [ // n-n relationship (with pivot table)
                 'label'     => 'Authorities', // Table column heading
                 'type'      => 'select_multiple',
@@ -263,7 +293,11 @@ class UserCrudController extends CrudController
                 'entity'    => 'authorities', // the method that defines the relationship in your Model
                 'attribute' => 'authority.name', // foreign key attribute that is shown to user
                 'model'     => '\App\Models\AuthorityUser', // foreign key model
-            ],
+            ]);
+         }
+
+         if( backpack_user()->can('Read All')){
+            $this->crud->addColumns([
             [
                 'name'  => 'dont_renew',
                 'label' => 'No Renew',
@@ -282,10 +316,11 @@ class UserCrudController extends CrudController
 
           
         ]);
-
+        }
         //enable the selection of mutiple entries in list. 
         $this->crud->enableBulkActions();
 
+         if( backpack_user()->can('Read All')){
       
         // Course Filter on Main members list page
         $this->crud->addFilter(
@@ -460,6 +495,10 @@ class UserCrudController extends CrudController
                $this->crud->addClause('whereNull', 'tac_date' ); 
               }
           } );  
+
+
+        } // End of "Read All" Permission limit. 
+
           // This is a default filter to not list non active members
           $this->crud->addFilter([ 
             'type'  => 'simple',
@@ -480,7 +519,7 @@ class UserCrudController extends CrudController
 
     public function setupCreateOperation()
     {
-       if (!backpack_user()->can('Edit Members')){
+       if (!backpack_user()->can('Modify All')){
         abort(403, 'You do not have access to this action');
        }
         $this->addUserFields();
@@ -492,8 +531,7 @@ class UserCrudController extends CrudController
 
     public function setupUpdateOperation()
     {
-        #dd(backpack_user()->getPermissionsViaRoles());
-       if (!backpack_user()->can('Edit Members')){
+       if (!backpack_user()->can('Modify All')){
         abort(403, 'You do not have access to this action');
        }
         if (!$this->crud->settings()['update.access']) {
