@@ -54,7 +54,8 @@ class User extends Authenticatable
         'tac_date',
         'tac_email_date',
         'lyssa_serology_comment',
-        'dob'
+        'dob',
+        'documents',
     ];
 
     /**

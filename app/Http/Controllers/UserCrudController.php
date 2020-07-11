@@ -200,9 +200,6 @@ class UserCrudController extends CrudController
     public function setupListOperation()
     {
         
-        if (!backpack_user()->can('List Members')){
-    #     abort(403, 'You do not have access to this action');
-        }
         if (!backpack_user()->can('Modify All')){
             $this->crud->denyAccess('update');
             $this->crud->denyAccess('create');
@@ -959,8 +956,17 @@ class UserCrudController extends CrudController
                 'name'  => 'authorities',
                 'model'   => 'App\Models\AuthoritiesUser',
             ],
+            [   
+                'tab' => 'Documents',
+                'name' => 'documents',
+                'label' => 'Documents',
+                'type' => 'upload_multiple',
+                'upload' => true,
+                'disk' => 'private', 
+            ],
 
         ]);
+
         if (backpack_user()->hasRole('admin')){
             $this->crud->addFields([
                 [

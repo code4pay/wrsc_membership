@@ -22,6 +22,12 @@ class BackpackUser extends User
     use HasRoles; // <------ and this
     protected $table = 'users';
 
+    protected $casts = [
+        'documents' => 'array' //document names are stored as JSON string.
+    ];
+
+
+
     // this is here for the revsionable https://backpackforlaravel.com/docs/4.0/crud-operation-revisions
     public function identifiableName()
     {
@@ -242,6 +248,68 @@ class BackpackUser extends User
             $this->attributes[$attribute_name] = $public_destination_path.'/'.$filename;
 
         }
+    }
+
+    public function setDocumentsAttribute($value)
+    {
+        $attribute_name = "documents";
+        $disk = "private";
+        $destination_path = "documents";
+
+        $this->uploadMultipleFiles($value, $attribute_name, $disk, $destination_path);
+    }
+     /**
+     *  Copied from the Orginal BackPack function and modified to not
+     * give a randome name.  
+     * Handle multiple file upload and DB storage:
+     * - if files are sent
+     *     - stores the files at the destination path
+     *     - stores the full path in the DB, as JSON array;
+     * - if a hidden input is sent to clear one or more files
+     *     - deletes the file
+     *     - removes that file from the DB.
+     *
+     * @param string $value            Value for that column sent from the input.
+     * @param string $attribute_name   Model attribute name (and column in the db).
+     * @param string $disk             Filesystem disk used to store files.
+     * @param string $destination_path Path in disk where to store the files.
+     */
+    private function uploadMultipleFiles($value, $attribute_name, $disk, $destination_path)
+    {
+        if (! is_array($this->{$attribute_name})) {
+            $attribute_value = json_decode($this->{$attribute_name}, true) ?? [];
+        } else {
+            $attribute_value = $this->{$attribute_name};
+        }
+        $files_to_clear = request()->get('clear_'.$attribute_name);
+
+        // if a file has been marked for removal,
+        // delete it from the disk and from the db
+        if ($files_to_clear) {
+            foreach ($files_to_clear as $key => $filename) {
+                \Storage::disk($disk)->delete($filename);
+                $attribute_value = array_where($attribute_value, function ($value, $key) use ($filename) {
+                    return $value != $filename;
+                });
+            }
+        }
+
+        // if a new file is uploaded, store it on disk and its filename in the database
+        if (request()->hasFile($attribute_name)) {
+            foreach (request()->file($attribute_name) as $file) {
+                if ($file->isValid()) {
+                    $new_file_name = $file->getClientOriginalName();
+
+                    // 2. Move the new file to the correct path
+                    $file_path = $file->storeAs($destination_path, $new_file_name, $disk);
+
+                    // 3. Add the public path to the database
+                    $attribute_value[] = $file_path;
+                }
+            }
+        }
+
+        $this->attributes[$attribute_name] = json_encode($attribute_value);
     }
 
 
