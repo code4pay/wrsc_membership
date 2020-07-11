@@ -9,7 +9,6 @@
         'button_text' => trans('backpack::base.logout'),
     ];
 @endphp
-
 @section('content')
 <div class="row">
 <table class="table col-md-5">
