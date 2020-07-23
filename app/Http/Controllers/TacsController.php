@@ -63,7 +63,7 @@ class TacsController extends Controller
             $user->mobile = $request->input('mobile');
         }
         if ($request->input('home_phone')) {
-            $user->mobile = $request->input('home_phone');
+            $user->home_phone = $request->input('home_phone');
         }
         $user->tac_date = date("Y-m-d H:i:s");
         $user->addComment('Terms and Conditions accepted from Web site');
