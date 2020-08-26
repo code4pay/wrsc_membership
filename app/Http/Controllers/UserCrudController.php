@@ -310,6 +310,21 @@ class UserCrudController extends CrudController
                 'label' => 'Paid PayPal',
                 'type'  => 'date',
             ],
+             [ 
+                 'name' => 'member_number',
+                 'label' => 'Member Number',
+                 'type' => 'text'
+             ],
+             [
+                'type'      => 'select',
+                'label' => "Primary Member",
+                'type' => 'select',
+                'placeholder' => "Select a category",
+                'minimum_input_length' => 2,
+                'name' => 'primary_member_id', // the method that defines the relationship in your Model
+                'entity' => 'primary',
+                'attribute' => 'fullname', // foreign key attribute that is shown to user
+             ]
 
           
         ]);
