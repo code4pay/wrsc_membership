@@ -1,0 +1,1 @@
+<span>@php  if ($entry->primary_member_id) {echo ($entry->primary()->first()->fullname);}  @endphp</span>

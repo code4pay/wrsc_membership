@@ -316,19 +316,39 @@ class UserCrudController extends CrudController
                  'type' => 'text'
              ],
              [
-                'type'      => 'select',
-                'label' => "Primary Member",
-                'type' => 'select',
-                'placeholder' => "Select a category",
-                'minimum_input_length' => 2,
-                'name' => 'primary_member_id', // the method that defines the relationship in your Model
-                'entity' => 'primary',
-                'attribute' => 'fullname', // foreign key attribute that is shown to user
+                 'name' => 'wildman_number',
+                 'label' => 'Wildman Number',
+                 'type' => 'text'
+             ],
+             [
+                'name' => 'primary_member',
+                'label' => 'Primary Member',
+                'type' => 'fullname'
+             ],
+             [
+                 'name' => 'address',
+                 'label' => 'Address',
+                 'type' => 'text'
+             ],
+             [
+                 'name' => 'post_code',
+                 'label' => 'Postcode',
+                 'type' => 'text'
+             ],
+             [
+                 'name' => 'joined',
+                 'label' => 'Joined date',
+                 'type' => 'date'
              ]
+
+
 
           
         ]);
         }
+
+//Start of Filters
+
         //enable the selection of mutiple entries in list. 
         $this->crud->enableBulkActions();
 
@@ -356,6 +376,9 @@ class UserCrudController extends CrudController
             }
         );
        
+       
+        
+
         $this->crud->addFilter(
             [
                 'name'  => 'autorities',
