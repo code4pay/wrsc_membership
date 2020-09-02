@@ -6,14 +6,21 @@
 <tr><th>Authority Name</th><th>Description</th><th>Date Authorised</th><tr>
 @if (isset($field['value']))
 @foreach ($field['value'] as  $attributes)
-    <tr> <td>{{ $attributes->authority->name }} </td><td>{{ $attributes['comment'] }} </td><td>{{ $attributes['date_authorised'] }}</td><td>
+	<tr> <td>{{ $attributes->authority->name }} </td><td>{{ $attributes['comment'] }} </td><td>{{ $attributes['date_authorised'] }}</td>
+	<td>
+ 
+@can('Modify All') 
 	<a href="javascript:void(0)" onclick="deleteEntry(this)" data-route="/admin/authoritiesuser/{{ $attributes['id'] }}" class="btn btn-sm btn-link" data-button-type="delete"><i class="fa fa-trash"></i> {{ trans('backpack::crud.delete') }}</a>
+@endcan
 </td> </tr>
 
 
      @endforeach
 @endif
-     <tr><td><a href="/admin/authoritiesuser/create?user_id={{ $entry->getKey() }}" class="btn btn-info" role="button">Add Authority</a></td><td></td><td></td></tr>
+
+@can('Modify All') 
+	 <tr><td><a href="/admin/authoritiesuser/create?user_id={{ $entry->getKey() }}" class="btn btn-info" role="button">Add Authority</a></td><td></td><td></td></tr>
+@endcan
 </table>
 </div>
 @push('after_scripts') @if ($crud->request->ajax()) @endpush @endif

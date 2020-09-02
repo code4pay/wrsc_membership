@@ -201,7 +201,9 @@ class UserCrudController extends CrudController
     {
         
         if (!backpack_user()->can('Modify All')){
-            $this->crud->denyAccess('update');
+            if (!backpack_user()->can('Read All')){
+                $this->crud->denyAccess('update');
+            }
             $this->crud->denyAccess('create');
             $this->crud->denyAccess('revisions');
         }
@@ -566,12 +568,10 @@ class UserCrudController extends CrudController
 
     public function setupUpdateOperation()
     {
-       if (!backpack_user()->can('Modify All')){
+       if (!backpack_user()->can('Modify All')&&!backpack_user()->can('Read All') ){
         abort(403, 'You do not have access to this action');
        }
-        if (!$this->crud->settings()['update.access']) {
-            abort(403, 'You do not have access to this action');
-        }
+
         $user = $this->getUser();
         $this->addUserFields($user);
         $this->crud->setValidation(UpdateRequest::class);
@@ -608,6 +608,9 @@ class UserCrudController extends CrudController
     public function update()
     {
 
+       if (!backpack_user()->can('Modify All')){
+        abort(403, 'You do not have access to this action');
+       }
         $this->crud->request = $this->crud->validateRequest();
         $this->crud->request = $this->handlePasswordInput($this->crud->request);
         $this->crud->unsetValidation(); // validation has already been run
@@ -658,7 +661,7 @@ class UserCrudController extends CrudController
         if (isset($user)) {
             $user_id = $user->id;
         }
-        $this->crud->addFields([
+        $crud_fields = [
             [
                 'name'  => 'first_name',
                 'label' => 'First Name',
@@ -1003,8 +1006,16 @@ class UserCrudController extends CrudController
                 'disk' => 'private', 
             ],
 
-        ]);
+        ];
 
+        if (!backpack_user()->can('Modify All')) {
+            if (backpack_user()->can('Read All')) {
+                foreach ($crud_fields as &$crud_field) {
+                    $crud_field["attributes"] = ["readonly" => "readonly", "disabled" => "disabled"];
+                }
+            }
+        }
+        $this->crud->addFields($crud_fields);
         if (backpack_user()->hasRole('admin')){
             $this->crud->addFields([
                 [

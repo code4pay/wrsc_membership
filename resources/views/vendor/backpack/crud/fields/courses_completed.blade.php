@@ -6,14 +6,26 @@
 <tr><th>Course Name</th><th>Date_completed</th><th>Comment</th><th>Course By</th><tr>
 @if (isset($field['value']))
 @foreach ($field['value'] as  $attributes)
-    <tr> <td>{{ $attributes->course->name }} </td><td>{{ $attributes['date_completed'] }} </td><td>{{ $attributes['comment'] }}</td><td>{{ $attributes['course_by'] }}</td><td>
-	<a href="javascript:void(0)" onclick="deleteEntry(this)" data-route="/admin/courseuser/{{ $attributes['id'] }}" class="btn btn-sm btn-link" data-button-type="delete"><i class="fa fa-trash"></i> {{ trans('backpack::crud.delete') }}</a>
+	<tr> <td>{{ $attributes->course->name }} </td><td>{{ $attributes['date_completed'] }} </td><td>{{ $attributes['comment'] }}</td><td>{{ $attributes['course_by'] }}</td>
+	<td>
+	@can('Modify All') 
+		<a href="javascript:void(0)" onclick="deleteEntry(this)" data-route="/admin/courseuser/{{ $attributes['id'] }}" class="btn btn-sm btn-link" data-button-type="delete"><i class="fa fa-trash"></i> {{ trans('backpack::crud.delete') }}</a>
+	@endcan
 </td> </tr>
 
 
      @endforeach
 @endif
-     <tr><td><a href="/admin/courseuser/create?user_id={{ $entry->getKey() }}" class="btn btn-info" role="button">Add Course</a></td><td></td><td></td></tr>
+@can('Modify All') 
+     <tr><td>
+	 <a
+	  href="/admin/courseuser/create?user_id={{ $entry->getKey() }}"
+	  class="btn btn-info"
+	   role="button"
+	   @include('crud::inc.field_attributes')
+	   >Add Course
+	   </a></td><td></td><td></td></tr>
+@endcan
 </table>
 </div>
 @push('after_scripts') @if ($crud->request->ajax()) @endpush @endif

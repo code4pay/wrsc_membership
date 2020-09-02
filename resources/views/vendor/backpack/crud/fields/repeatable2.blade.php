@@ -32,8 +32,10 @@ $field['value'] = is_array($field['value']) ? json_encode($field['value']) : $fi
     </div>
 
 </div>
-<button type="button" class="btn btn-outline-primary btn-sm ml-1 add-repeatable-element-button">+ New Item</button>
 
+@can('Modify All') 
+<button type="button" class="btn btn-outline-primary btn-sm ml-1 add-repeatable-element-button">+ New Item</button>
+@endcan
 @include('crud::fields.inc.wrapper_end')
 @if ($crud->fieldTypeNotLoaded($field))
 @php
