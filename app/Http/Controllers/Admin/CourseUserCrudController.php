@@ -76,6 +76,11 @@ class CourseUserCrudController extends CrudController
                 'entity' => 'course', // the method that defines the relationship in your Model
                 'attribute' => 'name',
             ],
+             [
+                'label' => "Comment",
+                'type' => 'text',
+                'name' => 'comment', // the db column for the foreign key
+            ],
             [
                 'label' => "Course By",
                 'type' => 'text',
@@ -86,13 +91,7 @@ class CourseUserCrudController extends CrudController
                 'type' => 'date',
                 'name' => 'date_completed', // the db column for the foreign key
             ],
-            // [   // Upload
-            //     'name'   => 'upload',
-            //     'label'  => 'Upload',
-            //     'type'   => 'upload',
-            //     'upload' => true,
 
-            // ]
         ]);
     }
 }

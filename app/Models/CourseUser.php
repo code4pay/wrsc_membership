@@ -19,7 +19,7 @@ class CourseUser extends Model
         'course_id',
         'course_by',
         'date_completed',
-        'upload',
+        'comment'
     ];
     public function user() {
         return $this->belongsTo('\App\Models\BackpackUser');
@@ -28,15 +28,6 @@ class CourseUser extends Model
     public function course() {
         return $this->belongsTo('\App\Models\Course');
     }
-    public function setUploadAttribute($value)
-    {
-        $attribute_name = "upload";
-        $disk = "public";
-        $destination_path = "folder";
 
-        $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
-
-    // return $this->attributes[{$attribute_name}]; // uncomment if this is a translatable field
-    }
 
 }
