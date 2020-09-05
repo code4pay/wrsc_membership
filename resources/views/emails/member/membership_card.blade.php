@@ -6,15 +6,16 @@
 Dear {{ $user->first_name }}
 Thank you for being part of WRSC. 
 
-Please find attached you Membership card. 
+Please find attached you updated Membership card. 
 
-You can either print this out or have it available on your phone to present when required. 
+You can either print this out or have it available on your phone to present when required. If you require a laminated card, please let me know at
+<a mailto="membership@wildlife-rescue.org.au">membership@wildlife-rescue.org.au</a>.
+Please do not reply to this email as it is not monitored.
 
-Thank you again for your membership and it is a new world we are facing and look forward to facing it with your assistance.<br/>
+Thank you again for your membership.<br/>
 
 Yours Sincerely <br/>   
 
-Thanks,<br>
 Anne Cherry<br> 
 Membership Officer<br>
 Wildlife Rescue South Coast
