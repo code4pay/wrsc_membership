@@ -14,10 +14,12 @@
         "flynsarmy/db-blade-compiler": "2.*",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
+        "jimmyjs/laravel-report-generator": "^2.0",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "niklasravnsborg/laravel-pdf": "^4.0",
-        "owen-it/laravel-auditing": "^10.0"
+        "owen-it/laravel-auditing": "^10.0",
+        "usmanhalalit/laracsv": "^2.0"
     },
     "require-dev": {
         "backpack/generators": "^2.0",

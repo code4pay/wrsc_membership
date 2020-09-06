@@ -19,4 +19,6 @@ Route::group([
     Route::crud('authoritiesuser', 'AuthoritiesUserCrudController');
     Route::get('user/email/{user}', '\app\Http\Controllers\UserCrudController@email');
     Route::crud('email_template', 'EmailTemplateCrudController');
+    Route::get('reports', 'ReportsController@index');
+    Route::post('reports', 'ReportsController@run');
 }); // this should be the absolute last line of this file
