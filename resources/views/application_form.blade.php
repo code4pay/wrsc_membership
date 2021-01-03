@@ -266,10 +266,9 @@ Upon joining,
   function() {
     var modal = document.getElementById('modal');
     var modal_template_text = document.getElementById('modal_template').innerHTML;
-    modal_template_text.replace('[[title]]', 'Warning')
-    modal_template_text.replace('[[text]]',"Yes - WIRES and WRSC policies do not allow members (who are authorised carers) in the same household to belong to the two different groups. We ask that you consider which group the family would like to be members of")
-    modal.innerHTML= modal_template_text;
-    var myModal = new bootstrap.Modal(modal, options)
+   var new_text =  modal_template_text.replace('[[title]]', 'Warning').replace('[[text]]',"Yes - WIRES and WRSC policies do not allow members (who are authorised carers) in the same household to belong to the two different groups. We ask that you consider which group the family would like to be members of")
+    modal.innerHTML= new_text;
+    $('#modal').modal('show')
 
   })
 })();
@@ -299,5 +298,5 @@ Upon joining,
 
 </script>
 </html>
-
-<script type="text/javascript" src="{{ URL::asset('js/bootstrap.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ URL::asset('js/bootstrap.bundle.min.js') }}"></script>
