@@ -1,9 +1,22 @@
 # Notes
 
+This project is based on Laravel and Backpack. 
+- https://laravel.com/ (7.11.0)
+- https://backpackforlaravel.com/ (v4.0)
+
 ## setting up database for dev
 In the root dir of the project run `php artisan migrate:fresh`
 The to add the first user ` php artisan wrsc:member`  it will then prompt you for the fields. 
 you should then be able to login.  If using Homestead it will be `http://localhost:8000` 
+
+For some reason the `artisan db::seed` command is missing from this install(on my devbox anyway);
+if you want to manually see the database you can use tinker and
+```
+$seeder = new DatabaseSeeder();
+$seeder->run()
+```
+That should work though I have not tried it.  
+
 
 ## Adding a new table 
 To add a new database table to the Admin panel with a link on the left hand side. 
@@ -39,6 +52,13 @@ Example:
         'description',
     ];
  ``` 
+
+
+
+To create seeds for tables
+`php artisan iseed {table_name}`  Note  create the `seeders` dir first and then copy the results over
+it will error out but just copy the file over to `seeds` and update the `DatabaseSeeder.php` file in that dir. 
+Make sure you run ` composer dump-autoload ` when updating classes etc. 
 
 
 ## Adding or changing fields that appear on a form. 
