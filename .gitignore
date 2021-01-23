@@ -5,8 +5,15 @@
 /vendor
 .env
 .env.backup
+.gitignore
+*.swp
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+public/uploads/
+/storage/app/private
+member_with_res.csv
+app/Http/Controllers/UserCrudController.php
+final-members.csv
