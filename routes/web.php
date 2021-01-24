@@ -18,16 +18,15 @@ Route::get('/', function () {
 });
 
 Route::resource('application', '\App\Http\Controllers\ApplicationController');
+Route::post('id_upload', '\App\Http\Controllers\ApplicationController@id_upload')->name('id_upload');
 // these  routes are not authed, but use a token
-Route::post('paid_paypal', '\App\Http\Controllers\TacsController@paidPayPal'); 
-//Route::get('tac_accept/{tokenValue}', '\App\Http\Controllers\TacsController@show');
-//Route::put('tac_accept', '\App\Http\Controllers\TacsController@update');
-Route::resource('tac_accept', '\App\Http\Controllers\TacsController');
-Route::get('dont_renew/{tokenValue}', '\App\Http\Controllers\TacsController@dontRenewShow');
-Route::put('dont_renew/{tokenValue}', '\App\Http\Controllers\TacsController@didntRenew');
+Route::post('paid_paypal', '\App\Http\Controllers\RenewalController@paidPayPal'); 
+Route::resource('tac_accept', '\App\Http\Controllers\RenewalController');
+Route::get('dont_renew/{tokenValue}', '\App\Http\Controllers\RenewalController@dontRenewShow');
+Route::put('dont_renew/{tokenValue}', '\App\Http\Controllers\RenewalController@didntRenew');
 
-Route::post('admin/email_renewals', '\App\Http\Controllers\EmailRenewalsController@emailRenewals')->middleware('auth');
-Route::post('print_renewals', '\App\Http\Controllers\EmailRenewalsController@printRenewals')->middleware('auth');
+Route::post('admin/email_renewals', '\App\Http\Controllers\RenewalController@emailRenewals')->middleware('auth');
+Route::post('print_renewals', '\App\Http\Controllers\RenewalController@printRenewals')->middleware('auth');
 Route::post('admin/email_membership_card', '\App\Http\Controllers\MembershipCardController@emailMembershipCard')->middleware('auth');
 Route::post('print_membership_card', '\App\Http\Controllers\MembershipCardController@printMembershipCard')->middleware('auth');
 Route::get('profile_images/{fileName}', '\App\Http\Controllers\ProfileImagesController@showImage')->middleware('auth'); //protect profile images. 

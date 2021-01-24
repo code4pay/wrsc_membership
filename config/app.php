@@ -150,6 +150,19 @@ return [
     'send_renewals_from' => env('SEND_RENEWALS_FROM'),
     'local_address' => env('LOCAL_ADDRESS'), # So we can allow access for PDF to get images. used in IpMiddleware.php
     'bcc_emails_to' => env('BCC_EMAILS_TO'), # 
+    /**
+     *  This is the date that renewals should be paid up to for the current year
+     *  It should be  updated before each Renewal period.  
+     *  This is should either be automated or added to the  admin gui at some 
+     * stage.  
+     */
+    'current_paid_to' => env('CURRENT_PAID_TO'),
+    'primary_member_fee' => 15,
+    'family_member_fee' => 5,
+    'honorary_member_fee' => 0,
+    'life_member_fee' => 0,
+    'honorary_or_life_family_member_fee' => 0, // Family members of Honorary and Life members also get a reduced rate
+
 
 
 

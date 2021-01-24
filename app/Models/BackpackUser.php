@@ -26,8 +26,9 @@ class BackpackUser extends User
         'documents' => 'array' //document names are stored as JSON string.
     ];
 
-
-
+    protected $dates = [
+        'tac_date'
+    ];
     // this is here for the revsionable https://backpackforlaravel.com/docs/4.0/crud-operation-revisions
     public function identifiableName()
     {
@@ -176,19 +177,25 @@ class BackpackUser extends User
 
     public function renewalAmount()
     {
-        if ($this->memberType->name == 'Honorary' || $this->memberType->name == 'Life') {return 0;}
+        if ($this->memberType->name == 'Honorary'){
+         return config('app.honorary_member_fee');   
+        }
+        
+       if($this->memberType->name == 'Life') {
+         return config('app.life_member_fee');   
+        }
          
         //Family Members get a reduced rate.  
         if ($this->primary_member_id ){ 
             $primary_member = $this->primary()->first();
-            //If life or Honorary then family members are also free     
-            if ($primary_member->memberType->name == 'Honorary' || $primary_member->memberType->name == 'Life' ) {
-                return 0 ;
+            //If life or Honorary then family members also get a different rate
+           if ($primary_member->memberType->name == 'Honorary' || $primary_member->memberType->name == 'Life' ) {
+                return config('app.honorary_or_life_family_member_fee');
             } else {
-                return  5;
+                return  config('app.family_member_fee');
             }
          }
-        return 15;
+        return config('app.primary_member_fee');
 
     }
     public function totalRenewalAmount()
@@ -247,6 +254,10 @@ class BackpackUser extends User
             $public_destination_path = Str::replaceFirst('public/', '', $destination_path);
             $this->attributes[$attribute_name] = $public_destination_path.'/'.$filename;
 
+        }
+        if (is_a($value, 'Symfony\Component\HttpFoundation\File\UploadedFile' )){
+           $fileName =   $value->store($destination_path);
+           $this->attributes[$attribute_name] = $fileName;
         }
     }
 

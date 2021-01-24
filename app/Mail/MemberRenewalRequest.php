@@ -33,7 +33,7 @@ class MemberRenewalRequest extends Mailable implements ShouldQueue //this email 
     {
         $curDir = dirname(__FILE__);
         $presidents_report = $curDir.'/../../storage/app/private/documents/presidents_report_2020.pdf';
-        return $this->markdown('emails.member.renewal_request')
+        return $this->markdown('membership_renewal.email_renewal_request')
         ->from(config('app.send_renewals_from'))
         ->bcc(config('app.bcc_emails_to'))
         ->attach($presidents_report)
