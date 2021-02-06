@@ -3,30 +3,42 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MemberRenewalRequest;
+use Illuminate\Support\Facades\Auth;
+use PDF;
 
-class TacsController extends Controller
+class RenewalController extends Controller
 {
+
+    /**
+     * Gets called like /tac_accept/{token}
+     */
     public function show($tokenValue)
     {
         $token = \App\Models\Token::where('token', $tokenValue)->first();
         if (!$token) {
             abort(404, "Unkown Request");
         }
-        // dd($token->user()->first());
-        return view('tac_form', ['user' => $token->user()->first(), 'token' => $token]);
+        $user = $token->user()->first();
+        if (!$user) {
+            abort(404, "Unkown User");
+        }
+        return view('membership_renewal.index', ['user' => $user, 'token' => $token]);
     }
     
     public function update(Request $request)
     {
+       
         $tokenValue = $request->input('token');
         if (!$tokenValue) {
             abort(404, "Unkown Request Missing Token ");
         }
+       
         $token = \App\Models\Token::where('token', $tokenValue)->first();
         if (!$token) {
             abort(404, "Unkown Token");
         }
-        // dd($token->user()->first());
         $tokenUser = $token->user()->first();
         $user = \App\Models\BackpackUser::where('member_number', $request->input('member_number'))->first();
         if (!$user) {
@@ -68,7 +80,7 @@ class TacsController extends Controller
         $user->tac_date = date("Y-m-d H:i:s");
         $user->addComment('Terms and Conditions accepted from Web site');
         $user->save();
-        return view('member_payment', ['user' => $user,'token' => $tokenValue]);
+        return view('membership_renewal.payment', ['user' => $user,'token' => $tokenValue, 'current_paid_to' => config('app.current_paid_to')]);
     }
 
     public function dontRenewShow($tokenValue) {
@@ -76,8 +88,7 @@ class TacsController extends Controller
         if (!$token) {
             abort(404, "Unkown Request");
         }
-        // dd($token->user()->first());
-        return view('dont_renew', ['user' => $token->user()->first(), 'token' => $token]);
+        return view('membership_renewal.dont_renew', ['user' => $token->user()->first(), 'token' => $token]);
     }
 
     public function didntRenew (Request $request)
@@ -101,7 +112,7 @@ class TacsController extends Controller
         $user->dont_renew = true;
         $user->addComment('Member chose not to renew.');
         $user->save();
-        return view('didnt_renew');
+        return view('membership_renewal.didnt_renew');
     }
 
     public function paidPayPal(Request $request) 
@@ -128,4 +139,53 @@ class TacsController extends Controller
         }
 
     }
+
+/**
+ * Below here these are routes for Admins 
+ * They should  have access protected in the routes file.
+ * This is called by the Email Renewals button in the admin interface
+ */
+
+        public function emailRenewals(Request $request)
+        {
+            if (!backpack_user()->can('Send Renewals')){
+                abort(403, 'You do not have access to this action');
+               }
+            foreach ($request->get('users') as $user_id) {
+                $user = \App\Models\BackpackUser::find($user_id);
+                if (!$user) {
+                    abort(400, 'Could not find that user.');
+                }
+                //return (new MemberRenewalRequest($user))->render();
+                Mail::to($user)->send(new MemberRenewalRequest($user));
+                $admin_user = Auth::user();
+                $user->tac_email_date = date('Y-m-d');
+                $user->addComment('Emailed Renewal Request with total amount Payable $' . $user->totalRenewalAmount(), "$admin_user->first_name $admin_user->last_name");
+                $user->save();
+            }
+        }
+    
+        public function printRenewals(Request $request)
+        {
+            if (!backpack_user()->can('Send Renewals')){
+                abort(403, 'You do not have access to this action');
+               }
+            $users = [];
+            foreach ($request->get('users') as $user_id) {
+                $user = \App\Models\BackpackUser::find($user_id);
+                if (!$user) {
+                    abort(400, 'Could not find that user.');
+                }
+                array_push($users, $user);
+            }
+                $pdf = PDF::loadView('membership_renewal.pdf.membership_renewal', ['users' => $users]);
+    
+                $admin_user = Auth::user();
+                $user->tac_email_date = date('Y-m-d');
+                $user->addComment('Printed Renewal Request ', "$admin_user->first_name $admin_user->last_name");
+                $user->save();
+                return $pdf->download('renewal_documents.pdf');
+        }
+    
+    
 }
