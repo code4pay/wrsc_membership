@@ -17,8 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('application', '\App\Http\Controllers\ApplicationController');
-Route::post('id_upload', '\App\Http\Controllers\ApplicationController@id_upload')->name('id_upload');
+Route::resource('application', '\App\Http\Controllers\MembershipApplicationController');
+Route::post('id_upload', '\App\Http\Controllers\MembershipApplicationController@id_upload')->name('id_upload');
 // these  routes are not authed, but use a token
 Route::post('paid_paypal', '\App\Http\Controllers\RenewalController@paidPayPal'); 
 Route::resource('tac_accept', '\App\Http\Controllers\RenewalController');

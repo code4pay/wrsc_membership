@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BackpackUser;
 
-class ApplicationController extends Controller
+class MembershipApplicationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-       return view('application_form'); 
+        return view('membership_application.application_form');
     }
 
     /**
@@ -43,11 +43,33 @@ class ApplicationController extends Controller
         if (!$request->input('member_number')) {
             $request->merge(['member_number' => $latest_membership_id + 1]);
         }
-        $user = BackpackUser::create($request->all());
+        $validatedData = $request->validate([
+            'first_name' => 'required|max:255',
+            'address' => 'required|max:255',
+            'city' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'post_code' => 'required|digits:4',
+            'address_residential' => 'required|max:255',
+            'city_residential' => 'required|max:255',
+            'post_code_residential' => 'required|digits:4',
+            'email' => 'required|email:rfc',
+            'agree_to_conditions' => 'required|accepted',
+            'mobile' => 'min:10|max:20',
+            'home_phone' => 'min:8|max:15',
+            
+        ]);
+        
+        $validatedData['documents'] = $request->input('documents');
+        $validatedData['password'] = $password;
+        $validatedData['member_number'] = $latest_membership_id + 1;
+        $user = BackpackUser::create($validatedData);
+        $user->image = $request->input('image');
+        $user->documents = $request->input('documents[]');
+        $user->addComment($request->input('details_of_previous_group'));
         $user->save();
-        return view('application_uploads',['user' => $user]); 
+        return;
     }
-  /**
+    /**
      * Add a Mebership Card image
      *
      * @param  \Illuminate\Http\Request  $request
@@ -55,14 +77,13 @@ class ApplicationController extends Controller
      */
     public function id_upload(Request $request)
     {
-        
+
         $user = BackpackUser::findOrFail($request->input('user_id'));
         if (!$user) {
             abort(400, 'Could not find that entry in the database X.');
         }
         $user->image = $request->input('image');
         $user->save();
-
     }
 
 
@@ -76,5 +97,4 @@ class ApplicationController extends Controller
     {
         //
     }
-
 }

@@ -7,9 +7,9 @@ use Backpack\CRUD\app\Models\Traits\InheritsRelationsFromParentModel;
 use Backpack\CRUD\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
-use Backpack\CRUD\app\Models\Traits\CrudTrait; // <------------------------------- this one
+use Backpack\CRUD\app\Models\Traits\CrudTrait; 
 use Illuminate\Queue\NullQueue;
-use Spatie\Permission\Traits\HasRoles;// <---------------------- and this one
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str;
 use Monolog\Handler\NullHandler;
 use \Venturecraft\Revisionable\RevisionableTrait;
@@ -18,8 +18,8 @@ class BackpackUser extends User
     use InheritsRelationsFromParentModel;
     use Notifiable;
     use RevisionableTrait;
-    use CrudTrait; // <----- this
-    use HasRoles; // <------ and this
+    use CrudTrait; 
+    use HasRoles; 
     protected $table = 'users';
 
     protected $casts = [
@@ -47,7 +47,10 @@ class BackpackUser extends User
      */
     public function sendPasswordResetNotification($token)
     {
-        //turn off password reset for now.  
+    /** turn off password reset for now we dont want ordinary members resetting their passwords. 
+    *   At some point we will allow users to login and change there details 
+    *   then we can turn this back on. 
+    */
     //    $this->notify(new ResetPasswordNotification($token));
 
     }
@@ -61,19 +64,23 @@ class BackpackUser extends User
     {
         return $this->email;
     }
+
     /* Naming this 'get'*'Attribute' turns it into field attribute
-    *  but istill  won't get returned in JSON results see this link for
+    *  but it still  won't get returned in JSON results see this link for
     * that https://laravel.com/docs/7.x/eloquent-serialization#appending-values-to-json 
     */
     public function getFullnameAttribute() {
         return $this->first_name.' '.$this->last_name;
     }
-    // Added this becuase the mailer uses name as a field automatically
-    // For sending
+    /** 
+    * Added this becuase the mailer uses name as a field automatically
+    * For sending
+    */
     public function getNameAttribute() {
         return $this->getFullnameAttribute();
     }
 
+    /** Relationship mapping  */
     public function courses(){
         return $this->hasMany('App\Models\CourseUser');
     }
@@ -95,6 +102,9 @@ class BackpackUser extends User
            return $this->belongsTo('App\Models\BackpackUser','primary_member_id','id');
     } 
 
+    public function tokens () {
+        return $this->hasMany('App\Models\Token');
+    }
 
     public function formattedPostalAddress () {
         return '<address>'
@@ -122,10 +132,10 @@ class BackpackUser extends User
         return false;
     }
 
-    public function tokens () {
-        return $this->hasMany('App\Models\Token');
-    }
-
+    /**
+     * For creating one time tokens for things like the Membership renewal where we don;t want 
+     * to make members login.  Note at this stage there is no expiry on tokens. 
+     */
     public function createToken($type) {
         $token = new \App\Models\Token;
         $token->user_id = $this->id;
@@ -136,7 +146,10 @@ class BackpackUser extends User
 
     }
 
-    // sends back a json formmatted string for use with paypaljj
+    /**
+     * sends back a json formmatted string for use with paypal
+     * It includes the description to use on the statements 
+     */
     public function renewalAmountForPayPal()
     {
 
@@ -198,6 +211,7 @@ class BackpackUser extends User
         return config('app.primary_member_fee');
 
     }
+
     public function totalRenewalAmount()
     {
         $amount = $this->renewalAmount();
@@ -216,7 +230,9 @@ class BackpackUser extends User
     }
 
 
-
+    /**
+     * this takes an image stream and saves it as a file,  mostly designed for the profile image upload. 
+     */
     public function setImageAttribute($value)
     {
         $attribute_name = "image";
@@ -255,6 +271,8 @@ class BackpackUser extends User
             $this->attributes[$attribute_name] = $public_destination_path.'/'.$filename;
 
         }
+        //
+        // if it was an actual file passed in rather than an image stream
         if (is_a($value, 'Symfony\Component\HttpFoundation\File\UploadedFile' )){
            $fileName =   $value->store($destination_path);
            $this->attributes[$attribute_name] = $fileName;
@@ -306,6 +324,7 @@ class BackpackUser extends User
         }
 
         // if a new file is uploaded, store it on disk and its filename in the database
+        
         if (request()->hasFile($attribute_name)) {
             foreach (request()->file($attribute_name) as $file) {
                 if ($file->isValid()) {
@@ -313,7 +332,6 @@ class BackpackUser extends User
 
                     // 2. Move the new file to the correct path
                     $file_path = $file->storeAs($destination_path, $new_file_name, $disk);
-
                     // 3. Add the public path to the database
                     $attribute_value[] = $file_path;
                 }
