@@ -23,7 +23,7 @@ class MemberCardRequest extends Mailable  //this email will use the queue always
     public function __construct(BackpackUser $user)
     {
           $this->user = $user;
-          $this->pdf = PDF::loadView('membership_card', ['users' => [$user]])->output();
+          $this->pdf = PDF::loadView('membership_card.membership_card', ['users' => [$user]])->output();
     }
 
     /**
