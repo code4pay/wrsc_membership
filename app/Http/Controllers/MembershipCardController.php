@@ -47,7 +47,7 @@ class MembershipCardController extends Controller
             $mpdf->curlAllowUnsafeSslRequests = true;
             $mpdf->showImageErrors =true;
         }];
-                    $pdf = PDF::loadView('membership_card', ['users' => $users],[],$config);
+                    $pdf = PDF::loadView('membership_card.membership_card', ['users' => $users],[],$config);
         
 
 
