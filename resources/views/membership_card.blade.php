@@ -37,7 +37,7 @@
   @foreach ($users as $user )
   <div class="row" style="margin-bottom: 10mm;">
     <div class="column">
-      <h2 style="margin-bottom:5px;">Wildlife Rescue South Coast Inc.</h2>
+      <h2 style="margin-bottom:5px;">Wildlife Rescue South Coast Incorporated.</h2>
       <div style="display: inline-block; height: 23mm; overflow:hidden;">
         <div style="padding-left: 2mm;float: left; width: 18mm;">
           <img style="width:43px; height:43px" src="images/wrsc_small.png">
@@ -65,7 +65,7 @@
         <div style="height:7mm; padding-left: 1mm; "> Authorised by: <img style="height:10mm; vertical-align:middle;" src="images/signature.png"> </div>
       </div>
       <div style="display: inline-block; padding-left: 1mm; ">
-        This card confirms the holder is a member of Wildlife Rescue South Coast Inc. and is authorised to act on our behalf.<br />
+        This card confirms the holder is a member of Wildlife Rescue South Coast Incorporated. and is authorised to act on our behalf.<br />
         See reverse of card for conditions / restrictions of this membership.<br />
         <strong>Expiry Date: 30</strong><strong>th</strong> <strong>June 2021</strong><br />
         <div style="color:red; text-align:center;"><strong>South Coast 0418 427 214 &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;FSC 0417 238 921</strong></div>
