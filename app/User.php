@@ -46,6 +46,7 @@ class User extends Authenticatable
         'paid_to',
         'date_of_birth',
         'member_type_id',
+        'primary_member_id',
         'comments',
         'image',
         'receipt_date', 
@@ -56,6 +57,7 @@ class User extends Authenticatable
         'lyssa_serology_comment',
         'dob',
         'documents',
+        'pending_approval'
     ];
 
     /**

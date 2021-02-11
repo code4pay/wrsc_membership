@@ -70,29 +70,14 @@
     <div class="jumbotron col-md-6 offset-md-3 ">
       <h1 class="display-4">Wildlife Rescue South Coast, Application Form</h1>
       <p class="lead ">
-        Thank you for wanting become a member.
-        WRSC is licenced by NPWS and we abide by our licence conditions</p>
-      <div class="alert alert-primary">Please note, before you can rescue and care, you will need specific training
-        and the majority of caring of native animals occurs in members homes
-      </div>
-      <p>The cost of membership is a ${{Config::get('app.primary_member_fee')}} annual fee for the Primary member, plus a once off joining fee of ${{Config::get('app.application_fee')}} which
-        includes cost of the Introduction course. Family members are ${{Config::Get('app.family_member_fee')}} annual </p>
-      <p> Each member must complete an application - Primary and family members </p>
-      <p> If someone in the household is a member of WIRES, please contact the membership officer <a
-          href="mailto:membership@wildlife-rescue.org.au">membership@wildlife-rescue.org.au</a>
-        <p>
-          <div class="alert alert-warning">Native animals are not pets, our aim is that native animals are to be
-            rehabilitated when we can, and returned to the wild</div>
+        Please complete the details for the family member. Family members must reside as the same address as the primary member.
           Please Note:
           <ul>
                     <li>All carers and rescuers must be over the age of 18 years by law </li>
-                    <li>Wildlife Rescue South Coast members must be financial and 18 years and over to vote at meetings
-            </li>
-                    <li>Membership depends on your application being accepted by our committee. This happens at the
+                    <li>Wildlife Rescue South Coast members must be financial and 18 years and over to vote at meetings </li>
+                    <li>Membership depends the  application being accepted by our committee. This happens at the
               monthly committee meeting. If your application is received after these meetings it may not be accepted
               until the following month.</li>
-                    <li>Our membership year runs from July to June. Applications accepted before the end of March will
-              expire in June (nicer wording perhaps) </li>
           </ul>
         </p>
         <hr class="my-4">
@@ -113,13 +98,14 @@
 
     <form class="col-md-6 offset-md-3" method="POST" enctype="multipart/form-data">
       {{ csrf_field() }}
-      <input type="hidden" name ="primary_member" value="1"/>
+      <input type="hidden" name ="family_member" value="1"/>
+      <input type="hidden" name ="primary_member_id" value="{{$primary_member->id}}"/>
       <div class="form-group row">
         <label for="first_name" class="col-4 col-form-label">First Name</label>
         <div class="col-8">
           <input id="first_name" name="first_name" placeholder="First Name" type="text" class="form-control"
             aria-describedby="first_nameHelpBlock" required="required">
-          <span id="first_nameHelpBlock" class="form-text text-muted">Enter your first name</span>
+          <span id="first_nameHelpBlock" class="form-text text-muted">Enter first name</span>
         </div>
       </div>
       <div class="form-group row">
@@ -127,7 +113,7 @@
         <div class="col-8">
           <input id="last_name" name="last_name" placeholder="Last Name" type="text" class="form-control"
             aria-describedby="last_nameHelpBlock" required="required">
-          <span id="last_nameHelpBlock" class="form-text text-muted">Enter your last name</span>
+          <span id="last_nameHelpBlock" class="form-text text-muted">Enter last name</span>
         </div>
       </div>
       <div class="form-group row">
@@ -143,64 +129,16 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="address_residential" class="col-4 col-form-label">Primary Residential Address. <strong> Please note
-            you cannot care for wildlife outside our licenced area, but may assist within our licenced area. <a
-              href="images/wrsc_map.pdf"> Click Here</a> for licenced area</strong></label>
+        <label for="address_residential" class="col-4 col-form-label">Primary Residential Address. </label>
         <div class="col-8">
-          <input id="address_residential" name="address_residential" placeholder="Enter Your Residential Address"
-            type="text" class="form-control" aria-describedby="address_residential HelpBlock">
-          <span id="address_residential HelpBlock" class="form-text text-muted">Enter your residential address</span>
+            {!!$primary_member->formattedResidentialAddress()!!}
         </div>
       </div>
+
       <div class="form-group row">
-        <label for="city_residential" class="col-4 col-form-label">Residential City </label>
+        <label for="address_residential" class="col-4 col-form-label">Postal Address. </label>
         <div class="col-8">
-          <input id="city_residential" name="city_residential" placeholder="City" type="text" class="form-control"
-            aria-describedby="city_residentialHelpBlock">
-          <span id="city_residentialHelpBlock" class="form-text text-muted">Enter your residential city </span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="post_code_residential" class="col-4 col-form-label">Postcode Residental </label>
-        <div class="col-8">
-          <input id="post_code_residential" name="post_code_residential" placeholder="2450" type="number"
-            class="form-control" min=2000 max=9000  aria-describedby="post_code_residentialHelpBlock" >
-          <span id="post_code_residentialHelpBlock" class="form-text text-muted">Enter your residential postcode </span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-4">Postal address is the same as Residential Address.</label>
-        <div class="col-8">
-          <div class="form-check form-check-inline">
-            <input name="addresses_same" id="addresses_same_0" type="checkbox"
-              aria-describedby="addresses_sameHelpBlock" class="form-check-input" value="yes">
-            <label for="addresses_same_0" class="form-check-label"></label>
-          </div>
-          <span id="addresses_sameHelpBlock" class="form-text text-muted">Tick if your postal and residential address
-            are the same.</span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="address" class="col-4 col-form-label">Address (Postal)</label>
-        <div class="col-8">
-          <input id="address" name="address" placeholder="Your Address" type="text" class="form-control"
-            aria-describedby="addressHelpBlock" required="required">
-          <span id="addressHelpBlock" class="form-text text-muted">Enter your postal address</span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="city" class="col-4 col-form-label">City (Postal)</label>
-        <div class="col-8">
-          <input id="city" name="city" placeholder="City" type="text" class="form-control"
-            aria-describedby="cityHelpBlock" required="required">
-          <span id="cityHelpBlock" class="form-text text-muted">Enter Your city</span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="post_code" class="col-4 col-form-label">Post Code (Postal)</label>
-        <div class="col-8">
-          <input id="post_code" name="post_code" placeholder="2540" min=2000 max=9000 type="number" class="form-control"
-            required="required">
+            {!!$primary_member->formattedPostalAddress()!!}
         </div>
       </div>
       <div class="form-group row">
@@ -235,33 +173,9 @@
               class="form-check-input" value="yes" required="required">
             <label for="over_18_0" class="form-check-label"></label>
           </div>
-          <span id="over_18HelpBlock" class="form-text text-muted">You can not be a primary member if you are not over
-            the age of 18.</span>
         </div>
       </div>
 
-      <div class="form-group row">
-        <label for="family_member_count" class="col-4 col-form-label">Will you be adding other family members? If so
-          please choose how many.</label>
-        <div class="col-2">
-          <select id="family_member_count" name="family_member_count" class="custom-select"
-            aria-describedby="family_member_countHelpBlock">
-            <option value="0" selected="selected">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
-          <span id="family_member_countHelpBlock" class="form-text text-muted">Please choose the number of additional
-            family members you intend to add.</span>
-        </div>
-      </div>
       <div class="form-group row">
         <label class="col-4">Are you now or have you been a member of another wildlife group?</label>
         <div class="col-8">
@@ -316,22 +230,6 @@
         </div>
       </div>
 
-      <div class="form-group row">
-        <label class="col-4">is any member of your household a member of wires</label>
-        <div class="col-8">
-          <div class="form-check form-check-inline">
-            <input name="member_wires" id="member_wires_0" type="radio" class="form-check-input" value="yes"
-              aria-describedby="member_wireshelpblock" required="required">
-            <label for="member_wires_0" class="form-check-label">yes</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input name="member_wires" id="member_wires_1" type="radio" class="form-check-input" value="no"
-              aria-describedby="member_wireshelpblock" required="required">
-            <label for="member_wires_1" class="form-check-label">no</label>
-          </div>
-          <span id="member_wireshelpblock" class="form-text text-muted">please tick which applies to you.</span>
-        </div>
-      </div>
 
       <div class="form-group row ">
         <label class="col-4">Upload Profile Photo</label>
@@ -437,7 +335,6 @@
         </div>
       </div>
   </div>
-
   <div class="form-group row">
         <label class="col-4">Do you want to add another family member</label>
         <div class="col-8">
@@ -454,7 +351,6 @@
           <span id="member_wireshelpblock" class="form-text text-muted">Please choose an option</span>
         </div>
       </div>
-
   <div class="form-group row">
     <div class="offset-4 col-8">
       <button name="submit" type="submit" class="btn btn-primary">Submit</button>
@@ -464,20 +360,7 @@
   </div>
 </body>
 
-<script>
-  (function() {
-    var checkbox = document.getElementById('addresses_same_0').addEventListener('change',
-      function() {
-        if (this.checked) {
-          var address_fields = ['address', 'city', 'post_code']
-          address_fields.forEach(function(field) {
-            document.getElementById('residential_' + field).value = document.getElementById(field).value;
-          })
-        }
-      });
-  })();
-  
-  
+ <script> 
   (function() {
     document.getElementById('previous_conviction_0').addEventListener('change',
       function() {
@@ -530,19 +413,6 @@
 
 </script>
 
-<script>
-  (function() {
-    var checkbox = document.getElementById('addresses_same_0').addEventListener('change',
-      function() {
-        if (this.checked) {
-          var address_fields = ['address', 'city', 'post_code']
-          address_fields.forEach(function(field) {
-            document.getElementById(field).value = document.getElementById(field + '_residential').value;
-          })
-        }
-      });
-  })();
-</script>
 <script>
   function bpFieldInitCropperImageElement(element) {
     // Find DOM elements under this form-group element

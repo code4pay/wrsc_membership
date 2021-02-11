@@ -14,8 +14,17 @@ use Illuminate\Support\Facades\Storage;
 class MembershipApplicationTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     *
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        // seed the database
+        //$this->artisan('db:seed');
+        // alternatively you can call
+        $this->seed();
+    }
+
+    /*
      * @return void
      */
     public function test_membership_application_page_load()
@@ -55,7 +64,7 @@ class MembershipApplicationTest extends TestCase
         Storage::disk('private')->assertExists('/documents/Certificate2.pdf');
         $response->assertSessionHasNoErrors();
         $response->assertStatus(200);
-
+ 
     }
 
     
@@ -71,7 +80,63 @@ class MembershipApplicationTest extends TestCase
 
         $new_user =  BackpackUser::latest('id')->first();
         $saved_comment = json_decode($new_user->comments);
-        $this->assertEquals($saved_comment[0]->comment,'I left Wires in 2013');
+        $this->assertEquals($saved_comment[0]->comment,"Applicant was a member of another group\nI left Wires in 2013\n\nApplicant has cared for other wildlife\nI looked after my mums chickens");
+    
+    }
+    public function test_membership_application_user_member_type_primary()
+    {
+        $form_fields = $this->build_application();
+        $response = $this->post('/application', $form_fields);
+        $response->assertSessionHasNoErrors();
+        $response->assertStatus(200);
+
+        $new_user =  BackpackUser::latest('id')->first();
+        $this->assertEquals('Primary', $new_user->memberType->name);
+        $response->assertSeeText('Your application will be confirmed once your payment has been recieved.');
+    
+    }
+
+    public function test_show_add_family_members()
+    {
+
+        $form_fields = $this->build_application();
+        $form_fields['add_family_members'] = "yes";
+        $response = $this->post('/application', $form_fields);
+        $response->assertSessionHasNoErrors();
+        $response->assertStatus(200);
+        $response->assertSeeText('Please complete the details for the family member.');
+    }
+    public function test_membership_application_member_member_type_family()
+    {
+        Storage::fake('private');
+        $primary_fields = $this->build_application();
+        $primary_fields['password'] = 'asdasdasd';
+        $primary_member = BackpackUser::create($primary_fields);
+        $primary_member->save();
+        $primary_member = $primary_member->fresh(); 
+        $form_fields = $this->build_application();
+        $form_fields['family_member'] = 1;
+        $form_fields['address'] = "woop woop";
+        $form_fields['primary_member_id'] = $primary_member->id;
+        $response = $this->post('/application', $form_fields);
+        $response->assertSessionHasNoErrors();
+        $response->assertStatus(200);
+
+        $new_member =  BackpackUser::latest('id')->first();
+        $this->assertEquals('Family', $new_member->memberType->name);
+        $this->assertEquals('23 some street',$new_member->address);
+        $this->assertEquals($primary_member->id, $new_member->primary_member_id);
+    }
+    public function test_membership_application_user_set_to_pending_approval()
+    {
+        Storage::fake('private');
+        $form_fields = $this->build_application();
+        $response = $this->post('/application', $form_fields);
+        $response->assertSessionHasNoErrors();
+        $response->assertStatus(200);
+
+        $new_user =  BackpackUser::latest('id')->first();
+        $this->assertEquals($new_user->pending_approval,true);
     
     }
 

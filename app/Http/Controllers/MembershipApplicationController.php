@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\BackpackUser;
+use App\Models\MembershipType;
 
 class MembershipApplicationController extends Controller
 {
@@ -40,34 +41,83 @@ class MembershipApplicationController extends Controller
         $request->merge(['password' => $password]);
         $request->merge(['password_confirmation' => $password]);
         $latest_membership_id = BackpackUser::max('member_number');
-        if (!$request->input('member_number')) {
-            $request->merge(['member_number' => $latest_membership_id + 1]);
+        $request->merge(['member_number' => $latest_membership_id + 1]);
+        $validateData = [];
+        if ($request->input('family_member')) {
+            $validatedData = $request->validate([
+                'first_name' => 'required|max:255',
+                'last_name' => 'required|max:255',
+                'email' => 'required|email:rfc',
+                'agree_to_conditions' => 'required|accepted',
+                'mobile' => 'min:10|max:20',
+                'home_phone' => 'min:8|max:15',
+            ]);
+                $primary_member = BackpackUser::find($request->input('primary_member_id'));
+                if (!$primary_member) { 
+                    abort(404, "Invalid Primary User");
+                 }
+                $validatedData['primary_member_id'] = $primary_member->id;
+                $validatedData['address'] = $primary_member->address;
+                $validatedData['city'] = $primary_member->city;
+                $validatedData['post_code'] = $primary_member->post_code;
+                $validatedData['address_residential'] = $primary_member->address_residential;
+                $validatedData['city_residential'] = $primary_member->city_residential;
+                $validatedData['post_code_residential'] = $primary_member->post_code_residential;
+    
+        } else {
+            $validatedData = $request->validate([
+                'first_name' => 'required|max:255',
+                'address' => 'required|max:255',
+                'city' => 'required|max:255',
+                'last_name' => 'required|max:255',
+                'post_code' => 'required|digits:4',
+                'address_residential' => 'required|max:255',
+                'city_residential' => 'required|max:255',
+                'post_code_residential' => 'required|digits:4',
+                'email' => 'required|email:rfc',
+                'agree_to_conditions' => 'required|accepted',
+                'mobile' => 'min:10|max:20',
+                'home_phone' => 'min:8|max:15',
+            ]);
         }
-        $validatedData = $request->validate([
-            'first_name' => 'required|max:255',
-            'address' => 'required|max:255',
-            'city' => 'required|max:255',
-            'last_name' => 'required|max:255',
-            'post_code' => 'required|digits:4',
-            'address_residential' => 'required|max:255',
-            'city_residential' => 'required|max:255',
-            'post_code_residential' => 'required|digits:4',
-            'email' => 'required|email:rfc',
-            'agree_to_conditions' => 'required|accepted',
-            'mobile' => 'min:10|max:20',
-            'home_phone' => 'min:8|max:15',
-            
-        ]);
-        
+
+
         $validatedData['documents'] = $request->input('documents');
         $validatedData['password'] = $password;
         $validatedData['member_number'] = $latest_membership_id + 1;
+        /*@var $user App\Models\BackpackUser */
         $user = BackpackUser::create($validatedData);
         $user->image = $request->input('image');
-        $user->documents = $request->input('documents[]');
-        $user->addComment($request->input('details_of_previous_group'));
+        $user->pending_approval = true;
+        $comments = [];
+        if ($request->input('details_of_previous_group')) {
+            $comments[] = "Applicant was a member of another group\n" . $request->input('details_of_previous_group');
+        }
+        if ($request->input('cared_for_wildlife')) {
+            $comments[] = "Applicant has cared for other wildlife\n" . $request->input('cared_for_wildlife');
+        }
+        if ($request->input('interested_in_species')) {
+            $comments[] = "Applicant is interested in these species\n" . $request->input('interested_in_species');
+        }
+        $comment_string = filter_var(implode("\n\n", $comments), FILTER_SANITIZE_STRING);
+        $user->addComment($comment_string);
+
+        $paying_member = null;
+        if ($request->input('family_member')) {
+            $user->member_type_id = 6;
+            $paying_member = $primary_member;
+        } else {
+            $user->member_type_id = 5;
+            $paying_member = $user;            
+        }
         $user->save();
-        return;
+        if ($request->input('add_family_members') == "yes") {
+
+            return view('membership_application.application_form_family', ['primary_member' => $user->fresh()]);
+        } else {
+
+            return view('membership_application.payment', ['user' => $paying_member->fresh()]);
+        }
     }
     /**
      * Add a Mebership Card image

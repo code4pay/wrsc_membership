@@ -139,6 +139,13 @@ class UserCrudController extends CrudController
         );
         $this->crud->addColumn(
             [
+                'label' => "Pending Approval",
+                'type' => "boolean",
+                'name' => "pending_approval"
+            ],
+        );
+        $this->crud->addColumn(
+            [
                 'label' => "Lyssa Date", // Table column heading
                 'type' => "date",
                 'name' => 'lyssa_serology_date', // the column that contains the ID of that connected entity;
@@ -328,6 +335,11 @@ class UserCrudController extends CrudController
                 'type' => 'fullname'
              ],
              [
+                'name' => 'pending_approval',
+                'label' => 'Pending Approval',
+                'type' => 'boolean'
+             ],
+             [
                  'name' => 'address',
                  'label' => 'Address',
                  'type' => 'text'
@@ -504,7 +516,7 @@ class UserCrudController extends CrudController
           ], 
           false, 
           function() { // if the filter is active
-               $this->crud->addClause('where', 'dont_renew', 1 ); // apply the "active" eloquent scope 
+               $this->crud->addClause('where', 'dont_renew', 1 ); 
           } );
         $this->crud->addFilter([ // simple filter
             'type' => 'simple',
@@ -513,7 +525,17 @@ class UserCrudController extends CrudController
           ], 
           false, 
           function() { // if the filter is active
-               $this->crud->addClause('whereNull', 'tac_email_date' ); // apply the "active" eloquent scope 
+               $this->crud->addClause('whereNull', 'tac_email_date' ); 
+          } );  
+
+        $this->crud->addFilter([ // simple filter
+            'type' => 'simple',
+            'name' => 'pending_approval',
+            'label'=> 'Pending Approval'
+          ], 
+          false, 
+          function() { // if the filter is active
+               $this->crud->addClause('where', 'pending_approval', 1 ); 
           } );  
 
         $this->crud->addFilter([ // simple filter
@@ -929,6 +951,14 @@ class UserCrudController extends CrudController
                 'name'  => 'lyssa_serology_comment',
                 'label' => 'Lyssa Serology comment',
                 'type'  => 'text',
+            ],
+            [
+                'tab' => 'Membership Details',
+                'name'  => 'pending_approval',
+                'label' => 'Pending Approval',
+                'type'  => 'checkbox',
+                'wrapperAttributes' => ['class' => 'col-md-4'],
+
             ],
             [
                 'tab' => 'Membership Details',

@@ -161,6 +161,7 @@ return [
     'family_member_fee' => 5,
     'honorary_member_fee' => 0,
     'life_member_fee' => 0,
+    'application_fee' => 30, 
     'honorary_or_life_family_member_fee' => 0, // Family members of Honorary and Life members also get a reduced rate
 
 

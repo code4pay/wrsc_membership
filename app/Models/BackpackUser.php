@@ -173,6 +173,33 @@ class BackpackUser extends User
 
     }
 
+    /**
+     * sends back a json formmatted string for use with paypal
+     * It includes the description to use on the statements 
+     */
+    public function applicationAmountForPayPal()
+    {
+
+        $sibling_names ='';
+        foreach($this->siblings()->get() as $sibling){
+            $sibling_names .= ', '.$sibling ->fullname.' (' . $sibling->member_number. ')';
+        }
+
+       $purchaseUnits =[
+        [
+            
+            'amount' =>[ 
+              'value'=> $this->totalApplicationAmount(),
+                ]
+            ,
+            'description' => 'WRSC Application Fee for '.$this->fullname.' (' . $this->member_number. ')'. $sibling_names,
+        ] ];
+
+     
+       return json_encode($purchaseUnits,true);
+
+    }
+    //Update Records after Paypal  payment success.
     public function paypalRenewal($amount, $orderId)
     {
 
@@ -219,6 +246,11 @@ class BackpackUser extends User
             $amount = $amount + $sibling->renewalAmount();
         }
         return $amount;
+    }
+
+    public function totalApplicationAmount()
+    {
+        return config('app.application_fee') + $this->totalRenewalAmount();
     }
 
     public function addComment($comment,  $user='system')
