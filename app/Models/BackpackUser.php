@@ -361,7 +361,7 @@ class BackpackUser extends User
             foreach (request()->file($attribute_name) as $file) {
                 if ($file->isValid()) {
                     $new_file_name = $file->getClientOriginalName();
-
+                    
                     // 2. Move the new file to the correct path
                     $file_path = $file->storeAs($destination_path, $new_file_name, $disk);
                     // 3. Add the public path to the database

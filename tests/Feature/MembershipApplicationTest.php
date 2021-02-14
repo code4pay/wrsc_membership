@@ -92,6 +92,8 @@ class MembershipApplicationTest extends TestCase
 
         $new_user =  BackpackUser::latest('id')->first();
         $this->assertEquals('Primary', $new_user->memberType->name);
+        $this->assertEquals('Vincentia', $new_user->city);
+        $this->assertEquals('Vincentia', $new_user->city_residential);
         $response->assertSeeText('Your application will be confirmed once your payment has been recieved.');
     
     }
@@ -122,14 +124,15 @@ class MembershipApplicationTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertStatus(200);
 
+        $form_fields['add_family_members'] = "no";
         $new_member =  BackpackUser::latest('id')->first();
         $this->assertEquals('Family', $new_member->memberType->name);
         $this->assertEquals('23 some street',$new_member->address);
         $this->assertEquals($primary_member->id, $new_member->primary_member_id);
+        $response->assertSeeText('Your application will be confirmed once your payment has been recieved.');
     }
     public function test_membership_application_user_set_to_pending_approval()
     {
-        Storage::fake('private');
         $form_fields = $this->build_application();
         $response = $this->post('/application', $form_fields);
         $response->assertSessionHasNoErrors();
@@ -140,13 +143,33 @@ class MembershipApplicationTest extends TestCase
     
     }
 
+    public function test_cant_resubmit_form()
+    {
+
+        $form_fields = $this->build_application();
+        
+        $response = $this->post('/application', $form_fields);
+        $response->assertSessionHasNoErrors();
+        $response->assertStatus(200);
+
+        $response = $this->post('/application', $form_fields);
+        $response->assertSeeText('Sorry this form can only be submitted once');
+        
+    }
+
     /** Helper Functions */
 
     private function build_application()
     {
-
+        
+        $token = new \App\Models\Token;
+        $token->user_id = 999999;
+        $token->type = "prevent_form_resubmit";
+        $token->token = str_random(50);
+        $token->save();
+        
         return ([
-
+            'capatcha' => 'xmqki',
             'first_name' => 'Michael',
             'address' => '23 some street',
             'city' => 'Vincentia',
@@ -160,6 +183,7 @@ class MembershipApplicationTest extends TestCase
             'mobile' => '5030381293',
             'home_phone' => '44412356',
             'agree_to_conditions' => 'yes',
+            'form_token' =>  $token->token,
         ]);
     }
 }

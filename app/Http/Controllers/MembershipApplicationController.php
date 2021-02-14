@@ -15,7 +15,8 @@ class MembershipApplicationController extends Controller
      */
     public function index()
     {
-        return view('membership_application.application_form');
+        $token = $this->createToken("prevent_form_resubmit");
+        return view('membership_application.application_form', ["token" => $token]);
     }
 
     /**
@@ -36,22 +37,32 @@ class MembershipApplicationController extends Controller
      */
     public function store(Request $request)
     {
+        $tokenValue = $request->input("form_token"); 
+        $token = \App\Models\Token::where('token', $tokenValue)
+        ->where('type',"prevent_form_resubmit")
+        ->first();
 
+        if (!$token) {
+            abort(403, "Sorry this form can only be submitted once");
+        }
+        $token->delete(); 
         $password = str_random(50);
         $request->merge(['password' => $password]);
         $request->merge(['password_confirmation' => $password]);
         $latest_membership_id = BackpackUser::max('member_number');
         $request->merge(['member_number' => $latest_membership_id + 1]);
-        $validateData = [];
-        if ($request->input('family_member')) {
-            $validatedData = $request->validate([
+        $primary_member = null; 
+        $validatedData = $request->validate([
                 'first_name' => 'required|max:255',
                 'last_name' => 'required|max:255',
                 'email' => 'required|email:rfc',
                 'agree_to_conditions' => 'required|accepted',
-                'mobile' => 'min:10|max:20',
-                'home_phone' => 'min:8|max:15',
+                'mobile' => 'nullable|min:10|max:20',
+                'home_phone' => 'nullable|min:8|max:15',
+                'previous_conviction' => 'in:no',
+                'member_wires' => 'in:no'
             ]);
+        if ($request->input('family_member')) {
                 $primary_member = BackpackUser::find($request->input('primary_member_id'));
                 if (!$primary_member) { 
                     abort(404, "Invalid Primary User");
@@ -63,24 +74,21 @@ class MembershipApplicationController extends Controller
                 $validatedData['address_residential'] = $primary_member->address_residential;
                 $validatedData['city_residential'] = $primary_member->city_residential;
                 $validatedData['post_code_residential'] = $primary_member->post_code_residential;
+
     
         } else {
-            $validatedData = $request->validate([
-                'first_name' => 'required|max:255',
+             $validatedDataPrimary =  $request->validate([
                 'address' => 'required|max:255',
                 'city' => 'required|max:255',
-                'last_name' => 'required|max:255',
                 'post_code' => 'required|digits:4',
                 'address_residential' => 'required|max:255',
                 'city_residential' => 'required|max:255',
                 'post_code_residential' => 'required|digits:4',
-                'email' => 'required|email:rfc',
-                'agree_to_conditions' => 'required|accepted',
-                'mobile' => 'min:10|max:20',
-                'home_phone' => 'min:8|max:15',
+                'over_18' =>'in:yes',
+                'capatcha' => 'in:xmqki'
             ]);
+        $validatedData = array_merge($validatedData, $validatedDataPrimary);
         }
-
 
         $validatedData['documents'] = $request->input('documents');
         $validatedData['password'] = $password;
@@ -102,22 +110,41 @@ class MembershipApplicationController extends Controller
         $comment_string = filter_var(implode("\n\n", $comments), FILTER_SANITIZE_STRING);
         $user->addComment($comment_string);
 
-        $paying_member = null;
+        if (!$primary_member) {
+            $primary_member=$user;
+        }
         if ($request->input('family_member')) {
-            $user->member_type_id = 6;
-            $paying_member = $primary_member;
+            if ($request->input("over_18") == "no"){
+                $user->member_type_id = 9;  
+            } else {
+                $user->member_type_id = 6;
+            }
         } else {
             $user->member_type_id = 5;
-            $paying_member = $user;            
         }
         $user->save();
+        
         if ($request->input('add_family_members') == "yes") {
-
-            return view('membership_application.application_form_family', ['primary_member' => $user->fresh()]);
+            $new_token = $this->createToken("prevent_form_resubmit") ;
+            return view('membership_application.application_form_family', ['primary_member' => $primary_member->fresh(), "token" => $token]);
         } else {
 
-            return view('membership_application.payment', ['user' => $paying_member->fresh()]);
+            return view('membership_application.payment', ['user' => $primary_member->fresh()]);
         }
+    }
+
+    /**
+     * For creating a one time token to prevent form resubmission
+     * they are tied to non user 999999  Note at this stage there is no expiry on tokens. 
+     */
+    public function createToken($type) {
+        $token = new \App\Models\Token;
+        $token->user_id = 999999;
+        $token->type = $type;
+        $token->token = str_random(50);
+        $token->save();
+        return $token->token;
+
     }
     /**
      * Add a Mebership Card image
