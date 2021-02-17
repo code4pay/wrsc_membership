@@ -67,8 +67,8 @@
 
 <body>
   <div class="container-fluid-md">
-    <div class="jumbotron col-md-6 offset-md-3 alert-success ">
-      <h1 class="display-4">Wildlife Rescue South Coast, Application Form</h1>
+    <div class="jumbotron col-md-6 offset-md-3 alert-success " >
+      <h1 class="display-4"><image  src="/images/wrsc_small.png">Wildlife Rescue South Coast, Application Form</h1>
       <p class="lead ">
         Thank you for wanting become a member.
         WRSC is licenced by NPWS and we abide by our licence conditions</p>
@@ -215,6 +215,23 @@
       </div>
 
 @include('membership_application.common_text_input_areas')
+
+      <div class="form-group row">
+        <label for="capatcha" class="col-4 col-form-label">Prove you are human</label>
+        <div class="col-4">
+          <img src="/images/capatcha.jpeg" />
+          <input id="capatcha" name="capatcha" placeholder="" size=10 type="text" class="form-control"
+            aria-describedby="capatchaHelpBlock" required="required">
+          <span id="capatchaHelpBlock" class="form-text text-muted">Enter the leters from the image above</span>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </body>
 
 <script>

@@ -157,15 +157,15 @@ return [
      * stage.  
      */
     'current_paid_to' => env('CURRENT_PAID_TO'),
-    'primary_member_fee' => 15,
-    'family_member_fee' => 5,
-    'honorary_member_fee' => 0,
-    'life_member_fee' => 0,
-    'application_fee' => 30, 
-    'honorary_or_life_family_member_fee' => 0, // Family members of Honorary and Life members also get a reduced rate
+    'primary_member_fee' => env('PRIMARY_MEMBER_FEE'),
+    'family_member_fee' => env('FAMILY_MEMBER_FEE'),
+    'honorary_member_fee' => env('HONORARY_MEMBER_FEE'),
+    'life_member_fee' => env('LIFE_MEMBER_FEE'),
+    'application_fee' => env('APPLICATION_FEE'), 
+    'honorary_or_life_family_member_fee' => env('HONORARY_OR_LIFE_FAMILT_MEMBER_FEE'), // Family members of Honorary and Life members also get a reduced rate
 
 
-
+    'capatcha' => env('CAPATCHA'),
 
 
     /*

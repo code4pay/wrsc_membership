@@ -68,7 +68,7 @@
 <body>
   <div class="container-fluid-md">
     <div class="jumbotron col-md-6 offset-md-3 alert-success">
-      <h1 class="display-4">Wildlife Rescue South Coast, Application Form</h1>
+      <h1 class="display-4"><image  src="/images/wrsc_small.png">Wildlife Rescue South Coast, Application Form</h1>
       <p class="lead ">
         Please complete the details for the family member. Family members must reside as the same address as the primary
         member.
@@ -163,6 +163,13 @@
 
 @include('membership_application.common_text_input_areas')
 
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </body>
 
 <script>
