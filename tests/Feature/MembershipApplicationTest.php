@@ -107,10 +107,11 @@ class MembershipApplicationTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertStatus(200);
         $response->assertSeeText('Please complete the details for the family member.');
+        $latest_token = \App\Models\Token::latest('id')->first();
+        $response->assertSee($latest_token->token);
     }
     public function test_membership_application_member_member_type_family()
     {
-        Storage::fake('private');
         $primary_fields = $this->build_application();
         $primary_fields['password'] = 'asdasdasd';
         $primary_member = BackpackUser::create($primary_fields);
@@ -123,7 +124,6 @@ class MembershipApplicationTest extends TestCase
         $response = $this->post('/application', $form_fields);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(200);
-
         $form_fields['add_family_members'] = "no";
         $new_member =  BackpackUser::latest('id')->first();
         $this->assertEquals('Family', $new_member->memberType->name);
@@ -151,7 +151,6 @@ class MembershipApplicationTest extends TestCase
         $response = $this->post('/application', $form_fields);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(200);
-
         $response = $this->post('/application', $form_fields);
         $response->assertSeeText('Sorry this form can only be submitted once');
         

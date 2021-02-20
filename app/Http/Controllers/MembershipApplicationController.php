@@ -126,7 +126,7 @@ class MembershipApplicationController extends Controller
         
         if ($request->input('add_family_members') == "yes") {
             $new_token = $this->createToken("prevent_form_resubmit") ;
-            return view('membership_application.application_form_family', ['primary_member' => $primary_member->fresh(), "token" => $token]);
+            return view('membership_application.application_form_family', ['primary_member' => $primary_member->fresh(), "token" => $new_token]);
         } else {
 
             return view('membership_application.payment', ['user' => $primary_member->fresh()]);
