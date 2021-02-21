@@ -115,9 +115,10 @@
       {{ csrf_field() }}
       <input type="hidden" name ="form_token" value="{{$token}}"/>
       
-      @include('membership_application.common_contact')
+@include('membership_application.common_contact')
+
       <div class="form-group row">
-        <label for="address_residential" class="col-4 col-form-label">Primary Residential Address. <strong> Please note
+        <label for="address_residential" class="required col-4 col-form-label">Primary Residential Address. <strong> Please note
             you cannot care for wildlife outside our licenced area, but may assist within our licenced area. <a
               href="images/wrsc_map.pdf"> Click Here</a> for licenced area</strong></label>
         <div class="col-8">
@@ -127,7 +128,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="city_residential" class="col-4 col-form-label">Residential City </label>
+        <label for="city_residential" class="required col-4 col-form-label">Residential City </label>
         <div class="col-8">
           <input id="city_residential" name="city_residential" placeholder="City" type="text" class="form-control"
             aria-describedby="city_residentialHelpBlock">
@@ -135,7 +136,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="post_code_residential" class="col-4 col-form-label">Postcode Residental </label>
+        <label for="post_code_residential" class="required col-4 col-form-label">Postcode Residental </label>
         <div class="col-8">
           <input id="post_code_residential" name="post_code_residential" placeholder="Post Code" type="number"
             class="form-control" min=2000 max=9000  aria-describedby="post_code_residentialHelpBlock" >
@@ -155,7 +156,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="address" class="col-4 col-form-label">Address (Postal)</label>
+        <label for="address" class="required col-4 col-form-label">Address (Postal)</label>
         <div class="col-8">
           <input id="address" name="address" placeholder="Your Address" type="text" class="form-control"
             aria-describedby="addressHelpBlock" required="required">
@@ -163,7 +164,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="city" class="col-4 col-form-label">City (Postal)</label>
+        <label for="city" class="required col-4 col-form-label">City (Postal)</label>
         <div class="col-8">
           <input id="city" name="city" placeholder="City" type="text" class="form-control"
             aria-describedby="cityHelpBlock" required="required">
@@ -171,7 +172,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="post_code" class="col-4 col-form-label">Post Code (Postal)</label>
+        <label for="post_code" class="required col-4 col-form-label">Post Code (Postal)</label>
         <div class="col-8">
           <input id="post_code" name="post_code" placeholder="Post Code" min=2000 max=9000 type="number" class="form-control"
             required="required">
@@ -194,7 +195,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="email" class="col-4 col-form-label">Email</label>
+        <label for="email" class="required col-4 col-form-label">Email</label>
         <div class="col-8">
           <input id="email" name="email" placeholder="your@email.at" type="email" class="form-control"
             aria-describedby="emailHelpBlock" required="required">
@@ -202,7 +203,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-4">Are you over the age of 18?</label>
+        <label class="col-4 required ">Are you over the age of 18?</label>
         <div class="col-8">
           <div class="form-check form-check-inline">
             <input name="over_18" id="over_18_0" type="checkbox" aria-describedby="over_18HelpBlock"
@@ -215,7 +216,7 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-4">Is any member of your household a member of Wires?</label>
+        <label class="required col-4">Is any member of your household a member of Wires?</label>
         <div class="col-8">
           <div class="form-check form-check-inline">
             <input name="member_wires" id="member_wires_0" type="radio" class="form-check-input" value="yes"
@@ -234,7 +235,7 @@
 @include('membership_application.common_text_input_areas')
 
       <div class="form-group row">
-        <label for="capatcha" class="col-4 col-form-label">Prove you are human</label>
+        <label for="capatcha" class="required col-4 col-form-label">Prove you are human</label>
         <div class="col-4">
           <img src="/images/capatcha.jpeg" />
           <input id="capatcha" name="capatcha" placeholder="" size=10 type="text" class="form-control"
