@@ -239,7 +239,7 @@
           <img src="/images/capatcha.jpeg" />
           <input id="capatcha" name="capatcha" placeholder="" size=10 type="text" class="form-control"
             aria-describedby="capatchaHelpBlock" required="required">
-          <span id="capatchaHelpBlock" class="form-text text-muted">Enter the leters from the image above</span>
+          <span id="capatchaHelpBlock" class="form-text text-muted">Enter the letters from the image above</span>
         </div>
       </div>
       <div class="form-group row">
