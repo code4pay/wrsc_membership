@@ -148,6 +148,7 @@ return [
 
     'paypal_key' => env('PAYPAL_KEY'),
     'send_renewals_from' => env('SEND_RENEWALS_FROM'),
+    'send_applications_to' => env('SEND_APPLICATIONS_TO'),
     'local_address' => env('LOCAL_ADDRESS'), # So we can allow access for PDF to get images. used in IpMiddleware.php
     'bcc_emails_to' => env('BCC_EMAILS_TO'), # 
     /**

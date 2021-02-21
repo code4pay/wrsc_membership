@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BackpackUser;
 use App\Models\MembershipType;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MemberApplicationNotification;
 
 class MembershipApplicationController extends Controller
 {
@@ -129,7 +131,9 @@ class MembershipApplicationController extends Controller
             $new_token = $this->createToken("prevent_form_resubmit") ;
             return view('membership_application.application_form_family', ['primary_member' => $primary_member->fresh(), "token" => $new_token]);
         } else {
-
+            
+            $to_email_address =config('app.send_applications_to') ;
+            Mail::to($to_email_address)->send(new MemberApplicationNotification($user));
             return view('membership_application.payment', ['user' => $primary_member->fresh(), 'token' => $primary_member->createToken('tac')]);
         }
     }
@@ -146,22 +150,6 @@ class MembershipApplicationController extends Controller
         $token->save();
         return $token->token;
 
-    }
-    /**
-     * Add a Mebership Card image
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function id_upload(Request $request)
-    {
-
-        $user = BackpackUser::findOrFail($request->input('user_id'));
-        if (!$user) {
-            abort(400, 'Could not find that entry in the database X.');
-        }
-        $user->image = $request->input('image');
-        $user->save();
     }
 
 

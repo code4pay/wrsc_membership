@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Mail\MemberApplicationNotification;
 use \App\Models\BackpackUser;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -9,6 +10,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+
 
 
 class MembershipApplicationTest extends TestCase
@@ -85,6 +88,7 @@ class MembershipApplicationTest extends TestCase
     }
     public function test_membership_application_user_member_type_primary()
     {
+        Mail::fake();
         $form_fields = $this->build_application();
         $response = $this->post('/application', $form_fields);
         $response->assertSessionHasNoErrors();
@@ -95,6 +99,9 @@ class MembershipApplicationTest extends TestCase
         $this->assertEquals('Vincentia', $new_user->city);
         $this->assertEquals('Vincentia', $new_user->city_residential);
         $response->assertSeeText('Your application will be confirmed once your payment has been recieved.');
+        Mail::assertQueued(function (MemberApplicationNotification $mail) use ($new_user) {
+            return $mail->user->id === $new_user->id;
+        });
     
     }
 
