@@ -1,16 +1,6 @@
 
       <div class="form-group row">
-        <label class="col-4">Are you now or have you been a member of another wildlife group?</label>
-        <div class="col-8">
-          <div class="form-check form-check-inline">
-            <input name="member_of_other_group" id="member_of_other_group_0" type="checkbox"
-              aria-describedby="member_of_other_groupHelpBlock" class="form-check-input" value="yes ">
-            <label for="member_of_other_group_0" class="form-check-label"></label>
-          </div>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="textarea" class="col-4 col-form-label">If you answered YES above – please provide name of group and
+        <label for="textarea" class="col-4 col-form-label">Are you now or have you been a member of another wildlife group? If YES please provide name of group and
           approx year left that group </label>
         <div class="col-8">
           <textarea id="textarea" name="details_of_previous_group" cols="40" rows="5" class="form-control"
