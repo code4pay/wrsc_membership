@@ -137,7 +137,7 @@
       <div class="form-group row">
         <label for="post_code_residential" class="col-4 col-form-label">Postcode Residental </label>
         <div class="col-8">
-          <input id="post_code_residential" name="post_code_residential" placeholder="2450" type="number"
+          <input id="post_code_residential" name="post_code_residential" placeholder="Post Code" type="number"
             class="form-control" min=2000 max=9000  aria-describedby="post_code_residentialHelpBlock" >
           <span id="post_code_residentialHelpBlock" class="form-text text-muted">Enter your residential postcode </span>
         </div>
@@ -173,7 +173,7 @@
       <div class="form-group row">
         <label for="post_code" class="col-4 col-form-label">Post Code (Postal)</label>
         <div class="col-8">
-          <input id="post_code" name="post_code" placeholder="2540" min=2000 max=9000 type="number" class="form-control"
+          <input id="post_code" name="post_code" placeholder="Post Code" min=2000 max=9000 type="number" class="form-control"
             required="required">
         </div>
       </div>
@@ -211,6 +211,23 @@
           </div>
           <span id="over_18HelpBlock" class="form-text text-muted">You can not be a primary member if you are not over
             the age of 18.</span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4">is any member of your household a member of wires</label>
+        <div class="col-8">
+          <div class="form-check form-check-inline">
+            <input name="member_wires" id="member_wires_0" type="radio" class="form-check-input" value="yes"
+              aria-describedby="member_wireshelpblock" required="required">
+            <label for="member_wires_0" class="form-check-label">yes</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input name="member_wires" id="member_wires_1" type="radio" class="form-check-input" value="no"
+              aria-describedby="member_wireshelpblock" required="required">
+            <label for="member_wires_1" class="form-check-label">no</label>
+          </div>
+          <span id="member_wireshelpblock" class="form-text text-muted">please tick which applies to you.</span>
         </div>
       </div>
 

@@ -55,7 +55,7 @@ class MembershipApplicationController extends Controller
         $validatedData = $request->validate([
                 'first_name' => 'required|max:255',
                 'last_name' => 'required|max:255',
-                'email' => 'required|email:rfc',
+                'email' => 'nullable|email:rfc',
                 'agree_to_conditions' => 'required|accepted',
                 'mobile' => 'nullable|min:10|max:20',
                 'home_phone' => 'nullable|min:8|max:15',
@@ -83,6 +83,7 @@ class MembershipApplicationController extends Controller
                 'post_code' => 'required|digits:4',
                 'address_residential' => 'required|max:255',
                 'city_residential' => 'required|max:255',
+                'email' => 'required|email:rfc',
                 'post_code_residential' => 'required|digits:4',
                 'over_18' =>'in:yes',
                 'capatcha' => 'in:xmqki'
