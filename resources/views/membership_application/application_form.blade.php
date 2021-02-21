@@ -215,7 +215,7 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-4">is any member of your household a member of wires</label>
+        <label class="col-4">Is any member of your household a member of Wires?</label>
         <div class="col-8">
           <div class="form-check form-check-inline">
             <input name="member_wires" id="member_wires_0" type="radio" class="form-check-input" value="yes"
