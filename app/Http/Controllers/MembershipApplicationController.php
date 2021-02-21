@@ -130,7 +130,7 @@ class MembershipApplicationController extends Controller
             return view('membership_application.application_form_family', ['primary_member' => $primary_member->fresh(), "token" => $new_token]);
         } else {
 
-            return view('membership_application.payment', ['user' => $primary_member->fresh()]);
+            return view('membership_application.payment', ['user' => $primary_member->fresh(), 'token' => $primary_member->createToken('tac')]);
         }
     }
 

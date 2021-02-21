@@ -124,6 +124,7 @@
         // This function shows a transaction success message to your buyer.
         var jqxhr = $.post("/paid_paypal", 
           {
+            'token' : '{{ $token }}',
             'amount' : details.purchase_units[0].amount.value,
             'member_number' : '{{ $user->member_number }}',
             'order_id' : details.purchase_units[0].payments.captures[0].id,
