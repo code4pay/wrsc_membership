@@ -70,14 +70,15 @@
     <div class="jumbotron col-md-6 offset-md-3 alert-success " >
       <h1 class="display-4"><image  src="/images/wrsc_small.png">Wildlife Rescue South Coast, Application Form</h1>
       <p class="lead ">
-        Thank you for wanting become a member.
+        Thank you for wanting to become a member.
         WRSC is licenced by NPWS and we abide by our licence conditions</p>
       <div class="alert alert-primary">Please note, before you can rescue and care, you will need specific training
         and the majority of caring of native animals occurs in members homes
       </div>
       <p>The cost of membership is a ${{Config::get('app.primary_member_fee')}} annual fee for the Primary member, plus a once off joining fee of ${{Config::get('app.application_fee')}} which
-        includes cost of the Introduction course. Family members are ${{Config::Get('app.family_member_fee')}} annual </p>
-      <p> Each member must complete an application - Primary and family members </p>
+        includes cost of the Introduction course. Family members can join for a  ${{Config::Get('app.family_member_fee')}} annual fee </p>
+<p> We do offer a Junior membership to those under the age of 18 </p>
+      <p> Each person applying must complete a separate application form.</p>
       <p> If someone in the household is a member of WIRES, please contact the membership officer <a
           href="mailto:membership@wildlife-rescue.org.au">membership@wildlife-rescue.org.au</a>
         <p>
@@ -91,8 +92,7 @@
                     <li>Membership depends on your application being accepted by our committee. This happens at the
               monthly committee meeting. If your application is received after these meetings it may not be accepted
               until the following month.</li>
-                    <li>Our membership year runs from July to June. Applications accepted before the end of March will
-              expire in June (nicer wording perhaps) </li>
+                    <li>Our membership year runs from July to June. </li>
           </ul>
         </p>
         <hr class="my-4">
@@ -178,22 +178,8 @@
             required="required">
         </div>
       </div>
-      <div class="form-group row">
-        <label for="mobile" class="col-4 col-form-label">Mobile phone</label>
-        <div class="col-8">
-          <input id="mobile" name="mobile" placeholder="Mobile Number" type="tel" class="form-control"
-            aria-describedby="mobileHelpBlock" maxlength=10 minlength=10">
-          <span id="mobileHelpBlock" class="form-text text-muted">Enter your mobile phone number</span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="home_phone" class="col-4 col-form-label">Land line</label>
-        <div class="col-8">
-          <input id="home_phone" name="home_phone" placeholder="Home Number" type="tel" class="form-control"
-            aria-describedby="home_phoneHelpBlock">
-          <span id="home_phoneHelpBlock" class="form-text text-muted">Enter your home phone number</span>
-        </div>
-      </div>
+
+@include('membership_application.common_phone_input')
       <div class="form-group row">
         <label for="email" class="required col-4 col-form-label">Email</label>
         <div class="col-8">
@@ -203,14 +189,14 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-4 required ">Are you over the age of 18?</label>
+        <label class="col-4 required ">Please confirm you are over the age of 18?</label>
         <div class="col-8">
           <div class="form-check form-check-inline">
             <input name="over_18" id="over_18_0" type="checkbox" aria-describedby="over_18HelpBlock"
               class="form-check-input" value="yes" required="required">
             <label for="over_18_0" class="form-check-label"></label>
           </div>
-          <span id="over_18HelpBlock" class="form-text text-muted">You can not be a primary member if you are not over
+          <span id="over_18HelpBlock" class="form-text text-muted">You can not be a primary member if you are under
             the age of 18.</span>
         </div>
       </div>

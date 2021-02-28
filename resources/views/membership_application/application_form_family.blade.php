@@ -119,22 +119,7 @@
           {!!$primary_member->formattedPostalAddress()!!}
         </div>
       </div>
-      <div class="form-group row">
-        <label for="mobile" class="col-4 col-form-label">Mobile phone</label>
-        <div class="col-8">
-          <input id="mobile" name="mobile" placeholder="Mobile Number" type="tel" class="form-control"
-            aria-describedby="mobileHelpBlock" maxlength=10 minlength=10 value="{{ old('mobile')}}">
-          <span id="mobileHelpBlock" class="form-text text-muted">Enter your mobile phone number</span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="home_phone" class="col-4 col-form-label">Land line</label>
-        <div class="col-8">
-          <input id="home_phone" name="home_phone" placeholder="Home Number" type="tel" class="form-control"
-            aria-describedby="home_phoneHelpBlock" value="{{ old('home_phone')}}">
-          <span id="home_phoneHelpBlock" class="form-text text-muted">Enter your home phone number</span>
-        </div>
-      </div>
+@include('membership_application.common_phone_input')
       <div class="form-group row">
         <label for="email" class="col-4 col-form-label">Email</label>
         <div class="col-8">

@@ -261,6 +261,13 @@ class BackpackUser extends User
         $this->comments = json_encode($comments);
     }
 
+    public function getCommentsAsArray()
+    {
+        
+        $comments = json_decode($this->comments,1);
+        return $comments;
+    }
+
 
     /**
      * this takes an image stream and saves it as a file,  mostly designed for the profile image upload. 

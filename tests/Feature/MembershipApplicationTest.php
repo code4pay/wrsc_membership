@@ -83,7 +83,7 @@ class MembershipApplicationTest extends TestCase
 
         $new_user =  BackpackUser::latest('id')->first();
         $saved_comment = json_decode($new_user->comments);
-        $this->assertEquals($saved_comment[0]->comment,"Applicant was a member of another group\nI left Wires in 2013\n\nApplicant has cared for other wildlife\nI looked after my mums chickens");
+        $this->assertEquals($saved_comment[0]->comment,"Applicant was a member of another group:\nI left Wires in 2013\n\nApplicant has cared for other wildlife:\nI looked after my mums chickens");
     
     }
     public function test_membership_application_user_member_type_primary()

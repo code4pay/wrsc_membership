@@ -102,13 +102,13 @@ class MembershipApplicationController extends Controller
         $user->pending_approval = true;
         $comments = [];
         if ($request->input('details_of_previous_group')) {
-            $comments[] = "Applicant was a member of another group\n" . $request->input('details_of_previous_group');
+            $comments[] = "Applicant was a member of another group:\n" . $request->input('details_of_previous_group');
         }
         if ($request->input('cared_for_wildlife')) {
-            $comments[] = "Applicant has cared for other wildlife\n" . $request->input('cared_for_wildlife');
+            $comments[] = "Applicant has cared for other wildlife:\n" . $request->input('cared_for_wildlife');
         }
         if ($request->input('interested_in_species')) {
-            $comments[] = "Applicant is interested in these species\n" . $request->input('interested_in_species');
+            $comments[] = "Applicant is interested in these species:\n" . $request->input('interested_in_species');
         }
         $comment_string = filter_var(implode("\n\n", $comments), FILTER_SANITIZE_STRING);
         $user->addComment($comment_string);
@@ -131,9 +131,9 @@ class MembershipApplicationController extends Controller
             $new_token = $this->createToken("prevent_form_resubmit") ;
             return view('membership_application.application_form_family', ['primary_member' => $primary_member->fresh(), "token" => $new_token]);
         } else {
-            
+            $comments = json_decode($primary_member->comments,1); 
             $to_email_address =config('app.send_applications_to') ;
-            Mail::to($to_email_address)->send(new MemberApplicationNotification($user));
+            Mail::to($to_email_address)->send(new MemberApplicationNotification($primary_member));
             return view('membership_application.payment', ['user' => $primary_member->fresh(), 'token' => $primary_member->createToken('tac')]);
         }
     }
