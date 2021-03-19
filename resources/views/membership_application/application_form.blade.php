@@ -79,7 +79,7 @@
 
 <body>
   <div class="container-fluid-md" style="background-color: #A9B2ac" id="header">
-   <div class="row col-md-6 offset-md-3">
+   <div class="row col-md-6 offset-md-4" style="text-align:center">
       <div style="text-align: center; color :whitesmoke; background-color: #A9B2AC" >
       <h1 class="display-4" style="font-family: 'Anton', sans-serif;" ><image  src="/images/wrsc_round.png">Wildlife Rescue South Coast</h1>
       <h1 class="display-4" style="font-family: 'Anton', sans-serif;" >Application Form</h1>
