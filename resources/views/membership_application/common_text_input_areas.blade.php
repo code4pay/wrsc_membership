@@ -121,8 +121,7 @@
             <li>1.      I agree to be bound by the conditions of : </li>
             <ol type="a">
               <li>a: Licence number MWL000100253 issued to Wildlife Rescue South Inc by NPWS. </li>
-              <li>b: Constitution, rules and guidelines of Wildlife Rescue South Coast Inc. need to make this
-                available somehow </li>
+              <li>b: <a href="/uploads/wildlife_rescue_constitution_2011.pdf"> Constitution </a>, rules and guidelines of Wildlife Rescue South Coast Inc.  </li>
               <li>c: Policies and Procedures of Wildlife Rescue South Coast Inc </li>
             </ol>
             <li>2.      I agree to be guided by the WRSC Coordinators and WRSC Committee in every facet of the
