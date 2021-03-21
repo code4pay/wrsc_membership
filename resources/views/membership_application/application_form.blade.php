@@ -8,91 +8,17 @@
   <link rel="stylesheet"
     href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
   <link rel="stylesheet" href="{{asset('css/app.css')}}">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"> 
   <script src="{{asset('js/app.js')}}"></script> 
   <title>WRSC Membership Application</title>
-  <style>
-    .hide {
-      display: none;
-    }
-
-    .image .btn-group {
-      margin-top: 10px;
-    }
-
-    img {
-      max-width: 100%;
-      /* This rule is very important, please do not ignore this! */
-    }
-
-    .img-container,
-    .img-preview {
-      width: 100%;
-      text-align: center;
-    }
-
-    .img-preview {
-      float: left;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      overflow: hidden;
-    }
-
-    .preview-lg {
-      width: 263px;
-      height: 148px;
-    }
-
-    .btn-file {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-file input[type=file] {
-      position: absolute;
-      top: 0;
-      right: 0;
-      min-width: 100%;
-      min-height: 100%;
-      font-size: 100px;
-      text-align: right;
-      filter: alpha(opacity=0);
-      opacity: 0;
-      outline: none;
-      background: white;
-      cursor: inherit;
-      display: block;
-    }
-    #header {
-    //background-image: url("/images/roo_joey.jpg");
-    background-repeat: no-repeat;
-    background-size: auto 100%;
-      background-color:#C5DAC1;
-    }
-    form {
-      background-color:#C5DAC1;
-      padding-top: 1em;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="container-fluid-md" style="background-color: #A9B2ac" id="header">
-   <div class="row col-md-6 offset-md-4" style="text-align:center">
-      <div style="text-align: center; color :whitesmoke; background-color: #A9B2AC" >
-      <h1 class="display-4" style="font-family: 'Anton', sans-serif;" ><image  src="/images/wrsc_round.png">Wildlife Rescue South Coast</h1>
-      <h1 class="display-4" style="font-family: 'Anton', sans-serif;" >Application Form</h1>
-      </div>
-    </div>
+@include('membership_application.common_title_style')
     <div class="jumbotron col-md-6 offset-md-3 alert-success " style="background-color: #C5DAC1" >
       <p class="lead " >
         Thank you for wanting to become a member.
-        WRSC is licenced by NPWS and we abide by our licence conditions</p>
+        WRSC is licenced by NPWS who set out the conditions under which we operate.>
       <div class="alert alert-warning">Please note, before you can rescue and care, you will need specific training
         and the majority of caring of native animals occurs in members homes
       </div>
-      <p>The cost of membership is a ${{Config::get('app.primary_member_fee')}} annual fee for the Primary member, plus a once off joining fee of ${{Config::get('app.application_fee')}} which
+      <p>The cost of membership is a $30 annual fee for the Primary member, plus a once off joining fee of ${{Config::get('app.application_fee')}} which
         includes cost of the Introduction course. Family members can join for a  ${{Config::Get('app.family_member_fee')}} annual fee </p>
 <p> We do offer a Junior membership to those under the age of 18 </p>
       <p> Each person applying must complete a separate application form.</p>

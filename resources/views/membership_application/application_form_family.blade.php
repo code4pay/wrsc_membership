@@ -10,65 +10,9 @@
   <link rel="stylesheet" href="{{asset('css/app.css')}}">
   <script src="{{asset('js/app.js')}}"></script>
   <title>WRSC Membership Application</title>
-  <style>
-    .hide {
-      display: none;
-    }
 
-    .image .btn-group {
-      margin-top: 10px;
-    }
-
-    img {
-      max-width: 100%;
-      /* This rule is very important, please do not ignore this! */
-    }
-
-    .img-container,
-    .img-preview {
-      width: 100%;
-      text-align: center;
-    }
-
-    .img-preview {
-      float: left;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      overflow: hidden;
-    }
-
-    .preview-lg {
-      width: 263px;
-      height: 148px;
-    }
-
-    .btn-file {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-file input[type=file] {
-      position: absolute;
-      top: 0;
-      right: 0;
-      min-width: 100%;
-      min-height: 100%;
-      font-size: 100px;
-      text-align: right;
-      filter: alpha(opacity=0);
-      opacity: 0;
-      outline: none;
-      background: white;
-      cursor: inherit;
-      display: block;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="container-fluid-md">
+@include('membership_application.common_title_style')
     <div class="jumbotron col-md-6 offset-md-3 alert-success">
-      <h1 class="display-4"><image  src="/images/wrsc_small.png">Wildlife Rescue South Coast, Application Form</h1>
       <p class="lead ">
         Please complete the details for the family member. Family members must reside as the same address as the primary
         member.
