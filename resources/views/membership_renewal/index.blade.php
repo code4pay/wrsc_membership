@@ -22,17 +22,17 @@
     </div>
     @if ($errors->any())
     <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+      <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+      </ul>
     </div>
-@endif
+    @endif
     <form class="col-md-6 offset-md-3" method="POST">
       {{ csrf_field() }}
       <input type="hidden" name="_method" value="PUT">
-      <input type="hidden" name="token" value="{{ $token->token }}"/>
+      <input type="hidden" name="token" value="{{ $token->token }}" />
       <div class="form-group row">
         <label for="member_number" class="col-4 col-form-label">Membership Number</label>
         <div class="col-8">
@@ -88,7 +88,7 @@
       <div class="form-group row">
         <label for="address_residential" class="col-4 col-form-label">Residential Address </label>
         <div class="col-8">
-          <input id="address_residential" name="address_residential" value="{{ $user->address_residential }}" required="required" type="text" class="form-control" >
+          <input id="address_residential" name="address_residential" value="{{ $user->address_residential }}" required="required" type="text" class="form-control">
         </div>
       </div>
       <div class="form-group row">
@@ -122,18 +122,17 @@
           <li>I agree the following are fundamental terms of membership:</li>
           <li>I agree to be bound by the conditions of :</li>
           <ul>
-            </li> a: Licence number MWL000100253 issued by NPWS.</li>
+            <li> a: Licence number MWL000100253 issued by NPWS.</li>
             <li>b: Constitution, rules and guidelines of Wildlife Rescue South Coast Inc.</li>
             <li>c: Fund Raising Authority Number CFN16681 issued by the Office of Liquor, Gaming and Racing.</li>
           </ul>
           <li>I agree that I may be suspended or expelled from WRSC should I act in an unethical manner.</li>
-          <li>I agree to care for animals / birds entrusted to me to the best of my ability with the object of returning them to the wild.</li>
-          <li>I agree to be guided by the WRSC Coordinators and WRSC Committee in every facet of the animals/bird’s care and rehabilitation will allow the relevant coordinators to inspect my premises at a time of mutual agreement.</li>
-          <li>I agree to return any property loaned to me by WRSC when requested by the Coordinator or the Committee.</li>
-          <li>I agree that all my labour is voluntary and that all activities are carried out at my own risk and with no right of recourse against any member of WRSC.</li>
-          <li>I assign to WRSC all present and future right, title and interest to any intellectual property, including copyright, trade marks (whether registered or common law trade marks) and designs, under the laws of any jurisdiction, relating to any work, product or materials developed or created by me in the course and within the scope of my activities as a member or volunteer for WRSC.
-          </li>
-          <li>I consent to any act or omission that would otherwise infringe my moral rights in respect of any materials or works in which copyright subsists that are developed or created by me in the course and within the scope of my activities as a member or volunteer for WRSC.</li>
+          <li>I agree to care for any wildlife entrusted to me to the best of my ability with the object of returning them to the wild.</li>
+          <li>I agree to be guided by the WRSC Coordinators and WRSC Committee in every facet of the wildlife’s care and rehabilitation and will allow the relevant coordinators to inspect my premises at a time of mutual agreement.</li>
+          <li>I agree to return any property loaned to me by WRSC when requested by the Committee.</li>
+          <li>I agree that all my labour is voluntary and that all activities are carried out at my own risk and with no right of recourse against any member of WRSC</li>
+          <li>I declare that I am not a prohibited person under the Commission for Children and Young People Act 2007.</li>
+          <li>I declare that I have not been convicted on charges relating to wildlife / domestic animals.</li>
         </ul>
         Should any of these conditions be breached by any member, membership can be terminated by the committee and become effective immediately by letter in writing to the applicable member.
         <br />
@@ -148,7 +147,7 @@
           </div>
         </div>
       </div>
-      @if (!$user->primary_member_id && $user->paid_to != '2021-06-30')
+      @if (!$user->primary_member_id && $user->paid_to != '2022-06-30')
       <div class="row">
         <p><strong>Renewal Fees. </strong> </p>
       </div>
@@ -165,7 +164,7 @@
             <td>{{$user->name}}</td>
             <td>{{$user->memberType->name}}</td>
             <td>${{$user->renewalAmount()}}</td>
-              @foreach ( $user->siblings as $familyUser)
+            @foreach ( $user->siblings as $familyUser)
           <tr>
             <td>{{$familyUser->name}}</td>
             <td>{{$familyUser->memberType->name}}</td>
@@ -178,7 +177,9 @@
           @endforeach
         </table>
       </div>
-      <div class="row"><h4> Accept Terms and Conditions and Proceed to Payment options </h4></div>
+      <div class="row">
+        <h4> Accept Terms and Conditions and Proceed to Payment options </h4>
+      </div>
       @endif
       <div class="form-group row">
         <div class="offset-4 col-8">
@@ -186,7 +187,7 @@
         </div>
       </div>
 
- 
+
 
     </form>
   </div>
@@ -198,7 +199,7 @@
         if (this.checked) {
           var address_fields = ['address', 'city', 'post_code']
           address_fields.forEach(function(field) {
-            document.getElementById(field +'_residential').value = document.getElementById(field).value;
+            document.getElementById(field + '_residential').value = document.getElementById(field).value;
           })
         }
       });

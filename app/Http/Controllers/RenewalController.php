@@ -56,10 +56,10 @@ class RenewalController extends Controller
             'address_residential' => 'required|max:255',
             'city_residential' => 'required|max:255',
             'post_code_residential' => 'required|digits:4',
-            'email' => 'required|email:rfc',
+            'email' => 'nullable|required|email:rfc',
             'agree_to_conditions' => 'required|accepted',
-            'mobile' => 'min:10|max:20',
-            'home_phone' =>'min:8|max:15',
+            'mobile' => 'nullable|min:10|max:20',
+            'home_phone' =>'nullable|min:8|max:15',
 
         ]);
 
