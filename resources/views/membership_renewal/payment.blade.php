@@ -99,7 +99,7 @@
 
 </body>
 
-<script src="https://www.paypal.com/sdk/js?client-id=@php echo(config('app.paypal_key')) @endphp&currency=AUD">
+<script src="https://www.paypal.com/sdk/js?client-id=@php echo(config('app.paypal_key')) @endphp&currency=AUD&locale=en_AU">
 </script>
 
 <script>
