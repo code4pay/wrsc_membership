@@ -17,9 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('application', '\App\Http\Controllers\MembershipApplicationController');
-Route::post('id_upload', '\App\Http\Controllers\MembershipApplicationController@id_upload')->name('id_upload');
-// these  routes are not authed, but use a token
+// Uncomment these on when ready to turn on Applications 
+// Route::resource('application', '\App\Http\Controllers\MembershipApplicationController');
+// Route::post('id_upload', '\App\Http\Controllers\MembershipApplicationController@id_upload')->name('id_upload');
+
+// these  routes are not authed, but use a one time token
 Route::post('paid_paypal', '\App\Http\Controllers\RenewalController@paidPayPal'); 
 Route::resource('tac_accept', '\App\Http\Controllers\RenewalController');
 Route::get('dont_renew/{tokenValue}', '\App\Http\Controllers\RenewalController@dontRenewShow');
