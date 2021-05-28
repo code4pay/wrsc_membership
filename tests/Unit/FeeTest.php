@@ -37,4 +37,22 @@ class FeeTest extends TestCase
         );
         $this->assertEquals(5, $user->renewalAmount(),  'Correct Renewal Amount');
     }
+    public function testApplicationFee()
+    {
+        $this->seed();
+        $user =    factory(\App\Models\BackpackUser::class)->create(
+            [
+                'member_type_id' => DB::table('membershiptypes')->where('name','Primary')->value('id'),
+            ]
+        );
+        $family_member =    factory(\App\Models\BackpackUser::class)->create(
+            [
+                'member_type_id' => DB::table('membershiptypes')->where('name','Family')->value('id'),
+                'primary_member_id' => 1
+            ]
+        );
+        
+        $this->assertEquals(50, $user->totalApplicationAmount(),  'Correct Application Amount');
+        
+    }
 }

@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class MemberRenewalRequest extends Mailable implements ShouldQueue //this email will use the queue always. 
+class MemberApplicationNotification extends Mailable implements ShouldQueue //this email will use the queue always. 
 {
     use Queueable, SerializesModels;
     public $user;
@@ -31,13 +31,9 @@ class MemberRenewalRequest extends Mailable implements ShouldQueue //this email 
      */
     public function build()
     {
-        $curDir = dirname(__FILE__);
-        $presidents_report = $curDir.'/../../storage/app/private/documents/presidents_report_2021.pdf';
-        return $this->markdown('membership_renewal.email_renewal_request')
+        return $this->markdown('membership_application.email_application_request_notification')
         ->from(config('app.send_renewals_from'))
-        ->bcc(config('app.bcc_emails_to'))
-        ->attach($presidents_report)
-        ->subject('WRSC Membership Renewal')
+        ->subject('WRSC Membership Application Recieved')
         ;
     }
 }

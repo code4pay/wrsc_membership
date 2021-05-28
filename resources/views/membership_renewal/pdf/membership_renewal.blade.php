@@ -52,38 +52,15 @@ Renewal No: {{ $user->member_number }} 	Name: {{ $user->name }}	</b></font></fon
 </font></font></font>
 </p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
-<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Thank
-you for being part of WRSC. It is renewal time, following one of the
-strangest 12 months we have ever faced.</font></font></font></p>
+<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">We sincerely thank you for being part of WRSC.  Although it is hard to believe, it is now membership renewal time.</font></font></font></p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
-<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Before
-going into the renewal section in this letter we would like to
-acknowledge the incredible amount of hard work, long hours and
-heartbreak experienced by our rescuers and carers during the recent
-drought and bushfires. From our members losing their properties, to
-the bat clinic taking in over 400 baby flying foxes in the space of a
-few days, it has not been a good year. But there has been a
-superhuman effort by our members so thank you to the rescuers, the
-carers and the support members who answered thousands of emails and
-phone calls - not to mention the huge amount of donations that have
-to be processed. Please see the attached President’s report with
-details on our last 12 months</font></font></font></p>
+<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Before going into the renewal section in this letter we would like to acknowledge the incredible amount of hard work carried out by our members, some of whom are still recovering from the damage occasioned by the bushfires.  We also understand that it has been a difficult 12 months for many of our members living under COVID-19 restrictions.s</font></font></font></p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
-<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">A
-big hi to all the new members who have joined us. We would love to
-welcome you with open arms, but under social distancing we cannot,
-and nor can we offer our standard training. We hope you will bear
-with us while we try to get back to normal.</font></font></font></p>
+<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Welcome to all our new members who have joined us this past year. To see what has happened during the past 12 months at WRSC, please see the attached President’s report.</font></font></font></p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
-<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">In
-acknowledgement for the efforts of our carers, for our new members
-not being able to fully partake in activities, and because of the
-generosity of donors, we are discounting the renewal cost by 50% to
-$15 for Primary members for this year only.</font></font></font></p>
+<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">To support the efforts of our carers, for our new members who have not been able to fully partake in activities, and because of the generosity of donors, we are discounting the renewal cost by 50% to $15 for Primary members for this year only. Also, many of our food costs are still presently being subsidised 100%.</font></font></font></p>
 <p align="justify" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
-<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">We
-have a major change to the way we are doing renewals this year. You
-now have the opportunity to renew online. </font></font></font>
+<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Last year, we processed renewals in a new fashion, and this year we are continuing that process. In this email you will find a link to your membership record, where you can check and update personal details. When your details are correct, all you need to do is acknowledge the terms and conditions and remit the funds as shown on the acknowledgement screen. If you do not want to renew online, please email me and I will post your renewal form.  </font></font></font>
 </p>
 <ul>
 	<li>
@@ -109,17 +86,13 @@ possible, we will be emailing your acknowledgement letters along with
 a pdf of your membership card, which you may print out, load to your
 phone, or if you want a laminated one, please let me know.</font></font></font></p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; page-break-after: auto">
-<span style="font-variant: normal"><font color="#000000"><span style="text-decoration: none"><font face="Arial, serif"><font size="2" style="font-size: 9pt"><span style="font-style: normal"><span style="font-weight: normal">If
-you have animals in care, and have not paid membership by the start
-of the new financial year ie 1 July 2020 then you are not covered by
+<span style="font-variant: normal"><font color="#000000"><span style="text-decoration: none"><font face="Arial, serif"><font size="2" style="font-size: 9pt"><span style="font-style: normal"><span style="font-weight: normal">If you have animals in care, and have not paid membership by the commencement of the new financial year i.e. 1st July 2021 then you will not be covered by WRSC’s NPWS licence MWL000100253 or our insurance and your authorisation to care, if applicable, will no longer be current.
 NPWS licence MWL000100253 or our insurance.</span></span></font></font></span></font></span></p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
 
 </p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
-<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Thank
-you again for your membership and it is a new world we are facing and
-look forward to facing it with your assistance.</font></font></font></p>
+<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Thank you again for your membership, it is indeed a new world that we are encountering and we look forward to facing it with your assistance..</font></font></font></p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
 <font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Yours
 Sincerely	</font></font></font></p>
@@ -308,39 +281,17 @@ your payment.</span></b></font></font></p>
 	<font face="Arial, serif"><font size="1" style="font-size: 8pt">c)	Fund
 	Raising Authority Number CFN16681 issued by the Office of Liquor,
 	Gaming and Racing.</font></font></p>
-<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">I
-		agree that I may be suspended or expelled from WRSC should I act in
-		an unethical manner.</font></font></p>
+<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">I agree that I may be suspended or expelled from WRSC should I act in an unethical manner..</font></font></p>
 <p style="margin-bottom: 0cm; line-height: 100%"><a name="_heading=h.gjdgxs"></a>
-		<font face="Arial, serif"><font size="1" style="font-size: 8pt">I
-		agree to care for wildlife entrusted to me to the best of my
-		ability with the object of returning them to the wild.</font></font></p>
-<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">I
-		agree to be guided by the WRSC Coordinators and WRSC Committee in
-		every facet of the wildlife’s care and rehabilitation</font></font><font color="#ff0000"><font face="Arial, serif"><font size="1" style="font-size: 8pt">
-		</font></font></font><font face="Arial, serif"><font size="1" style="font-size: 8pt">will
-		allow the relevant coordinators to inspect my premises at a time of
-		mutual agreement.</font></font></p>
-<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">I
-		agree to return any property loaned to me by WRSC when requested by
-		the Coordinator or the Committee.</font></font></p>
-<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">I
-		agree that all my labour is voluntary and that all activities are
-		carried out at my own risk and with no right of recourse against
-		any member of WRSC.</font></font></p>
-<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">I
-		assign to WRSC all present and future right, title and interest to
-		any intellectual property, including copyright, trade marks
-		(whether registered or common law trade marks) and designs, under
-		the laws of any jurisdiction, relating to any work, product or
-		materials developed or created by me in the course and within the
-		scope of my activities as a member or volunteer for WRSC.</font></font></p>
-<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">I
-		consent to any act or omission that would otherwise infringe my
-		moral rights in respect of any materials or works in which
-		copyright subsists that are developed or created by me in the
-		course and within the scope of my activities as a member or
-		volunteer for WRSC.</font></font></p>
+		<font face="Arial, serif"><font size="1" style="font-size: 8pt">I agree to care for any wildlife entrusted to me to the best of my ability with the object of returning them to the wild.</font></font></p>
+<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">I agree to be guided by the WRSC Coordinators and WRSC Committee in every facet of the wildlife’s care and rehabilitation and will allow the relevant coordinators to inspect my premises at a time of mutual agreement</font></font><font color="#ff0000"><font face="Arial, serif"><font size="1" style="font-size: 8pt">
+		</font></font></font></p>
+<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt"> I agree to return any property loaned to me by WRSC when requested by the Committee.
+.</font></font></p>
+<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt"> I agree that all my labour is voluntary and that all activities are carried out at my own risk and with no right of recourse against any member of WRSC
+.</font></font></p>
+<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">I declare that I am not a prohibited person under the Commission for Children and Young People Act 2007..</font></font></p>
+<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">I declare that I have not been convicted on charges relating to wildlife / domestic animals..</font></font></p>
 	<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt"><b>Should
 	any of these conditions be breached by any member, membership can be
 	terminated by the committee and become effective immediately by
@@ -746,7 +697,7 @@ your payment.</span></b></font></font></p>
 	THE MEMBERSHIP OFFICER ON </span></span></font></font></span></font></span><span style="font-variant: small-caps"><font color="#000000"><span style="text-decoration: none"><font face="Times New Roman, serif"><font size="2" style="font-size: 9pt"><span style="font-style: normal"><b>0402
 	403 057</b></span></font></font></span></font></span></p>
 </div>
-<pagebreak>
+@if (!$loop->last) <pagebreak> @endif
 @endforeach
 </body>
 </html>

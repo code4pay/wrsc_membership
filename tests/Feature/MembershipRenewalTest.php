@@ -8,11 +8,10 @@ use Tests\TestCase;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class RenewalTest extends TestCase
+class MembershipRenewalTest extends TestCase
 {
     use RefreshDatabase;
     /**
-     * A basic test example.
      *
      * @return void
      */

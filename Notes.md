@@ -82,3 +82,47 @@ MySQL
 Backpack v 4.0
 Currently using bootstrap "4.4.1"
 uses Jquery
+
+
+## VSCode settings
+
+### Debug (When using Homestead (Vagrant))
+
+`launch.json` Setting
+
+```
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for XDebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9000,
+            "externalConsole": false,
+            "log":true,
+            "pathMappings": {
+                "/home/vagrant/wrsc": "${workspaceFolder}"
+            },
+            "ignore": [
+            ]
+        }
+    ]
+}
+```
+
+xdebug setting
+
+```
+xdebug.remote_handler=dbgp
+zend_extension=xdebug.so
+xdebug.remote_enable = 1
+xdebug.remote_port = 9000
+xdebug.max_nesting_level = 512
+xdebug.remote_autostart=1
+xdebug.remote_host=10.0.2.2
+xdebug.remote_log="/tmp/xdebug.log"
+xdebug.remote_connect_back=0
+xdebug.default_enable=1
+xdebug.idekey=VSCODE
+```
