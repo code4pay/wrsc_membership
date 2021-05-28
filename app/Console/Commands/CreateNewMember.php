@@ -14,7 +14,8 @@ class CreateNewMember extends Command
     protected $signature = 'wrsc:member
                             {--F|firstName= : The first name of the new user}
                             {--L|lastName= : The last name of the new user}
-                            {--M|member_number= : The user\'s member Number}
+                            {--M|member_number= : The user\'s member number}
+                            {--E|email= : The user\'s email address}
                             {--P|password= : User\'s password}
                             {--encrypt=true : Encrypt user\'s password if it\'s plain text ( true by default )}';
 
@@ -41,10 +42,13 @@ class CreateNewMember extends Command
             $last_name = $this->ask('Last Name');
         }
 
-        if (! $email = $this->option('member_number')) {
-            $member_number = $this->ask('Member Number');
+        if (! $member_number = $this->option('member_number')) {
+            $member_number = $this->ask('Member Number can be any number');
         }
 
+        if (! $email = $this->option('email')) {
+            $email = $this->ask('email');
+        }
         if (! $password = $this->option('password')) {
             $password = $this->secret('Password');
         }
@@ -57,6 +61,7 @@ class CreateNewMember extends Command
         $user = new $auth();
         $user->first_name = $first_name;
         $user->last_name = $last_name;
+        $user->email = $email;
         $user->member_number= $member_number;
         $user->password = $password;
 
