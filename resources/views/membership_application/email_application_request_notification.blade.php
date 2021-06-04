@@ -17,7 +17,9 @@ Click this link to visit membership record <a href="{{url('/admin')}}/user/{{$us
 <tr><td>Residental Postcode</td><td>{{$user->post_code_residential}}</td></tr>
 <tr><td>Mobile Phone</td><td>{{$user->mobile}}</td></tr>
 <tr><td>Home Phone</td><td>{{$user->home_phone}}</td></tr>
+@if ($user->getCommentsAsArray())
 <tr><td>Comments</td><td>@php echo(nl2br($user->getCommentsAsArray()[0]['comment'])); @endphp</td></tr>
+@endif
 
 </table>
 @foreach ( $user->siblings as $familyUser )
@@ -27,7 +29,9 @@ Click this link to visit membership record <a href="{{url('/admin')}}/user/{{$us
 <tr><td>Member Type</td><td>{{$familyUser->memberType->name}}</td></tr>
 <tr><td>Mobile Phone</td><td>{{$familyUser->mobile}}</td></tr>
 <tr><td>Home Phone</td><td>{{$familyUser->home_phone}}</td></tr>
+@if ($familyUser->getCommentsAsArray())
 <tr><td>Comments</td><td> @php echo(nl2br($familyUser->getCommentsAsArray()[0]['comment'])); @endphp</td></tr>
+@endif
 </table>
 @endforeach
 

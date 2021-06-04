@@ -15,4 +15,5 @@
 </li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('course') }}'><i class='nav-icon fa fa-graduation-cap'></i> Courses</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('region') }}'><i class='nav-icon fa fa-location-arrow'></i>Regions</a></li>
+<li class='nav-item'><a class='nav-link' href='/site_admin'><i class='nav-icon fa fa-file-excel-o'></i>Site Admin</a></li>
 @endrole

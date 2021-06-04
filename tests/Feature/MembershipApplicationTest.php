@@ -34,7 +34,7 @@ class MembershipApplicationTest extends TestCase
     {
         $response = $this->get('/application');
         $response->assertstatus(200);
-        $response->assertSeeText('Wildlife Rescue South Coast, Application Form');
+        $response->assertSeeText('Application Form');
     }
 
     public function test_membership_application_success_no_doc()

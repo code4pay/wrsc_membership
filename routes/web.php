@@ -1,5 +1,6 @@
 <?php
 
+use Doctrine\DBAL\Schema\Index;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,8 +19,8 @@ Route::get('/', function () {
 });
 
 // Uncomment these on when ready to turn on Applications 
-// Route::resource('application', '\App\Http\Controllers\MembershipApplicationController');
-// Route::post('id_upload', '\App\Http\Controllers\MembershipApplicationController@id_upload')->name('id_upload');
+ Route::resource('application', '\App\Http\Controllers\MembershipApplicationController');
+ Route::post('id_upload', '\App\Http\Controllers\MembershipApplicationController@id_upload')->name('id_upload');
 
 // these  routes are not authed, but use a one time token
 Route::post('paid_paypal', '\App\Http\Controllers\RenewalController@paidPayPal'); 
@@ -29,6 +30,9 @@ Route::put('dont_renew/{tokenValue}', '\App\Http\Controllers\RenewalController@d
 
 Route::post('admin/email_renewals', '\App\Http\Controllers\RenewalController@emailRenewals')->middleware('auth');
 Route::post('print_renewals', '\App\Http\Controllers\RenewalController@printRenewals')->middleware('auth');
+Route::post('site_admin/presidents_report', '\App\Http\Controllers\Admin\SiteAdminController@upload_presidents_report')->middleware('auth');
+Route::get('site_admin/presidents_report', '\App\Http\Controllers\Admin\SiteAdminController@download_presidents_report')->middleware('auth');
+Route::get('site_admin', '\App\Http\Controllers\Admin\SiteAdminController@index')->middleware('auth');
 Route::post('admin/email_membership_card', '\App\Http\Controllers\MembershipCardController@emailMembershipCard')->middleware('auth');
 Route::post('print_membership_card', '\App\Http\Controllers\MembershipCardController@printMembershipCard')->middleware('auth');
 Route::get('profile_images/{fileName}', '\App\Http\Controllers\ProfileImagesController@showImage')->middleware('auth'); //protect profile images. 

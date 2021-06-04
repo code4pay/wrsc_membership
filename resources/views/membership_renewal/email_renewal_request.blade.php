@@ -16,7 +16,7 @@
  Wherever possible, we will be emailing your acknowledgement letters along with a pdf of your membership card, which you may print out and upload to your smartphone. If you would like a laminated membership card, please let me know.
 
 
- <a href="{{url('/tac_accept')}}/{{$user->createToken('tac')}}"> Click this link to renew your membership online </a>. For family
+ <a href="{{url('/tac_accept')}}/{{$user->createToken('tac')}}"> Click this link to renew your membership online </a>. For family 
  memberships, each family member must renew by clicking on the link. Only the
  person identified as the primary family member will be asked to pay
 
