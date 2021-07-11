@@ -6,3 +6,6 @@ steps:
   image: code4pay/wrsc_drone
   commands:
   - vendor/bin/phpunit/phpunit/phpunit 
+
+image_pull_secrets:
+- docker_hub
