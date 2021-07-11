@@ -3,6 +3,6 @@ name: default
 
 steps:
 - name: test
-  image: wrsc_drone
+  image: code4pay/wrsc_drone
   commands:
   - vendor/bin/phpunit/phpunit/phpunit 
