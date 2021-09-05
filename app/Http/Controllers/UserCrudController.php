@@ -142,7 +142,7 @@ class UserCrudController extends CrudController
                 'label' => "Pending Approval",
                 'type' => "boolean",
                 'name' => "pending_approval"
-            ],
+            ]
         );
         $this->crud->addColumn(
             [
@@ -240,7 +240,7 @@ class UserCrudController extends CrudController
                 'name'  => 'last_name',
                 'label' => 'Last Name',
                 'type'  => 'text',
-            ],
+            ]
         ]);
         if (backpack_user()->can('Read Email Address') || backpack_user()->can('Read All') ){
         $this->crud->addColumns([
@@ -248,7 +248,7 @@ class UserCrudController extends CrudController
                 'name'  => 'email',
                 'label' => 'Email',
                 'type'  => 'email',
-            ],
+            ]
         ]);
         }
         if (backpack_user()->can('Read Phone Numbers') ){
@@ -264,7 +264,7 @@ class UserCrudController extends CrudController
                 'label' => 'Home Phone',
                 'type'  => 'text',
             
-            ],
+            ]
         ]);
         }
          if( backpack_user()->can('Read All')){
@@ -287,7 +287,7 @@ class UserCrudController extends CrudController
                 'name'      => 'member_type_id',
                 'entity'    => 'memberType', // the method that defines the relationship in your Model
                 'attribute' => 'name', // foreign key attribute that is shown to user
-            ],
+            ]
             ]);
         }
          if( backpack_user()->can('Read Authorities')){

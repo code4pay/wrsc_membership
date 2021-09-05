@@ -45,14 +45,7 @@ class SiteAdminTest extends TestCase
 
         $user =    factory(\App\Models\BackpackUser::class)->create();
         $user->givePermissionTo('View Documents');
-        Storage::fake('private');
-        $file = UploadedFile::fake()->create('presidents_report.pdf', 100);
-        $form_fields['presidents_report'] = $file;
-        $response = $this->actingAs($user)->post('/site_admin/presidents_report', $form_fields);
-        $response->assertStatus(200);
-        $response->assertSessionHasNoErrors();
-        Storage::disk('private')->assertExists('/documents/presidents_report.pdf');
-
+        Storage::disk('private')->put('/documents/presidents_report.pdf','rubbish');
         $response = $this->actingAs($user)->get('/site_admin/presidents_report');
         $response->assertStatus(200);
         $response->assertSessionHasNoErrors();
