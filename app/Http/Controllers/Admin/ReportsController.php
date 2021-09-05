@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Jimmyjs\ReportGenerator\Facades\ExcelReportFacade as Reporter;
 use \Laracsv\Export;
+use Illuminate\Support\Facades\DB;
+
 
 class ReportsController extends \App\Http\Controllers\Controller
 {
     public function index()
     {
-        if (!backpack_user()->can('Read All')){
+        if (!backpack_user()->can('Read All')) {
             abort(403, 'You do not have access to this action');
         }
         return view('reports.reports');
@@ -20,7 +22,7 @@ class ReportsController extends \App\Http\Controllers\Controller
 
     public function run(Request $request)
     {
-        if (!backpack_user()->can('Read All')){
+        if (!backpack_user()->can('Read All')) {
             abort(403, 'You do not have access to this action');
         }
         switch ($request->input('report_name')) {
@@ -30,9 +32,70 @@ class ReportsController extends \App\Http\Controllers\Controller
             case 'myob_export':
                 return $this->myob_export($request);
                 break;
+            case 'training_report':
+                return $this->training_report($request);
+                break;
         }
 
         abort(404, 'No Such Report');
+    }
+
+// This was added from a misunderstanding of requirements I left it here just in case it is useful in the future.  
+
+    private function training_documents_export($request)
+    {
+
+        app('debugbar')->disable();
+
+        $users = \App\Models\BackpackUser::whereNotNull('documents')->get();
+        $trainingDocuments = [];
+        foreach ($users as $user) {
+            foreach ($user->documents as $document) {
+                if (strpos($document, 'TRAIN') !== false) {
+                    $docBits = explode('/', $document);
+                    preg_match('/TRAIN\s(\w+\s*\w*)\s(\d{4})/', $document, $matches);
+                    if (!isset($matches[1])) {
+                        $matches[1] = 'Error';
+                    }
+                    if (!isset($matches[2])) {
+                        $matches[2] = 'Error';
+                    }
+                    $trainingDocuments[] = (object)['document' => $docBits[1], 'first_name' => $user->first_name, 'last_name' => $user->last_name, 'type' => $matches[1], 'year' => $matches[2]];
+                }
+            }
+        }
+        $csvExporter = new \Laracsv\Export();
+        $columns = [ // Set Column to be displayed
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'document' => 'Document Name',
+            'type' => 'Training Type',
+            'year'  => 'Year'
+        ];
+        $csvExporter->build(collect($trainingDocuments), $columns);
+
+        return    $csvExporter->download('Training_Documents.csv');
+    }
+    private function training_report(Request $request)
+    {
+
+        app('debugbar')->disable();
+        $records = DB::table('course_users')
+            ->select('first_name', 'last_name', 'name', 'course_by', 'comment', 'date_completed') // Do some querying..
+            ->join('courses', 'course_id', '=', 'courses.id')
+            ->join('users', 'user_id', '=', 'users.id')
+            ->where('member_type_id', '<>', 8)->get();
+        $csvExporter = new \Laracsv\Export();
+        $columns = [ // Set Column to be displayed
+            'last_name' => 'Co./Last Name',
+            'first_name' => 'First Name',
+            'name' => 'Course Name',
+            'course_by' => 'Conducted By',
+            'date_completed' => 'Date Completed'
+        ];
+        $csvExporter->build($records, $columns);
+
+        return    $csvExporter->download('training_records.csv');
     }
 
     private function immunisation_report(Request $request)
@@ -98,7 +161,6 @@ class ReportsController extends \App\Http\Controllers\Controller
         ];
         $csvExporter->build($users, $columns);
 
-    return    $csvExporter->download('myob_export.csv');
-
+        return    $csvExporter->download('myob_export.csv');
     }
 }

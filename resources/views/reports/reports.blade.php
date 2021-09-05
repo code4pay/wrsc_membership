@@ -50,4 +50,16 @@
                 </div>
             </div>
         </form>
+    <div class="alert alert-success" role="alert">
+   Training Report
+</div>
+        <form method="post">
+            {{ csrf_field() }}
+            <input type="hidden" name="report_name" value="training_report">
+            <div class="form-group row">
+                <div class="offset-4 col-4">
+                    <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
 @endsection
