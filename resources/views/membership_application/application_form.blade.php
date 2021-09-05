@@ -13,29 +13,29 @@
 @include('membership_application.common_title_style')
     <div class="jumbotron col-md-6 offset-md-3 alert-success " style="background-color: #C5DAC1" >
       <p class="lead " >
-        Thank you for wanting to become a member.
-        WRSC is licenced by NPWS who set out the conditions under which we operate.>
-      <div class="alert alert-warning">Please note, before you can rescue and care, you will need specific training
-        and the majority of caring of native animals occurs in members homes
+        Thank you for applying to become a member of Wildlife Rescue South Coast Inc.
+        WRSC is licenced by NPWS who set the conditions under which we operate and are able to authorise members to care for wildlife.
+      <div class="alert alert-warning">Before WRSC can authorise you to rescue and care for injured or orphaned wildlife you must undertake training
+        courses. The majority of caring for native animals occurs in members homes.
       </div>
-      <p>The cost of membership is a $30 annual fee for the Primary member, plus a once off joining fee of ${{Config::get('app.application_fee')}} which
-        includes cost of the Introduction course. Family members can join for a  ${{Config::Get('app.family_member_fee')}} annual fee </p>
-<p> We do offer a Junior membership to those under the age of 18 </p>
+      <p>Membership is a $30 annual fee for the Primary member, plus a once off joining fee of ${{Config::get('app.application_fee')}} which
+        includes attendance at the Introduction to Rescuing Wildlife course. Family members can join for an additional  ${{Config::Get('app.family_member_fee')}} annual fee per person</p>
+<p> We also offer a Junior membership to those under the age of 18 </p>
       <p> Each person applying must complete a separate application form.</p>
       <p> If someone in the household is a member of WIRES, please contact the membership officer <a
           href="mailto:membership@wildlife-rescue.org.au">membership@wildlife-rescue.org.au</a>
         <p>
-          <div class="alert alert-warning">Native animals are not pets, our aim is that native animals are to be
-            rehabilitated when we can, and returned to the wild</div>
+          <div class="alert alert-warning">Native animals are not pets, our NPWS licence conditions state that native animals are to be
+            rehabilitated and returned to the wild</div>
           Please Note:
           <ul>
                     <li>All carers and rescuers must be over the age of 18 years by law </li>
-                    <li>Wildlife Rescue South Coast members must be financial and 18 years and over to vote at meetings
             </li>
-                    <li>Membership depends on your application being accepted by our committee. This happens at the
+                    <li>Membership depends on your application being accepted by the WRSC committee. This happens at the
               monthly committee meeting. If your application is received after these meetings it may not be accepted
               until the following month.</li>
-                    <li>Our membership year runs from July to June. </li>
+                    <li>Our membership year runs from 1 July to 30 June. </li>
+                    <li>Wildlife Rescue South Coast members must be financial and 18 years and over to be eligible to vote at meetings
           </ul>
         </p>
         <hr class="my-4">
@@ -62,7 +62,7 @@
 
       <div class="form-group row">
         <label for="address_residential" class="required col-4 col-form-label">Primary Residential Address. <strong> Please note
-            you cannot care for wildlife outside our licenced area, but may assist within our licenced area. <a
+            you cannot care for wildlife if you live outside our licenced area, but may assist other carers who live within our licenced area. <a
               href="images/wrsc_map.pdf"> Click Here</a> for licenced area</strong></label>
         <div class="col-8">
           <input id="address_residential" name="address_residential" placeholder="Enter Your Residential Address"
@@ -139,7 +139,7 @@
               class="form-check-input" value="yes" required="required">
             <label for="over_18_0" class="form-check-label"></label>
           </div>
-          <span id="over_18HelpBlock" class="form-text text-muted">You can not be a primary member if you are under
+          <span id="over_18HelpBlock" class="form-text text-muted">You cannot be a primary member if you are under
             the age of 18.</span>
         </div>
       </div>
@@ -392,6 +392,14 @@ bpFieldInitCropperImageElement($('#photo'));
         e.preventDefault();
         $(this).before(new_file_input);
     });
+</script>
+<script>
+  document.getElementById('mobile').addEventListener("keyup", function(){
+   txt=this.value;
+   if (txt.length==4 )
+    this.value=this.value+" ";
+  
+});
 </script>
 
 </html>

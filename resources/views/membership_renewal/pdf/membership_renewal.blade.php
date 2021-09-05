@@ -22,10 +22,7 @@ RESCUE SOUTH COAST INC</b></font></font></font><img src="images/wrsc_small.png" 
 </p>
 <p align="right" style="margin-right: -0.24cm; margin-bottom: 0cm; font-variant: small-caps; line-height: 92%">
 <font color="#000000"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><b>PO
-Box 666</b></font></font></font></p>
-<p align="right" style="margin-right: -0.24cm; margin-bottom: 0cm; font-variant: small-caps; line-height: 92%">
-<font color="#000000"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><b>NOWRA
-NSW 2541</b></font></font></font></p>
+Box 666, NOWRA NSW 2541</b></font></font></font></p>
 <p align="right" style="margin-right: -0.04cm; margin-top: 0.11cm; margin-bottom: 0.04cm; line-height: 100%; orphans: 0; widows: 0">
 <font face="Times New Roman, serif"><font size="2" style="font-size: 10pt">NPWS
 Licence No: MWL000100253 |</font></font><font face="Times New Roman, serif"><font size="2" style="font-size: 10pt"><b>
@@ -120,10 +117,7 @@ RESCUE SOUTH COAST INC</b></font></font></font>
 </p>
 <p align="right" style="margin-right: -0.24cm; margin-bottom: 0cm; font-variant: small-caps; line-height: 92%">
 <font color="#000000"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><b>PO
-Box 666</b></font></font></font></p>
-<p align="right" style="margin-right: -0.24cm; margin-bottom: 0cm; font-variant: small-caps; line-height: 92%">
-<font color="#000000"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><b>NOWRA
-NSW 2541</b></font></font></font></p>
+Box 666, NOWRA NSW 2541</b></font></font></font></p>
 <p align="right" style="margin-right: -0.04cm; margin-top: 0.11cm; margin-bottom: 0.04cm; line-height: 100%; orphans: 0; widows: 0">
 <font face="Times New Roman, serif"><font size="2" style="font-size: 10pt">NPWS
 Licence No: MWL000100253 |</font></font><font face="Times New Roman, serif"><font size="2" style="font-size: 10pt"><b>
@@ -266,36 +260,9 @@ your payment.</span></b></font></font></p>
 	of Membership:</b></font></font></p>
 	<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">I
 	agree the following are fundamental terms of membership:</font></font></p>
-	<ol>
-		<li/>
-<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">I
-		agree to be bound by the conditions of:</font></font></p>
-	</ol>
-	<p style="margin-left: 1cm; text-indent: -0.5cm; margin-bottom: 0cm; line-height: 100%">
-	<font face="Arial, serif"><font size="1" style="font-size: 8pt">a)	Licence
-	number MWL000100253 issued by NPWS.</font></font></p>
-	<p style="margin-left: 1cm; text-indent: -0.5cm; margin-bottom: 0cm; line-height: 100%">
-	<font face="Arial, serif"><font size="1" style="font-size: 8pt">b)	Constitution,
-	rules and guidelines of Wildlife Rescue South Coast Inc.</font></font></p>
-	<p style="margin-left: 1cm; text-indent: -0.5cm; margin-bottom: 0cm; line-height: 100%">
-	<font face="Arial, serif"><font size="1" style="font-size: 8pt">c)	Fund
-	Raising Authority Number CFN16681 issued by the Office of Liquor,
-	Gaming and Racing.</font></font></p>
-<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">I agree that I may be suspended or expelled from WRSC should I act in an unethical manner..</font></font></p>
-<p style="margin-bottom: 0cm; line-height: 100%"><a name="_heading=h.gjdgxs"></a>
-		<font face="Arial, serif"><font size="1" style="font-size: 8pt">I agree to care for any wildlife entrusted to me to the best of my ability with the object of returning them to the wild.</font></font></p>
-<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">I agree to be guided by the WRSC Coordinators and WRSC Committee in every facet of the wildlife’s care and rehabilitation and will allow the relevant coordinators to inspect my premises at a time of mutual agreement</font></font><font color="#ff0000"><font face="Arial, serif"><font size="1" style="font-size: 8pt">
-		</font></font></font></p>
-<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt"> I agree to return any property loaned to me by WRSC when requested by the Committee.
-.</font></font></p>
-<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt"> I agree that all my labour is voluntary and that all activities are carried out at my own risk and with no right of recourse against any member of WRSC
-.</font></font></p>
-<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">I declare that I am not a prohibited person under the Commission for Children and Young People Act 2007..</font></font></p>
-<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">I declare that I have not been convicted on charges relating to wildlife / domestic animals..</font></font></p>
-	<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt"><b>Should
-	any of these conditions be breached by any member, membership can be
-	terminated by the committee and become effective immediately by
-	letter in writing to the applicable member.</b></font></font></p>
+<div font size="1" style="font-size: 8pt">
+@include('global_includes.terms_and_conditions')
+</div>
 	
 	<p style="margin-bottom: 0cm; line-height: 100%"><font face="Arial, serif"><font size="1" style="font-size: 8pt">SIGNATURE:
 		</font></font></p>

@@ -118,23 +118,8 @@
 
       <div class=jumbotron>
         <h3>Conditions of Membership:</h3>
-        <ul>
-          <li>I agree the following are fundamental terms of membership:</li>
-          <li>I agree to be bound by the conditions of :</li>
-          <ul>
-            <li> a: Licence number MWL000100253 issued by NPWS.</li>
-            <li>b: Constitution, rules and guidelines of Wildlife Rescue South Coast Inc.</li>
-            <li>c: Fund Raising Authority Number CFN16681 issued by the Office of Liquor, Gaming and Racing.</li>
-          </ul>
-          <li>I agree that I may be suspended or expelled from WRSC should I act in an unethical manner.</li>
-          <li>I agree to care for any wildlife entrusted to me to the best of my ability with the object of returning them to the wild.</li>
-          <li>I agree to be guided by the WRSC Coordinators and WRSC Committee in every facet of the wildlife’s care and rehabilitation and will allow the relevant coordinators to inspect my premises at a time of mutual agreement.</li>
-          <li>I agree to return any property loaned to me by WRSC when requested by the Committee.</li>
-          <li>I agree that all my labour is voluntary and that all activities are carried out at my own risk and with no right of recourse against any member of WRSC</li>
-          <li>I declare that I am not a prohibited person under the Commission for Children and Young People Act 2007.</li>
-          <li>I declare that I have not been convicted on charges relating to wildlife / domestic animals.</li>
-        </ul>
-        Should any of these conditions be breached by any member, membership can be terminated by the committee and become effective immediately by letter in writing to the applicable member.
+
+@include('global_includes.terms_and_conditions')
         <br />
         <div class="form-group row">
           <label class="col-4">I AGREE TO THE CONDITIONS OF MEMBERSHIP</label>

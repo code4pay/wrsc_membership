@@ -1,6 +1,7 @@
 
   <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js" integrity="sha512-KaIyHb30iXTXfGyI9cyKFUIRSSuekJt6/vqXtyQKhQP6ozZEGY8nOtRS6fExqE4+RbYHus2yGyYg1BrqxzV6YA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <style>
     .hide {
       display: none;
@@ -76,7 +77,7 @@
   <div class="container-fluid-md" id="contents">
    <div class="row col-md-6 offset-md-4" style="text-align:center" id="title">
       <div>
-      <h1 class="display-4" ><image  src="/images/wrsc_round.png">Wildlife Rescue South Coast</h1>
-      <h1 class="display-4" >Application Form</h1>
+      <h1 class="display-4" ><image  src="/images/wrsc_round.png">Wildlife Rescue South Coast Inc</h1>
+      <h1 class="display-4" >Membership Application Form</h1>
       </div>
     </div>

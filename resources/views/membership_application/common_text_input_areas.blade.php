@@ -92,7 +92,6 @@
             <ul>
               <li> participate in any fund raising activities,</li>
               <li> are responsible for incurring expenses on behalf of Wildlife Rescue South Coast Inc. </li>
-              <li>are authorised and trained to euthanase injured wildlife by firearm.</li>
             </ul>
           </div>
         </div>
@@ -109,7 +108,7 @@
 
           <button class="add_more btn btn-primary">Add More</button><br />
           <span id="certificate_uploadhelpblock" class="form-text text-muted">If you have any wildlife training
-            certificate less than three years old, please upload them here</span>
+            certificates for courses attended that are less than three years old, please upload them here</span>
         </div>
       </div>
 
@@ -117,24 +116,8 @@
         <h1 class="display-4">Terms and conditions</h1>
         <p class="lead ">
           Upon joining,
-          <ol>
-            <li>1.      I agree to be bound by the conditions of : </li>
-            <ol type="a">
-              <li>a: Licence number MWL000100253 issued to Wildlife Rescue South Inc by NPWS. </li>
-              <li>b: <a href="/uploads/wildlife_rescue_constitution_2011.pdf"> Constitution </a>, rules and guidelines of Wildlife Rescue South Coast Inc.  </li>
-              <li>c: Policies and Procedures of Wildlife Rescue South Coast Inc </li>
-            </ol>
-            <li>2.      I agree to be guided by the WRSC Coordinators and WRSC Committee in every facet of the
-              wildlife’s care and rehabilitation and will allow the relevant coordinators or Committee members to
-              inspect my premises at a time of mutual agreement. </li>
-            <li>3.      I agree to return any property loaned to me by WRSC when requested by the Committee. </li>
-            <li>4.      I agree that all my labour is voluntary and that all activities are carried out at my own risk
-              and with no right of recourse against any member of WRSC. </li>
-            <li>5.      I declare that I am not a prohibited person under the Commission for Children and Young People
-              Act 2007. </li>
-            <li>6.      I declare that I have not been convicted on charges relating to wildlife / domestic animals.
-            </li>
-          </ol>
+
+@include('global_includes.terms_and_conditions')
           <div class="form-group row">
             <label class="col-4">I AGREE TO THE CONDITIONS OF MEMBERSHIP</label>
             <div class="col-8">

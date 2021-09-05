@@ -15,3 +15,12 @@
           <span id="home_phoneHelpBlock" class="form-text text-muted">Enter your home phone number. Format (02) XXXXXXXX</span>
         </div>
       </div>
+<script>
+  var cleave = new Cleave('#mobile', {
+    blocks: [4,6],
+});
+  var cleave = new Cleave('#home_phone', {
+    delimiters: ['(',') '],
+    blocks:[0,2,8]
+});
+</script>
