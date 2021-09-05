@@ -91,7 +91,8 @@ class ReportsController extends \App\Http\Controllers\Controller
             'first_name' => 'First Name',
             'name' => 'Course Name',
             'course_by' => 'Conducted By',
-            'date_completed' => 'Date Completed'
+            'date_completed' => 'Date Completed',
+            'comment'  => 'Comment'
         ];
         $csvExporter->build($records, $columns);
 
