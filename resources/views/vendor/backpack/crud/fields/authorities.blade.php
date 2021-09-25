@@ -1,6 +1,5 @@
 <!-- field_type_name -->
-<div @include('crud::inc.field_wrapper_attributes') >
-
+@include('crud::fields.inc.wrapper_start')
 <table class="table">
 <thead>
 <tr><th>Authority Name</th><th>Description</th><th>Date Authorised</th><tr>
@@ -22,8 +21,9 @@
 	 <tr><td><a href="/admin/authoritiesuser/create?user_id={{ $entry->getKey() }}" class="btn btn-info" role="button">Add Authority</a></td><td></td><td></td></tr>
 @endcan
 </table>
-</div>
-@push('after_scripts') @if ($crud->request->ajax()) @endpush @endif
+@include('crud::fields.inc.wrapper_end')
+
+@push('after_scripts') @if ($crud->getRequest()->ajax()) @endpush @endif
 <script>
 
 	if (typeof deleteEntry != 'function') {
@@ -119,4 +119,4 @@
 	// make it so that the function above is run after each DataTable draw event
 	// crud.addFunctionToDataTablesDrawEventQueue('deleteEntry');
 </script>
-@if (!$crud->request->ajax()) @endpush @endif
+@if (!$crud->getRequest()->ajax()) @endpush @endif

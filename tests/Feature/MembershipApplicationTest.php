@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Mail\MemberApplicationNotification;
-use \App\Models\BackpackUser;
+use \App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Carbon\Carbon;

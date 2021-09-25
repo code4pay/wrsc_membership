@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\BackpackUser;
+use App\User;
 use App\Models\MembershipType;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MemberApplicationNotification;
@@ -96,7 +96,7 @@ class MembershipApplicationController extends Controller
         $validatedData['documents'] = $request->input('documents');
         $validatedData['password'] = $password;
         $validatedData['member_number'] = $latest_membership_id + 1;
-        /*@var $user App\Models\BackpackUser */
+        /*@var $user App\User */
         $user = BackpackUser::create($validatedData);
         $user->image = $request->input('image');
         $user->pending_approval = true;

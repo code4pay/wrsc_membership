@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Blade;
 use App\Models\EmailTemplate;
 use App\Mail\MemberRenewalRequest;
-use App\Models\BackpackUser;
+use App\User;
 use Illuminate\Support\Facades\Mail;
 
 class UserCrudController extends CrudController
@@ -24,7 +24,7 @@ class UserCrudController extends CrudController
     }
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     #use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\RevisionsOperation;
+    use \Backpack\ReviseOperation\ReviseOperation;
     public function setup()
     {
         $this->crud->setModel(config('backpack.permissionmanager.models.user'));
@@ -609,13 +609,13 @@ class UserCrudController extends CrudController
         //Allow new members to be created with out entering a password
         // So set a random one. 
         $password = str_random(50);
-        $this->crud->request->request->set('password', $password);
-        $this->crud->request->request->set('password_confirmation', $password);
-        $this->crud->request = $this->crud->validateRequest();
-        $this->crud->request = $this->handlePasswordInput($this->crud->request);
+        $this->crud->getRequest()->request->set('password', $password);
+        $this->crud->getRequest()->request->set('password_confirmation', $password);
+        $this->crud->setRequest($this->crud->validateRequest());
+        $this->crud->setRequest($this->handlePasswordInput($this->crud->getRequest()));
         $latest_membership_id = BackpackUser::max('member_number');
         if (!$request->input('member_number')) {
-            $this->crud->request->request->set('member_number', $latest_membership_id + 1);
+            $this->crud->getRequest()->request->set('member_number', $latest_membership_id + 1);
         }
         $this->crud->unsetValidation(); // validation has already been run
 
@@ -633,8 +633,8 @@ class UserCrudController extends CrudController
        if (!backpack_user()->can('Modify All')){
         abort(403, 'You do not have access to this action');
        }
-        $this->crud->request = $this->crud->validateRequest();
-        $this->crud->request = $this->handlePasswordInput($this->crud->request);
+        $this->crud->setRequest($this->crud->validateRequest());
+        $this->crud->setRequest($this->handlePasswordInput($this->crud->getRequest()));
         $this->crud->unsetValidation(); // validation has already been run
 
         return $this->traitUpdate();
@@ -661,7 +661,7 @@ class UserCrudController extends CrudController
     }
 
     /*
-    * @return App\Models\BackpackUser
+    * @return App\User
     */
     protected function getUser()
     {
@@ -669,7 +669,7 @@ class UserCrudController extends CrudController
         $userModel = new $userModel();
         $routeSegmentWithId = empty(config('backpack.base.route_prefix')) ? '2' : '3';
 
-        $userId = $this->request->get('id') ?? \Request::instance()->segment($routeSegmentWithId);
+        $userId = $this->crud->getRequest()->get('id') ?? \Request::instance()->segment($routeSegmentWithId);
         $user = $userModel->find($userId);
         if (!$user) {
             abort(400, 'Could not find that entry in the database.');
@@ -677,7 +677,7 @@ class UserCrudController extends CrudController
     }
 
 
-    protected function addUserFields(\App\Models\BackpackUser $user = NULL)
+    protected function addUserFields(\App\User $user = NULL)
     {
         $user_id = NULL;
         if (isset($user)) {
@@ -724,7 +724,7 @@ class UserCrudController extends CrudController
                 'entity' => 'memberType', // the method that defines the relationship in your Model
                 'attribute' => 'name', // foreign key attribute that is shown to user
                 'model' => "App\Models\Membershiptype", // foreign key model
-                'wrapperAttributes' => ['class' => 'col-md-4']
+                'wrapper' => ['class' => 'col-md-4']
             ],
             [   // select2_from_array
                 'name' => 'dob',
@@ -758,7 +758,7 @@ class UserCrudController extends CrudController
                 ],
                 'allows_null' => true,
                 'default' =>null,
-                'wrapperAttributes' => ['class' => 'col-md-4']
+                'wrapper' => ['class' => 'col-md-4']
             ],
             [
                 'tab' => 'Main',
@@ -814,7 +814,7 @@ class UserCrudController extends CrudController
                 'name'  => 'city',
                 'label' => 'City/Suburb Postal',
                 'type'  => 'text',
-                'wrapperAttributes' => ['class' => 'col-md-4'],
+                'wrapper' => ['class' => 'col-md-4'],
                 'allows_null' => false,
             ],
             [
@@ -823,7 +823,7 @@ class UserCrudController extends CrudController
                 'label' => 'Post Code Postal',
                 'type'  => 'text',
                 'attributes' => ['maxlength' => 4],
-                'wrapperAttributes' => ['class' => 'col-md-3'],
+                'wrapper' => ['class' => 'col-md-3'],
                 'allows_null' => false,
             ],
             [
@@ -844,7 +844,7 @@ class UserCrudController extends CrudController
                 'name'  => 'city_residential',
                 'label' => 'City/Suburb Residential',
                 'type'  => 'text',
-                'wrapperAttributes' => ['class' => 'col-md-4'],
+                'wrapper' => ['class' => 'col-md-4'],
                 'allows_null' => false,
             ],
             [
@@ -853,7 +853,7 @@ class UserCrudController extends CrudController
                 'label' => 'Post Code Residential',
                 'type'  => 'text',
                 'attributes' => ['maxlength' => 4],
-                'wrapperAttributes' => ['class' => 'col-md-4'],
+                'wrapper' => ['class' => 'col-md-4'],
                 'allows_null' => false,
             ],
         
@@ -871,7 +871,7 @@ class UserCrudController extends CrudController
                 'name'  => 'member_number',
                 'label' => 'Membership Number',
                 'type'  => 'text',
-                'wrapperAttributes' => ['class' => 'col-md-6']
+                'wrapper' => ['class' => 'col-md-6']
             ],
  
             [
@@ -879,7 +879,7 @@ class UserCrudController extends CrudController
                 'name'  => 'wildman_number',
                 'label' => 'Wildman Number',
                 'type'  => 'text',
-                'wrapperAttributes' => ['class' => 'col-md-6']
+                'wrapper' => ['class' => 'col-md-6']
             ],
            
             [
@@ -887,28 +887,28 @@ class UserCrudController extends CrudController
                 'name'  => 'joined',
                 'label' => 'Date Joined',
                 'type'  => 'date',
-                'wrapperAttributes' => ['class' => 'col-md-6']
+                'wrapper' => ['class' => 'col-md-6']
             ],
             [
                 'tab' => 'Membership Details',
                 'name'  => 'tac_date',
                 'label' => 'Terms and Conditions Acceptance Date',
                 'type'  => 'date',
-                'wrapperAttributes' => ['class' => 'col-md-6']
+                'wrapper' => ['class' => 'col-md-6']
             ],
             [
                 'tab' => 'Membership Details',
                 'name'  => 'receipt_date',
                 'label' => 'Payment Received Date (D/D)',
                 'type'  => 'date',
-                'wrapperAttributes' => ['class' => 'col-md-6']
+                'wrapper' => ['class' => 'col-md-6']
             ],
             [
                 'tab' => 'Membership Details',
                 'name'  => 'receipt_number',
                 'label' => 'Receipt Number and Amount',
                 'type'  => 'text',
-                'wrapperAttributes' => ['class' => 'col-md-6']
+                'wrapper' => ['class' => 'col-md-6']
             ],
             [
                 'tab' => 'Membership Details',
@@ -921,7 +921,7 @@ class UserCrudController extends CrudController
                 'name'  => 'paid_paypal_date',
                 'label' => 'PayPal Payment Date',
                 'type'  => 'date',
-                'wrapperAttributes' => ['readonly' => 'readonly']
+                'wrapper' => ['readonly' => 'readonly']
             ],
 
             [
@@ -930,21 +930,21 @@ class UserCrudController extends CrudController
                 'label' => 'PayPal Payment Amount',
                 'type'  => 'number',
                 'prefix' => '$',
-                'wrapperAttributes' => ['readonly' => 'readonly']
+                'wrapper' => ['readonly' => 'readonly']
             ],
             [
                 'tab' => 'Membership Details',
                 'name'  => 'lyssa_serology_date',
                 'label' => 'Last Lyssa Test Date',
                 'type'  => 'date',
-                'wrapperAttributes' => ['class' => 'col-md-6']
+                'wrapper' => ['class' => 'col-md-6']
             ],
             [
                 'tab' => 'Membership Details',
                 'name'  => 'lyssa_serology_value',
                 'label' => 'Lyssa Serology Level',
                 'type'  => 'number',
-                'wrapperAttributes' => ['class' => 'col-md-6']
+                'wrapper' => ['class' => 'col-md-6']
             ],
             [
                 'tab' => 'Membership Details',
@@ -957,7 +957,7 @@ class UserCrudController extends CrudController
                 'name'  => 'pending_approval',
                 'label' => 'Pending Approval',
                 'type'  => 'checkbox',
-                'wrapperAttributes' => ['class' => 'col-md-4'],
+                'wrapper' => ['class' => 'col-md-4'],
 
             ],
             [
@@ -965,7 +965,7 @@ class UserCrudController extends CrudController
                 'name'  => 'dont_renew',
                 'label' => 'Do Not Renew',
                 'type'  => 'checkbox',
-                'wrapperAttributes' => ['class' => 'col-md-4'],
+                'wrapper' => ['class' => 'col-md-4'],
 
             ],
             [
@@ -973,7 +973,7 @@ class UserCrudController extends CrudController
                 'name'  => 'tac_email_date',
                 'label' => 'T&C Sent',
                 'type'  => 'date',
-                'wrapperAttributes' => ['class' => 'col-md-4'],
+                'wrapper' => ['class' => 'col-md-4'],
 
             ],
 

@@ -1,11 +1,11 @@
 /*!
- * Cropper.js v1.5.11
+ * Cropper.js v1.5.9
  * https://fengyuanchen.github.io/cropperjs
  *
  * Copyright 2015-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2021-02-17T11:53:21.992Z
+ * Date: 2020-09-10T13:16:21.689Z
  */
 
 .cropper-container {
@@ -304,13 +304,13 @@
 }
 
 /*!
- * Cropper.js v1.5.11
+ * Cropper.js v1.5.9
  * https://fengyuanchen.github.io/cropperjs
  *
  * Copyright 2015-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2021-02-17T11:53:21.992Z
+ * Date: 2020-09-10T13:16:21.689Z
  */
 
 .cropper-container {
@@ -14055,7 +14055,6 @@ button.bg-dark:focus {
 }
 
 .position-sticky {
-  position: -webkit-sticky !important;
   position: sticky !important;
 }
 
@@ -14075,9 +14074,8 @@ button.bg-dark:focus {
   z-index: 1030;
 }
 
-@supports ((position: -webkit-sticky) or (position: sticky)) {
+@supports (position: sticky) {
   .sticky-top {
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1020;

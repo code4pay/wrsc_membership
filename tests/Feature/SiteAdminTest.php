@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use \App\Models\BackpackUser;
+use \App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 
@@ -29,7 +29,7 @@ class SiteAdminTest extends TestCase
     public function test_presidents_report_upload()
     {
 
-        $user =    factory(\App\Models\BackpackUser::class)->create();
+        $user =    factory(\App\User::class)->create();
 
         Storage::fake('private');
         $file = UploadedFile::fake()->create('presidents_report.pdf', 100);
@@ -43,7 +43,7 @@ class SiteAdminTest extends TestCase
     public function test_presidents_report_download()
     {
 
-        $user =    factory(\App\Models\BackpackUser::class)->create();
+        $user =    factory(\App\User::class)->create();
         $user->givePermissionTo('View Documents');
         Storage::disk('private')->put('/documents/presidents_report.pdf','rubbish');
         $response = $this->actingAs($user)->get('/site_admin/presidents_report');
@@ -54,7 +54,7 @@ class SiteAdminTest extends TestCase
     public function test_admin_page_load_no_access()
     {
         
-        $user =    factory(\App\Models\BackpackUser::class)->create();
+        $user =    factory(\App\User::class)->create();
         $response = $this->actingAs($user)->get('/site_admin');
         $response->assertStatus(403);
 
@@ -63,7 +63,7 @@ class SiteAdminTest extends TestCase
     public function test_admin_page_load_admin_access()
     {
         
-        $user =    factory(\App\Models\BackpackUser::class)->create();
+        $user =    factory(\App\User::class)->create();
 
         $user->assignRole('admin');
         $response = $this->actingAs($user)->get('/site_admin');
