@@ -68,7 +68,7 @@ class ImportImages extends Command
                     continue;
                 }
                 echo "importing row $row \n";
-                $member = \App\Models\BackpackUser::where('member_number', $data[2])->first();
+                $member = \App\User::where('member_number', $data[2])->first();
                 if (!$member) { 
                     print_r ("unable to find member $data[0] $data[1] member number $data[2]\n");
                     continue;

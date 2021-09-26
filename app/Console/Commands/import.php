@@ -99,9 +99,9 @@ class import extends Command
                 }
                 echo "importing row $row \n";
                 $member_type_id = $memberTypes[$data[16]];
-                $member = new \App\Models\BackpackUser;
+                $member = new \App\User;
                 $member->member_type_id = $member_type_id;
-                $password = str_random(50);
+                $password = Str::random(50);
                 $member->password = Hash::make($password);
                 $member->joined = $this->extractDates($data[17]);
                 if (isset($regionMapping[$data[13]])) {
@@ -144,9 +144,9 @@ class import extends Command
         // second round to set up the family member relationships
         if (($handle = fopen("$fileName", "r")) !== FALSE) {
             while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
-                $member = \App\Models\BackpackUser::where('member_number', $data[2])->first();
+                $member = \App\User::where('member_number', $data[2])->first();
                 if ($data[34] && $data[34] != $data[2]) {
-                    $primary_member = \App\Models\BackpackUser::where('member_number', $data[34])->first();
+                    $primary_member = \App\User::where('member_number', $data[34])->first();
                     if (!$primary_member) {
                         print_r("Unable to find primary_member $data[34] for member $data[2]\n");
                         continue;
@@ -159,7 +159,7 @@ class import extends Command
         }
     }
 
-    public function addCourses(\App\Models\BackpackUser $member, array $row)
+    public function addCourses(\App\User $member, array $row)
     {
 
         //spreadsheet => database
@@ -189,7 +189,7 @@ class import extends Command
         }
     }
 
-    public function addAuthorities(\App\Models\BackpackUser $member, array $row)
+    public function addAuthorities(\App\User $member, array $row)
     {
 
         //spreadsheet => database

@@ -46,8 +46,8 @@ class EmailTemplateCrudController extends CrudController
     {
         //Allow new members to be created with out entering a password
         // So set a random one. 
-        $this->crud->request = $this->crud->validateRequest();
-        $this->crud->request = $this->handlePasswordInput($this->crud->request);
+        $this->crud->setRequest($this->crud->validateRequest());
+        $this->crud->getRequest($this->handlePasswordInput($this->crud->getRequest()));
         $this->crud->unsetValidation(); // validation has already been run
 
         return $this->traitStore();

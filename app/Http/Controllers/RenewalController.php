@@ -40,7 +40,7 @@ class RenewalController extends Controller
             abort(404, "Unkown Token");
         }
         $tokenUser = $token->user()->first();
-        $user = \App\Models\BackpackUser::where('member_number', $request->input('member_number'))->first();
+        $user = \App\User::where('member_number', $request->input('member_number'))->first();
         if (!$user) {
             abort(404, "Unkown User");
         }
@@ -105,7 +105,7 @@ class RenewalController extends Controller
             abort(404, "Unkown Request");
         }
         $tokenUser = $token->user()->first();
-        $user = \App\Models\BackpackUser::where('member_number', $request->input('member_number'))->first();
+        $user = \App\User::where('member_number', $request->input('member_number'))->first();
         if (!$user) {
             abort(404, "Unkown Request");
         }
@@ -129,7 +129,7 @@ class RenewalController extends Controller
             abort(404, "Unkown Token");
         }
         $tokenUser = $token->user()->first();
-        $user = \App\Models\BackpackUser::where('member_number', $request->input('member_number'))->first();
+        $user = \App\User::where('member_number', $request->input('member_number'))->first();
         if (!$user) {
             abort(404, "Unkown User");
         }
@@ -153,7 +153,7 @@ class RenewalController extends Controller
             abort(403, 'You do not have access to this action');
         }
         foreach ($request->get('users') as $user_id) {
-            $user = \App\Models\BackpackUser::find($user_id);
+            $user = \App\User::find($user_id);
             if (!$user) {
                 abort(400, 'Could not find that user.');
             }
@@ -173,7 +173,7 @@ class RenewalController extends Controller
         }
         $users = [];
         foreach ($request->get('users') as $user_id) {
-            $user = \App\Models\BackpackUser::find($user_id);
+            $user = \App\User::find($user_id);
             if (!$user) {
                 abort(400, 'Could not find that user.');
             }

@@ -15,7 +15,7 @@ class MembershipCardController extends Controller
             abort(403, 'You do not have access to this action');
         }
         foreach ($request->get('users') as $user_id) {
-            $user = \App\Models\BackpackUser::find($user_id);
+            $user = \App\User::find($user_id);
             if (!$user) {
                 abort(400, 'Could not find that user.');
             }
@@ -37,7 +37,7 @@ class MembershipCardController extends Controller
         ini_set("pcre.backtrack_limit", "9000000");
         $users = [];
         foreach ($request->get('users') as $user_id) {
-            $user = \App\Models\BackpackUser::find($user_id);
+            $user = \App\User::find($user_id);
             if (!$user) {
                 abort(400, 'Could not find that user.');
             }

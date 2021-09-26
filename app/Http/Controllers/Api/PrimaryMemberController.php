@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\BackpackUser;
+use App\User;
 
 class PrimaryMemberController extends Controller
 {
@@ -15,11 +15,11 @@ class PrimaryMemberController extends Controller
 
         if ($search_term)
         {
-            $results = BackpackUser::where('first_name', 'LIKE', '%'.$search_term.'%')->orWhere('last_name', 'LIKE', '%'.$search_term.'%')->paginate(10);
+            $results = User::where('first_name', 'LIKE', '%'.$search_term.'%')->orWhere('last_name', 'LIKE', '%'.$search_term.'%')->paginate(10);
         }
         else
         {
-            $results = BackpackUser::paginate(10);
+            $results = User::paginate(10);
         }
 
         return $results;
@@ -27,6 +27,6 @@ class PrimaryMemberController extends Controller
 
     public function show($id)
     {
-        return BackpackUser::find($id);
+        return User::find($id);
     }
 }

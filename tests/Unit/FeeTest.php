@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use \App\Models\BackpackUser;
+use \App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use Illuminate\Support\Facades\DB;
@@ -21,7 +21,7 @@ class FeeTest extends TestCase
     {
          $this->seed();
          // factory user defaults to Primary
-        $user =    factory(\App\Models\BackpackUser::class)->create();
+        $user =    User::factory()->create();
         $this->assertEquals(15, $user->renewalAmount(),  'Correct Renewal Amount');
     }
 
@@ -29,7 +29,7 @@ class FeeTest extends TestCase
     {
 
          $this->seed();
-        $user =    factory(\App\Models\BackpackUser::class)->create(
+        $user =   User::factory()->create(
             [
                 'member_type_id' => DB::table('membershiptypes')->where('name','Family')->value('id'),
                 'primary_member_id' => 1
@@ -40,12 +40,12 @@ class FeeTest extends TestCase
     public function testApplicationFee()
     {
         $this->seed();
-        $user =    factory(\App\Models\BackpackUser::class)->create(
+        $user =    User::factory()->create(
             [
                 'member_type_id' => DB::table('membershiptypes')->where('name','Primary')->value('id'),
             ]
         );
-        $family_member =    factory(\App\Models\BackpackUser::class)->create(
+        $family_member =    User::factory()->create(
             [
                 'member_type_id' => DB::table('membershiptypes')->where('name','Family')->value('id'),
                 'primary_member_id' => 1

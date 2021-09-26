@@ -5,9 +5,10 @@ $field['value'] = old($field['name']) ? old($field['name']) : (isset($field['val
 // make sure the value is a JSON string (not array, if it's cast in the model)
 $field['value'] = is_array($field['value']) ? json_encode($field['value']) : $field['value'];
 @endphp
+
 @include('crud::fields.inc.wrapper_start')
 <label>{!! $field['label'] !!}</label>
-<input type="hidden" name="{{ $field['name'] }}" data-init-function="bpFieldInitRepeatableElement" value="{{ $field['value'] }}" @include('crud::inc.field_wrapper_attributes')>
+<input type="hidden" name="{{ $field['name'] }}" data-init-function="bpFieldInitRepeatableElement" value="{{ $field['value'] }}" >
 
 {{-- HINT --}}
 @if (isset($field['hint']))
@@ -161,12 +162,15 @@ $crud->markFieldTypeAsLoaded($field);
                 if ($(this).data('repeatable-input-name')) {
                     $(this).val(values[$(this).data('repeatable-input-name')]);
                 }
+                new_field_group.find('.delete-element').remove()
             });
         } else {
 
             new_field_group.find('.delete-element').click(function() {
                 $(this).parent().remove();
             });
+          
+           new_field_group[0].classList.add('comment_input');
         }
 
         container.append(new_field_group);

@@ -22,7 +22,7 @@ class CourseUser extends Model
         'comment'
     ];
     public function user() {
-        return $this->belongsTo('\App\Models\BackpackUser');
+        return $this->belongsTo('\App\User');
     }
 
     public function course() {

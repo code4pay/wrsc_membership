@@ -13,7 +13,7 @@
 @endif
 </table>
 </div>
-@push('after_scripts') @if ($crud->request->ajax()) @endpush @endif
+@push('after_scripts') @if ($crud->getRequest()->ajax()) @endpush @endif
 <script>
 
 	if (typeof deleteEntry != 'function') {
@@ -109,4 +109,4 @@
 	// make it so that the function above is run after each DataTable draw event
 	// crud.addFunctionToDataTablesDrawEventQueue('deleteEntry');
 </script>
-@if (!$crud->request->ajax()) @endpush @endif
+@if (!$crud->getRequest()->ajax()) @endpush @endif

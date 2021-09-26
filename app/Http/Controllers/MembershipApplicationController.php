@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\BackpackUser;
+use App\User;
 use App\Models\MembershipType;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use App\Mail\MemberApplicationNotification;
+
 
 class MembershipApplicationController extends Controller
 {
@@ -48,10 +50,10 @@ class MembershipApplicationController extends Controller
             abort(403, "Sorry this form can only be submitted once");
         }
         $token->delete(); 
-        $password = str_random(50);
+        $password = Str::random(50);
         $request->merge(['password' => $password]);
         $request->merge(['password_confirmation' => $password]);
-        $latest_membership_id = BackpackUser::max('member_number');
+        $latest_membership_id = User::max('member_number');
         $request->merge(['member_number' => $latest_membership_id + 1]);
         $primary_member = null; 
         $validatedData = $request->validate([
@@ -65,7 +67,7 @@ class MembershipApplicationController extends Controller
                 'member_wires' => 'in:no'
             ]);
         if ($request->input('family_member')) {
-                $primary_member = BackpackUser::find($request->input('primary_member_id'));
+                $primary_member = User::find($request->input('primary_member_id'));
                 if (!$primary_member) { 
                     abort(404, "Invalid Primary User");
                  }
@@ -96,8 +98,8 @@ class MembershipApplicationController extends Controller
         $validatedData['documents'] = $request->input('documents');
         $validatedData['password'] = $password;
         $validatedData['member_number'] = $latest_membership_id + 1;
-        /*@var $user App\Models\BackpackUser */
-        $user = BackpackUser::create($validatedData);
+        /*@var $user App\User */
+        $user = User::create($validatedData);
         $user->image = $request->input('image');
         $user->pending_approval = true;
         $comments = [];
@@ -146,7 +148,7 @@ class MembershipApplicationController extends Controller
         $token = new \App\Models\Token;
         $token->user_id = 999999;
         $token->type = $type;
-        $token->token = str_random(50);
+        $token->token = Str::random(50);
         $token->save();
         return $token->token;
 

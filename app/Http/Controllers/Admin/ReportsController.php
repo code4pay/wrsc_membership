@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\BackpackUser;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Jimmyjs\ReportGenerator\Facades\ExcelReportFacade as Reporter;
@@ -47,7 +47,7 @@ class ReportsController extends \App\Http\Controllers\Controller
 
         app('debugbar')->disable();
 
-        $users = \App\Models\BackpackUser::whereNotNull('documents')->get();
+        $users = \App\User::whereNotNull('documents')->get();
         $trainingDocuments = [];
         foreach ($users as $user) {
             foreach ($user->documents as $document) {
@@ -113,7 +113,7 @@ class ReportsController extends \App\Http\Controllers\Controller
             'Sort By' => $sortBy
         ];
 
-        $queryBuilder = \App\Models\BackpackUser::select(['first_name', 'last_name', 'lyssa_serology_date', 'lyssa_serology_value', 'lyssa_serology_comment']) // Do some querying..
+        $queryBuilder = \App\User::select(['first_name', 'last_name', 'lyssa_serology_date', 'lyssa_serology_value', 'lyssa_serology_comment']) // Do some querying..
             ->whereBetween('lyssa_serology_date', [$fromDate, $toDate])
             ->orderBy($sortBy);
 
@@ -141,7 +141,7 @@ class ReportsController extends \App\Http\Controllers\Controller
         $sortBy = 'joined';
         app('debugbar')->disable();
 
-        $users = \App\Models\BackpackUser::where('joined', '>=', $fromDate)->orderBy('joined')->get();
+        $users = \App\User::where('joined', '>=', $fromDate)->orderBy('joined')->get();
         $csvExporter = new \Laracsv\Export();
         $columns = [ // Set Column to be displayed
             'last_name' => 'Co./Last Name',

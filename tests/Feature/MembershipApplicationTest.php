@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Mail\MemberApplicationNotification;
-use \App\Models\BackpackUser;
+use \App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Carbon\Carbon;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Support\Str;
 
 
 class MembershipApplicationTest extends TestCase
@@ -81,7 +81,7 @@ class MembershipApplicationTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertStatus(200);
 
-        $new_user =  BackpackUser::latest('id')->first();
+        $new_user =  User::latest('id')->first();
         $saved_comment = json_decode($new_user->comments);
         $this->assertEquals($saved_comment[0]->comment,"Applicant was a member of another group:\nI left Wires in 2013\n\nApplicant has cared for other wildlife:\nI looked after my mums chickens");
     
@@ -94,7 +94,7 @@ class MembershipApplicationTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertStatus(200);
 
-        $new_user =  BackpackUser::latest('id')->first();
+        $new_user =  User::latest('id')->first();
         $this->assertEquals('Primary', $new_user->memberType->name);
         $this->assertEquals('Vincentia', $new_user->city);
         $this->assertEquals('Vincentia', $new_user->city_residential);
@@ -121,7 +121,7 @@ class MembershipApplicationTest extends TestCase
     {
         $primary_fields = $this->build_application();
         $primary_fields['password'] = 'asdasdasd';
-        $primary_member = BackpackUser::create($primary_fields);
+        $primary_member = User::create($primary_fields);
         $primary_member->save();
         $primary_member = $primary_member->fresh(); 
         $form_fields = $this->build_application();
@@ -132,7 +132,7 @@ class MembershipApplicationTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertStatus(200);
         $form_fields['add_family_members'] = "no";
-        $new_member =  BackpackUser::latest('id')->first();
+        $new_member =  User::latest('id')->first();
         $this->assertEquals('Family', $new_member->memberType->name);
         $this->assertEquals('23 some street',$new_member->address);
         $this->assertEquals($primary_member->id, $new_member->primary_member_id);
@@ -145,7 +145,7 @@ class MembershipApplicationTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertStatus(200);
 
-        $new_user =  BackpackUser::latest('id')->first();
+        $new_user =  User::latest('id')->first();
         $this->assertEquals($new_user->pending_approval,true);
     
     }
@@ -171,7 +171,7 @@ class MembershipApplicationTest extends TestCase
         $token = new \App\Models\Token;
         $token->user_id = 999999;
         $token->type = "prevent_form_resubmit";
-        $token->token = str_random(50);
+        $token->token = Str::random(50);
         $token->save();
         
         return ([

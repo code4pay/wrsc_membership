@@ -2,15 +2,13 @@
 
 namespace Tests\Unit;
 
-use \App\Models\BackpackUser;
+use \App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class CommentTest extends TestCase
 {
-
     use RefreshDatabase;
     /**
      * A basic test example.
@@ -21,7 +19,7 @@ class CommentTest extends TestCase
     {
          $this->seed();
          // factory user defaults to Primary
-        $user =    factory(\App\Models\BackpackUser::class)->create();
+        $user =    User::factory()->make();
         $user->addComment('this is a comment');
         $user->save();
        // dd($user->fresh()->comments); 

@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\BackpackUser;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -18,7 +18,7 @@ class MemberRenewalRequest extends Mailable implements ShouldQueue //this email 
      *
      * @return void
      */
-    public function __construct(BackpackUser $user)
+    public function __construct(User $user)
     {
           $this->user = $user;
           

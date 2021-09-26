@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\AuthoritiesUserRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use App\Models\BackpackUser; 
+use App\User; 
 /**
  * Class AuthoritiesUserCrudController
  * @package App\Http\Controllers\Admin
