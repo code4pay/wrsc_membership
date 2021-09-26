@@ -27,6 +27,7 @@
         "jquery": "^3.5.1",
         "jquery-cropper": "^1.0.1",
         "piexif": "0.0.2",
-        "popper.js": "^1.16.1"
+        "popper.js": "^1.16.1",
+        "production": "^0.0.2"
     }
 }

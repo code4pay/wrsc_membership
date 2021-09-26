@@ -16,3 +16,6 @@ public/uploads/
 member_with_res.csv
 app/Http/Controllers/UserCrudController.php
 final-members.csv
+/public/css/app.css
+/public/js/app.js
+/public/images/signature.png
