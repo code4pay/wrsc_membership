@@ -101,7 +101,7 @@ class import extends Command
                 $member_type_id = $memberTypes[$data[16]];
                 $member = new \App\User;
                 $member->member_type_id = $member_type_id;
-                $password = str_random(50);
+                $password = Str::random(50);
                 $member->password = Hash::make($password);
                 $member->joined = $this->extractDates($data[17]);
                 if (isset($regionMapping[$data[13]])) {

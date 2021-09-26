@@ -28,7 +28,7 @@ class MembershipRenewalTest extends TestCase
         $this->seed();
         $this->withoutExceptionHandling();
 
-        $user =    factory(\App\User::class)->create();
+        $user =    User::factory()->create();
         $token = $user->createToken('tac');
 
         $response = $this->get('/tac_accept/' . $token);
@@ -59,7 +59,7 @@ class MembershipRenewalTest extends TestCase
         $this->seed();
         $this->withExceptionHandling();
 
-        $user =    factory(\App\User::class)->create();
+        $user =    User::factory()->create();
         //  dd($user);
         $response = $this->put('/tac_accept/asd', $this->build_t_c_post($user));
         $user->refresh();
@@ -77,7 +77,7 @@ class MembershipRenewalTest extends TestCase
         $this->seed();
         $this->withExceptionHandling();
 
-        $user =    factory(\App\User::class)->create();
+        $user =    User::factory()->create();
         // Test users are created as Primary Members by default
         $response = $this->put('/tac_accept/asd', $this->build_t_c_post($user));
         $user->refresh();
@@ -97,7 +97,7 @@ class MembershipRenewalTest extends TestCase
         $this->seed();
         $this->withExceptionHandling();
 
-        $user =    factory(\App\User::class)->create(
+        $user =    User::factory()->create(
             [
                 'member_type_id' => DB::table('membershiptypes')->where('name', 'Family')->value('id'),
                 'primary_member_id' => 1
@@ -122,13 +122,13 @@ class MembershipRenewalTest extends TestCase
         $this->seed();
         $this->withExceptionHandling();
 
-        $user =    factory(\App\User::class)->create();
+        $user =    User::factory()->create();
         $user_details = $this->build_t_c_post($user);
         $user_details['city'] = 'mars';
         $response = $this->put('/tac_accept/asd', $user_details);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(200);
-        $updatedUser =  BackpackUser::find($user->id);
+        $updatedUser =  User::find($user->id);
         $user->refresh();
         $this->assertEquals($user->city, 'mars');
     }
@@ -151,7 +151,7 @@ class MembershipRenewalTest extends TestCase
     {
         $this->withExceptionHandling();
         $this->seed();
-        $user =    factory(\App\User::class)->create();
+        $user =    User::factory()->create();
         $token = $user->createToken('tac');
         $response = $this->put('/dont_renew/1', [
             'token' => $token,
@@ -164,7 +164,7 @@ class MembershipRenewalTest extends TestCase
 
     public function test_send_renewal_email_not_logged_in() {
             $this->seed();
-            $user =    factory(\App\User::class)->create();
+            $user =    User::factory()->create();
             $response = $this->post('admin/email_renewals',[
                 
                 'users' => [
@@ -178,7 +178,7 @@ class MembershipRenewalTest extends TestCase
 
     public function test_send_renewal_email() {
         $this->seed();
-        $user =    factory(\App\User::class)->create();
+        $user =    User::factory()->create();
         $user->givePermissionTo('Send Renewals');
         $this->actingAs($user);
        $user->refresh;

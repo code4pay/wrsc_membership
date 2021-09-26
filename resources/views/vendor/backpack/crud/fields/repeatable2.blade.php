@@ -162,12 +162,15 @@ $crud->markFieldTypeAsLoaded($field);
                 if ($(this).data('repeatable-input-name')) {
                     $(this).val(values[$(this).data('repeatable-input-name')]);
                 }
+                new_field_group.find('.delete-element').remove()
             });
         } else {
 
             new_field_group.find('.delete-element').click(function() {
                 $(this).parent().remove();
             });
+          
+           new_field_group[0].classList.add('comment_input');
         }
 
         container.append(new_field_group);

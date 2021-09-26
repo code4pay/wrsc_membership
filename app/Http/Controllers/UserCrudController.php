@@ -8,6 +8,7 @@ use App\Http\Requests\UserUpdateCrudRequest as UpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Str;
 use App\Models\EmailTemplate;
 use App\Mail\MemberRenewalRequest;
 use App\User;
@@ -184,21 +185,21 @@ class UserCrudController extends CrudController
         [
             // n-n relationship (with pivot table)
             'label' => "Courses", // Table column heading
-            'type' => "select_multiple",
+            'type' => "relationship",
             'name' => 'courses', // the method that defines the relationship in your Model
-            'entity' => 'course', // the method that defines the relationship in your Model
+         //   'entity' => 'course', // the method that defines the relationship in your Model
             'attribute' => "course.name", // foreign key attribute that is shown to user
-            'model' => "App\Models\CourseUser", // foreign key model
+            //'model' => "App\Models\CourseUser", // foreign key model
          ]);
          $this->crud->addColumn(
             [
                 // n-n relationship (with pivot table)
                 'label' => "Authorities", // Table column heading
-                'type' => "select_multiple",
+                'type' => "relationship",
                 'name' => 'authorities', // the method that defines the relationship in your Model
-                'entity' => 'authoritie', // the method that defines the relationship in your Model
+               // 'entity' => 'authoritie', // the method that defines the relationship in your Model
                 'attribute' => "authority.name", // foreign key attribute that is shown to user
-                'model' => "App\Models\AuthoritiesUser", // foreign key model
+                //'model' => "App\Models\AuthoritiesUser", // foreign key model
              ]);
     }
 
@@ -608,12 +609,12 @@ class UserCrudController extends CrudController
     {
         //Allow new members to be created with out entering a password
         // So set a random one. 
-        $password = str_random(50);
+        $password = Str::random(50);
         $this->crud->getRequest()->request->set('password', $password);
         $this->crud->getRequest()->request->set('password_confirmation', $password);
         $this->crud->setRequest($this->crud->validateRequest());
         $this->crud->setRequest($this->handlePasswordInput($this->crud->getRequest()));
-        $latest_membership_id = BackpackUser::max('member_number');
+        $latest_membership_id = User::max('member_number');
         if (!$request->input('member_number')) {
             $this->crud->getRequest()->request->set('member_number', $latest_membership_id + 1);
         }
@@ -1010,7 +1011,6 @@ class UserCrudController extends CrudController
                         'name' => 'date',
                         'label' => 'date',
                         'type' => 'date',
-                        'wrapper' => ['class' => 'd-none']
                     ],
                     [
                         'name' => 'author',

@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\NullQueue;
 use Illuminate\Support\Str;
 use Monolog\Handler\NullHandler;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use \Venturecraft\Revisionable\RevisionableTrait;
 class User extends Authenticatable 
 {
@@ -19,6 +21,7 @@ class User extends Authenticatable
     use Notifiable;
     use HasRoles;
     use RevisionableTrait;
+    use HasFactory;
 
     protected $table = 'users';
     /**
@@ -203,7 +206,7 @@ class User extends Authenticatable
         $token = new \App\Models\Token;
         $token->user_id = $this->id;
         $token->type = $type;
-        $token->token = str_random(50);
+        $token->token = Str::random(50);
         $token->save();
         return $token->token;
 
@@ -352,7 +355,7 @@ class User extends Authenticatable
         }
 
         // if a base64 was sent, store it in the db
-        if (starts_with($value, 'data:image'))
+        if (Str::startsWith($value, 'data:image'))
         {
             // 0. Make the image
             $image = \Image::make($value)->encode('jpg', 90);

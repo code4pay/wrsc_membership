@@ -2,7 +2,7 @@
 
 This project is based on Laravel and Backpack. 
 - https://laravel.com/ (7.11.0)
-- https://backpackforlaravel.com/ (v4.0)
+- https://backpackforlaravel.com/ (v4.1)
 
 ## setting up database for dev
 In the root dir of the project run `php artisan migrate:fresh`
@@ -65,7 +65,7 @@ Make sure you run ` composer dump-autoload ` when updating classes etc.
 Check the `app/Http/Controllers/UserCrudController.php` for examples 
 These are the fields you add to your controller for them to show up on the form 
 Backback fields
-https://backpackforlaravel.com/docs/4.0/crud-fields
+https://backpackforlaravel.com/docs/4.1/crud-fields
 
 
 
@@ -135,3 +135,7 @@ xdebug.idekey=VSCODE
 - run `php artisan config:clear` 
 - run `php artisan migrate` to apply DB changes
 - run `npm run production` to apply js and css changes
+
+# Homestead
+Some notes on using Homestead 
+to set the php version for the cli `sudo update-alternatives --config php` 

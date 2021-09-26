@@ -21,7 +21,7 @@ class FeeTest extends TestCase
     {
          $this->seed();
          // factory user defaults to Primary
-        $user =    factory(\App\User::class)->create();
+        $user =    User::factory()->create();
         $this->assertEquals(15, $user->renewalAmount(),  'Correct Renewal Amount');
     }
 
@@ -29,7 +29,7 @@ class FeeTest extends TestCase
     {
 
          $this->seed();
-        $user =    factory(\App\User::class)->create(
+        $user =   User::factory()->create(
             [
                 'member_type_id' => DB::table('membershiptypes')->where('name','Family')->value('id'),
                 'primary_member_id' => 1
@@ -40,12 +40,12 @@ class FeeTest extends TestCase
     public function testApplicationFee()
     {
         $this->seed();
-        $user =    factory(\App\User::class)->create(
+        $user =    User::factory()->create(
             [
                 'member_type_id' => DB::table('membershiptypes')->where('name','Primary')->value('id'),
             ]
         );
-        $family_member =    factory(\App\User::class)->create(
+        $family_member =    User::factory()->create(
             [
                 'member_type_id' => DB::table('membershiptypes')->where('name','Family')->value('id'),
                 'primary_member_id' => 1

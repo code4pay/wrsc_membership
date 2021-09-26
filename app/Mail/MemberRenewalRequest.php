@@ -18,7 +18,7 @@ class MemberRenewalRequest extends Mailable implements ShouldQueue //this email 
      *
      * @return void
      */
-    public function __construct(BackpackUser $user)
+    public function __construct(User $user)
     {
           $this->user = $user;
           
