@@ -1,7 +1,7 @@
 # Notes
 
 This project is based on Laravel and Backpack. 
-- https://laravel.com/ (7.11.0)
+- https://laravel.com/ (8.61.0)
 - https://backpackforlaravel.com/ (v4.1)
 
 ## setting up database for dev
@@ -79,7 +79,7 @@ https://bootstrapformbuilder.com/
 
 ## Technologies used. 
 MySQL 
-Backpack v 4.0
+Backpack v 4.1
 Currently using bootstrap "4.4.1"
 uses Jquery
 

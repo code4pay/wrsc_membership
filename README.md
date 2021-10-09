@@ -6,7 +6,7 @@ date in the `.env` file.  Generally set to the end of June the following year in
 `2022-06-30` format. 
 
 ## Fees 
-Fees are currently hard coded 
+Fees are currently set in the .env file. 
 
 ## Development environment
 See Notes.md
