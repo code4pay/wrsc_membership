@@ -4,10 +4,11 @@
     <ol type="a">
       <li>a: Licence number MWL000100253 issued to Wildlife Rescue South Inc by NPWS. </li>
       <li>b: <a href="/uploads/wildlife_rescue_constitution_2011.pdf"> Constitution </a>, rules and guidelines of Wildlife Rescue South Coast Inc.  </li>
+      <li>d:   Fund Raising Authority Number CFN16681 issued by the Office of Liquor, Gaming and Racing.
       <li>c: Policies and Procedures of Wildlife Rescue South Coast Inc </li>
     </ol>
-    <li>2.      I agree to be guided by the WRSC Coordinators and WRSC Committee in every facet of the
-      wildlife’s care and rehabilitation and will allow the relevant coordinators or Committee members to
+    <li>2.      I agree to be guided by the WRSC Coordinators and WRSC Committee in every facet of 
+      wildlife care and rehabilitation and will allow the relevant coordinators or Committee members to
       inspect my premises at a time of mutual agreement. </li>
     <li>3.      I agree to return any property loaned to me by WRSC when requested by the Committee. </li>
     <li>4.      I agree that all my labour is voluntary and that all activities are carried out at my own risk
