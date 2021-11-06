@@ -164,8 +164,8 @@ return [
     'life_member_fee' => env('LIFE_MEMBER_FEE'),
     'application_fee' => env('APPLICATION_FEE'), 
     'honorary_or_life_family_member_fee' => env('HONORARY_OR_LIFE_FAMILT_MEMBER_FEE'), // Family members of Honorary and Life members also get a reduced rate
-
-
+    'primary_member_fee_override_on_application' =>  env('PRIMARY_MEMBER_FEE_OVERRIDE_ON_APPLICATION'), // sometimes we reduce renewal fees. 
+  
     'capatcha' => env('CAPATCHA'),
 
 

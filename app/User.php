@@ -281,8 +281,9 @@ class User extends Authenticatable
     }
 
 
-    public function renewalAmount()
+    public function renewalAmount($isApplication=false)
     {
+    
         if ($this->memberType->name == 'Honorary'){
          return config('app.honorary_member_fee');   
         }
@@ -301,22 +302,31 @@ class User extends Authenticatable
                 return  config('app.family_member_fee');
             }
          }
-        return config('app.primary_member_fee');
+         if ($isApplication){
+         
+             $primaryFeeOverrideOnApplication = config('app.primary_member_fee_override_on_application');
+             if (isset($primaryFeeOverrideOnApplication)){
+                return config('app.primary_member_fee_override_on_application');
+             }
+         } 
+
+         return config('app.primary_member_fee');
+          
 
     }
 
-    public function totalRenewalAmount()
+    public function totalRenewalAmount($isApplication=false)
     {
-        $amount = $this->renewalAmount();
+        $amount = $this->renewalAmount($isApplication);
         foreach($this->siblings()->get() as $sibling){
-            $amount = $amount + $sibling->renewalAmount();
+            $amount = $amount + $sibling->renewalAmount($isApplication);
         }
         return $amount;
     }
 
     public function totalApplicationAmount()
     {
-        return config('app.application_fee') + $this->totalRenewalAmount();
+        return config('app.application_fee') + $this->totalRenewalAmount(true);
     }
 
     public function addComment($comment,  $user='system')

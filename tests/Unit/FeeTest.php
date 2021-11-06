@@ -55,4 +55,24 @@ class FeeTest extends TestCase
         $this->assertEquals(50, $user->totalApplicationAmount(),  'Correct Application Amount');
         
     }
+
+    public function testApplicationFeeWithOverrideOnApplication()
+    {
+        config(['app.primary_member_fee_override_on_application' => 30]);
+        $this->seed();
+        $user =    User::factory()->create(
+            [
+                'member_type_id' => DB::table('membershiptypes')->where('name','Primary')->value('id'),
+            ]
+        );
+        $family_member =    User::factory()->create(
+            [
+                'member_type_id' => DB::table('membershiptypes')->where('name','Family')->value('id'),
+                'primary_member_id' => 1
+            ]
+        );
+        
+        $this->assertEquals(65, $user->totalApplicationAmount(),  'Correct Application Amount');
+        
+    }
 }

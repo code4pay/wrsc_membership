@@ -45,7 +45,7 @@
           <tr>
             <td>{{$user->name}}</td>
             <td>{{$user->memberType->name}}</td>
-            <td>${{$user->renewalAmount()}}
+            <td>${{$user->renewalAmount(true)}}
                
               @foreach ( $user->siblings as $familyUser)
           <tr>
