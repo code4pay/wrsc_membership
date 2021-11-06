@@ -351,6 +351,21 @@ class UserCrudController extends CrudController
                  'type' => 'text'
              ],
              [
+                 'name' => 'address_residential',
+                 'label' => 'Residential Address',
+                 'type' => 'text'
+             ],
+            [
+                'name'  => 'city_residential',
+                'label' => 'Residential City',
+                'type'  => 'text',
+            ],
+             [
+                 'name' => 'post_code_residential',
+                 'label' => 'Residential Postcode',
+                 'type' => 'text'
+             ],
+             [
                  'name' => 'joined',
                  'label' => 'Joined date',
                  'type' => 'date'
