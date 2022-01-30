@@ -34,7 +34,7 @@ $field['value'] = is_array($field['value']) ? json_encode($field['value']) : $fi
 
 </div>
 
-@can('Modify All') 
+@canany('Add Member Comments','Modify All') 
 <button type="button" class="btn btn-outline-primary btn-sm ml-1 add-repeatable-element-button">+ New Item</button>
 @endcan
 @include('crud::fields.inc.wrapper_end')

@@ -9,13 +9,7 @@ In the root dir of the project run `php artisan migrate:fresh`
 The to add the first user ` php artisan wrsc:member`  it will then prompt you for the fields. 
 you should then be able to login.  If using Homestead it will be `http://localhost:8000` 
 
-For some reason the `artisan db::seed` command is missing from this install(on my devbox anyway);
-if you want to manually see the database you can use tinker and
-```
-$seeder = new DatabaseSeeder();
-$seeder->run()
-```
-That should work though I have not tried it.  
+To add things like courses etc run `artisan db:seed` 
 
 
 ## Adding a new table 

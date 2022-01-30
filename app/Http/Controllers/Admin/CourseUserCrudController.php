@@ -21,7 +21,8 @@ class CourseUserCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
     public function setup()
-    {        if (!backpack_user()->can('Add Courses')){
+    {
+        if (is_null(backpack_user()) || !(backpack_user()->can('Manage Member Courses') || backpack_user()->can('Modify All'))){
         abort(403, 'You do not have access to this action');
        }
 

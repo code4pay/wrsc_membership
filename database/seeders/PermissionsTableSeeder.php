@@ -110,7 +110,7 @@ class PermissionsTableSeeder extends Seeder
             11 => 
             array (
                 'id' => 19,
-                'name' => 'Add Courses',
+                'name' => 'Manage Member Courses',
                 'guard_name' => 'web',
                 'created_at' => '2020-07-11 01:13:03',
                 'updated_at' => '2020-07-11 01:13:03',

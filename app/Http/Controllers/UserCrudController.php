@@ -26,11 +26,16 @@ class UserCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
     #use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\ReviseOperation\ReviseOperation;
+    //Field name , Specific Permission Name
+    const SpecificFieldUpdatePermissions =  ["documents" => "Upload Documents", "courses" => "Manage Member Courses", "authorities" => "Manage Member Authorities", "comments" => "Add Member Comments"  ];
     public function setup()
     {
         $this->crud->setModel(config('backpack.permissionmanager.models.user'));
         $this->crud->setEntityNameStrings('Member', 'Members');
         $this->crud->setRoute(backpack_url('user'));
+    }
+    public static function getSpecificFieldUpdatePermissions(){
+        return (array_values(self::SpecificFieldUpdatePermissions));
     }
     protected function setupShowOperation()
     { 
@@ -646,13 +651,11 @@ class UserCrudController extends CrudController
     public function update()
     {
 
-       if (!backpack_user()->can('Modify All')){
-        abort(403, 'You do not have access to this action');
-       }
+       $request = $this->crud->getRequest();
         $this->crud->setRequest($this->crud->validateRequest());
-        $this->crud->setRequest($this->handlePasswordInput($this->crud->getRequest()));
+        $this->crud->setRequest($this->handlePasswordInput($request));
         $this->crud->unsetValidation(); // validation has already been run
-
+        $this->crud->setRequest($this->getOnlyfieldsAuthorised($request));
         return $this->traitUpdate();
     }
 
@@ -672,9 +675,30 @@ class UserCrudController extends CrudController
         } else {
             $request->request->remove('password');
         }
-
         return $request;
     }
+
+    /*
+     * Limit updates fields to only what the user is allowed. 
+    */
+    protected function getOnlyfieldsAuthorised($request)
+    {
+
+       $user = $this->getUser();
+       if (backpack_user()->can('Modify All')){
+           return $request;
+       }
+       $specificEditPermissions = self::SpecificFieldUpdatePermissions;
+        $allFields = $request->request->all();
+        foreach (array_keys($allFields) as $field) {
+            if (!(array_key_exists($field, $specificEditPermissions) && backpack_user()->hasPermissionTo($specificEditPermissions[$field]))){
+                if(property_exists($user, $field)){
+                  $request->request->set($field,$user->$field);
+                }
+            }
+        }
+        return $request;
+    } 
 
     /*
     * @return App\User
@@ -687,9 +711,10 @@ class UserCrudController extends CrudController
 
         $userId = $this->crud->getRequest()->get('id') ?? \Request::instance()->segment($routeSegmentWithId);
         $user = $userModel->find($userId);
-        if (!$user) {
+        if (is_null($user)) {
             abort(400, 'Could not find that entry in the database.');
         }
+        return $user;
     }
 
 
@@ -1052,11 +1077,18 @@ class UserCrudController extends CrudController
             ],
 
         ];
-
+        //Make fields readonly for any that user does not have explicit permissions for.  
+        $specificEditPermissions = self::SpecificFieldUpdatePermissions;
         if (!backpack_user()->can('Modify All')) {
             if (backpack_user()->can('Read All')) {
                 foreach ($crud_fields as &$crud_field) {
-                    $crud_field["attributes"] = ["readonly" => "readonly", "disabled" => "disabled"];
+
+                    if (!(array_key_exists($crud_field["name"], $specificEditPermissions) && backpack_user()->hasPermissionTo($specificEditPermissions[$crud_field["name"]]))){
+                           $crud_field["attributes"] = ["readonly" => "readonly"];
+                           if ($crud_field["type"] == 'checkbox' || $crud_field["name"] == 'documents' || $crud_field["name"] == 'image' ){ //have to disable checkboxes but cant disable others else they wont get sent back to server and fail validation
+                                $crud_field["attributes"] = ["readonly" => "readonly", "disabled" => "disabled"];
+                           }
+                    }
                 }
             }
         }

@@ -16,8 +16,8 @@
 
      @endforeach
 @endif
-
-@can('Modify All') 
+Add Member Comments
+@canany('Manage Member Authorities', 'Modify All') 
 	 <tr><td><a href="/admin/authoritiesuser/create?user_id={{ $entry->getKey() }}" class="btn btn-info" role="button">Add Authority</a></td><td></td><td></td></tr>
 @endcan
 </table>

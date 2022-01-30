@@ -1,5 +1,7 @@
 <div id="saveActions" class="form-group">
-@can('Modify All') 
+@php $permissions = auth()->user()->hasAnyPermission(App\Http\Controllers\UserCrudController::getSpecificFieldUpdatePermissions()) @endphp  
+@if($permissions)
+
     <input type="hidden" name="save_action" value="{{ $saveAction['active']['value'] }}">
 
     <div class="btn-group" role="group">
@@ -21,5 +23,5 @@
     </div>
 
     <a href="{{ $crud->hasAccess('list') ? url($crud->route) : url()->previous() }}" class="btn btn-default"><span class="fa fa-ban"></span> &nbsp;{{ trans('backpack::crud.cancel') }}</a>
-    @endcan
+    @endif
 </div>
