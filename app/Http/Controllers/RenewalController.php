@@ -82,7 +82,7 @@ class RenewalController extends Controller
         $user->tac_date = date("Y-m-d H:i:s");
         $user->addComment('Terms and Conditions accepted from Web site');
         $user->save();
-        return view('membership_renewal.payment', ['user' => $user, 'token' => $tokenValue, 'current_paid_to' => config('app.current_paid_to')]);
+        return view('membership_renewal.payment', ['user' => $user, 'token' => $tokenValue, 'current_paid_to' => \App\Models\Setting::currentPaidTo()]);
     }
 
     public function dontRenewShow($tokenValue)

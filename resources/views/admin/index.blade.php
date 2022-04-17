@@ -29,4 +29,23 @@
       <a href="/site_admin/presidents_report"> Download existing Presidents Report </a>
   </div>
 
+
+    <div class="alert alert-success" role="alert">
+    Set the Current Paid Until Date. This will also update things like the Valid to on the membership cards. 
+    </div>
+        <form method="post" action='/site_admin/currentPaidTo' >
+            {{ csrf_field() }}
+            <div class="form-group row">
+                <label for="current_paid_to" class="col-2 col-form-label">Current Paid Until Normally 30th June </label>
+                <div class="col-4">
+                    <input id="current_paid_to" name="current_paid_to" type="date" class="form-control" required="required" value="{{ $current_paid_to }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="offset-4 col-4">
+                    <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+
 @endsection

@@ -31,6 +31,7 @@ class SiteAdminTest extends TestCase
 
         $user =    User::factory()->create();
 
+        $user->assignRole('admin');
         Storage::fake('private');
         $file = UploadedFile::fake()->create('presidents_report.pdf', 100);
         $form_fields['presidents_report'] = $file;
@@ -68,8 +69,26 @@ class SiteAdminTest extends TestCase
         $user->assignRole('admin');
         $response = $this->actingAs($user)->get('/site_admin');
         $response->assertStatus(200);
+    }
+
+    public function test_set_current_paid_to()
+    {
+
+        $current_paid_to = \App\Models\Setting::where('name', '=', 'current_paid_to')->first();
+        $current_paid_to->value = '2022-07-13';
+        $current_paid_to->save();
+        $user =    User::factory()->create();
+        $user->assignRole('admin');
+
+        $response = $this->actingAs($user)->post('/site_admin/currentPaidTo',['current_paid_to' => '2022-06-30'] );
+        $current_paid_to = \App\Models\Setting::where('name', '=', 'current_paid_to')->first();
+        $this->assertEquals('2022-06-30', $current_paid_to->value);
+        $response = $this->actingAs($user)->get('/site_admin');
         $response->assertSessionHasNoErrors();
+        $response->assertStatus(200);
+        $response->assertSee('2022-06-30');
+ 
 
-
+    
     }
 }

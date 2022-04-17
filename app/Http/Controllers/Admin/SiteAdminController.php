@@ -17,7 +17,9 @@ class SiteAdminController extends \App\Http\Controllers\Controller
         if (!backpack_user()->hasRole('admin')) {
             abort('403');
         }
-        return view('admin.index');
+        $current_paid_to = \App\Models\Setting::currentPaidTo();
+     
+        return view('admin.index',['current_paid_to' => $current_paid_to]);
     }
     public function download_presidents_report()
     {
@@ -32,6 +34,10 @@ class SiteAdminController extends \App\Http\Controllers\Controller
 
     public function upload_presidents_report(Request $request)
     {
+        if (!backpack_user()->hasRole('admin')) {
+            abort('403');
+        }
+
         $request->validate([
             'presidents_report' => 'required|mimes:pdf'
         ]);
@@ -45,4 +51,17 @@ class SiteAdminController extends \App\Http\Controllers\Controller
 
         return response("OK", 500);
     }
+
+    public function setCurrentPaidTo(Request $request)
+    {
+        if (!backpack_user()->hasRole('admin')) {
+            abort('403');
+        }
+        $current_paid_to = \App\Models\Setting::where('name', '=', 'current_paid_to')->first();
+        $current_paid_to->value = $request->input('current_paid_to');
+        
+        $current_paid_to->save();
+        return $this->index();
+    }
+
 }
