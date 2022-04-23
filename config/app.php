@@ -157,7 +157,6 @@ return [
      *  This is should either be automated or added to the  admin gui at some 
      * stage.  
      */
-    'current_paid_to' => env('CURRENT_PAID_TO'),
     'primary_member_fee' => env('PRIMARY_MEMBER_FEE'),
     'family_member_fee' => env('FAMILY_MEMBER_FEE'),
     'honorary_member_fee' => env('HONORARY_MEMBER_FEE'),
