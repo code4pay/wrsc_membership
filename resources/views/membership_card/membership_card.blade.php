@@ -67,7 +67,7 @@
       <div style="display: inline-block; padding-left: 1mm; ">
         This card confirms the holder is a member of Wildlife Rescue South Coast Incorporated. and is authorised to act on our behalf.<br />
         See reverse of card for conditions / restrictions of this membership.<br />
-        <strong>Expiry Date: 30</strong><strong>th</strong> <strong>June 2022</strong><br />
+        <strong>Expiry Date: <strong>@php print ($dateValidTo->format('jS F Y')) @endphp </strong><br />
         <div style="color:red; text-align:center;"><strong>South Coast 0418 427 214 &nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;FSC 0417 238 921</strong></div>
       </div>
     </div>
