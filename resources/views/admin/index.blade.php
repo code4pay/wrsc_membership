@@ -48,4 +48,17 @@
             </div>
         </form>
 
+    <div class="alert alert-success" role="alert">
+    Reset Membership fields for start of new Membership Year.
+    </div>
+        <form method="post" action='/site_admin/resetTandCsAcceptedDate' >
+            {{ csrf_field() }}
+            <div class="form-group row">
+                <div class="offset-4 col-4">
+                    <input class="btn btn-primary" 
+                    type="submit" name="submit" value="Reset Membership Dates" onclick="return confirm('This will reset all Membership dates click OK to continue.');"
+                    />
+                </div>
+            </div>
+        </form>
 @endsection

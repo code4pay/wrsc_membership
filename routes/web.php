@@ -33,6 +33,7 @@ Route::post('print_renewals', '\App\Http\Controllers\RenewalController@printRene
 Route::post('site_admin/presidents_report', '\App\Http\Controllers\Admin\SiteAdminController@upload_presidents_report')->middleware('auth');
 Route::get('site_admin/presidents_report', '\App\Http\Controllers\Admin\SiteAdminController@download_presidents_report')->middleware('auth');
 Route::post('site_admin/currentPaidTo', '\App\Http\Controllers\Admin\SiteAdminController@setCurrentPaidTo')->middleware('auth');
+Route::post('site_admin/resetTandCsAcceptedDate', '\App\Http\Controllers\Admin\SiteAdminController@resetTandCsAcceptedDate')->middleware('auth');
 Route::get('site_admin', '\App\Http\Controllers\Admin\SiteAdminController@index')->middleware('auth');
 Route::post('admin/email_membership_card', '\App\Http\Controllers\MembershipCardController@emailMembershipCard')->middleware('auth');
 Route::post('print_membership_card', '\App\Http\Controllers\MembershipCardController@printMembershipCard')->middleware('auth');

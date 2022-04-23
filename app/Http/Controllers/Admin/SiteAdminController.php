@@ -64,4 +64,16 @@ class SiteAdminController extends \App\Http\Controllers\Controller
         return $this->index();
     }
 
+    public function resetTandCsAcceptedDate(Request $request)
+    {
+
+        if (!backpack_user()->hasRole('admin')) {
+            abort('403');
+        }
+        \DB::table('users')->update(['tac_date' => null]);
+        \DB::table('users')->update(['paid_paypal_date' => null]);
+        \DB::table('users')->update(['tac_email_date' => null]);
+        return $this->index();
+    }
+
 }
