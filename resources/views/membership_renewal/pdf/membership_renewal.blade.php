@@ -83,7 +83,7 @@ I will email out your renewal form.</font></font></font></p>
 <span style="font-variant: normal"><font color="#000000"><span style="text-decoration: none"><font face="Arial, serif"><font size="2" style="font-size: 9pt"><span style="font-style: normal"><span style="font-weight: normal">
 </span></span></font></font></span></font></span></p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
-If you have animals in care, and have not paid membership by the commencement of the new financial year i.e. 1st July 2022 then you will not be covered by WRSC’s NPWS licence MWL000100253 or our insurance and your authorisation to care, if applicable, will no longer be current.
+<font face="Arial, serif"><font size="2" style="font-size: 9pt">If you have animals in care, and have not paid membership by the commencement of the new financial year i.e. 1st July 2022 then you will not be covered by WRSC’s NPWS licence MWL000100253 or our insurance and your authorisation to care, if applicable, will no longer be current.</font></font></font>
 </p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
 <font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Thank you again for your membership, thank you for your support and look forward to receiving your renewal as soon as possible.</font></font></font></p>
