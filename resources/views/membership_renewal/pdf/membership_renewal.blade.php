@@ -49,9 +49,9 @@ Renewal No: {{ $user->member_number }} 	Name: {{ $user->name }}	</b></font></fon
 </font></font></font>
 </p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
-<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt"></font></font></font>We sincerely thank you for being part of WRSC.  Although it is hard to believe, it is now membership renewal time!</p>
+<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">We sincerely thank you for being part of WRSC.  Although it is hard to believe, it is now membership renewal time!</font></font></font></p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
-<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt"></font></font>We would like to acknowledge the wide variety of hard work that is carried out by our members in the rescue, care and release of our wildlife, as well as keeping the organisation ticking over in the background.  It has been a difficult couple of years for many of our members with fire, flood and COVID. It has also been a difficult time for wildlife. To see what has happened during the past 12 months at WRSC, please see the attached President’s report.</font></p>
+<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">We would like to acknowledge the wide variety of hard work that is carried out by our members in the rescue, care and release of our wildlife, as well as keeping the organisation ticking over in the background.  It has been a difficult couple of years for many of our members with fire, flood and COVID. It has also been a difficult time for wildlife. To see what has happened during the past 12 months at WRSC, please see the attached President’s report.</font></font></font></p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
 <font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Welcome to all our new members who have joined us this past year. </font></font></font></p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
@@ -80,18 +80,18 @@ I will email out your renewal form.</font></font></font></p>
 <p align="justify" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
 <font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Wherever possible, we will be emailing your acknowledgement letters along with a pdf of your membership card, which you may print out and upload to your smartphone. If you would like a laminated membership card, please let me know.</font></font></font></p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; page-break-after: auto">
-<span style="font-variant: normal"><font color="#000000"><span style="text-decoration: none"><font face="Arial, serif"><font size="2" style="font-size: 9pt"><span style="font-style: normal"><span style="font-weight: normal">If you have animals in care, and have not paid membership by the commencement of the new financial year i.e. 1st July 2021 then you will not be covered by WRSC’s NPWS licence MWL000100253 or our insurance and your authorisation to care, if applicable, will no longer be current.
-NPWS licence MWL000100253 or our insurance.</span></span></font></font></span></font></span></p>
+<span style="font-variant: normal"><font color="#000000"><span style="text-decoration: none"><font face="Arial, serif"><font size="2" style="font-size: 9pt"><span style="font-style: normal"><span style="font-weight: normal">
+</span></span></font></font></span></font></span></p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
 
 </p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
-<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Thank you again for your membership, it is indeed a new world that we are encountering and we look forward to facing it with your assistance..</font></font></font></p>
+<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Thank you again for your membership, thank you for your support and look forward to receiving your renewal as soon as possible.</font></font></font></p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
 <font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Yours
 Sincerely	</font></font></font></p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
-
+If you have animals in care, and have not paid membership by the commencement of the new financial year i.e. 1st July 2022 then you will not be covered by WRSC’s NPWS licence MWL000100253 or our insurance and your authorisation to care, if applicable, will no longer be current.
 </p>
 <p align="left" style="margin-bottom: 0cm; border: none; padding: 0cm; font-variant: normal; font-style: normal; font-weight: normal; line-height: 100%; page-break-inside: auto; orphans: 2; widows: 2; text-decoration: none; page-break-after: auto">
 <font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Anne
