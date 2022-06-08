@@ -11,6 +11,9 @@ you should then be able to login.  If using Homestead it will be `http://localho
 
 To add things like courses etc run `artisan db:seed` 
 
+Then you can give admin permissions to the first user with this SQL
+
+INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES ('1', 'App\\User', '1');
 
 ## Adding a new table 
 To add a new database table to the Admin panel with a link on the left hand side. 

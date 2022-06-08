@@ -14,7 +14,7 @@ class MembershipCardController extends Controller
         if(!backpack_user()->can('Print Membership Cards')){
             abort(403, 'You do not have access to this action');
         }
-        $dateValidTo = new \DateTime(\App\Model\Setting::currentPaidTo());
+        $dateValidTo = new \DateTime(\App\Models\Setting::currentPaidTo());
         foreach ($request->get('users') as $user_id) {
             $user = \App\User::find($user_id);
             if (!$user) {
