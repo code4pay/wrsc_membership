@@ -14,7 +14,7 @@
     <li>I agree that all my labour is voluntary and that all activities are carried out at my own risk
       and with no right of recourse against any member of WRSC. </li>
     <li>I declare that I am not a prohibited person under the Commission for Children and Young People
-      Act 2007. </li>
+      Act 1998. </li>
     <li>I declare that I have not been convicted on charges relating to wildlife / domestic animals.
     </li>
   </ol>
