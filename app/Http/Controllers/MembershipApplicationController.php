@@ -90,7 +90,7 @@ class MembershipApplicationController extends Controller
                 'email' => 'required|email:rfc',
                 'post_code_residential' => 'required|digits:4',
                 'over_18' =>'in:yes',
-                'capatcha' => 'in:xmqki'
+                'capatcha' => 'in:xmqki,Xmqki'
             ]);
         $validatedData = array_merge($validatedData, $validatedDataPrimary);
         }
