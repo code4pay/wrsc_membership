@@ -78,19 +78,18 @@ administration, publicity, communications, or any of the other vital roles neede
 this organisation running. We hope those who haven’t, will attend an introduction to
 wildlife rescue in the very near future. </font></font></font>
 </p>
-<ul>
-	<li>
+<p>
 	<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">In this email you will find a link to your membership record, where you can check and
 update personal details. When your details are correct, all you need to do is acknowledge
 the terms and conditions and remit the funds as shown on the acknowledgement screen. If
 you do not want to renew online, please email membership@wildlife-rescue.org.au and I
 will post your renewal form.</font></font></font>
-</li>
-<li>
-	<font color="#000000"><font face="Arial, serif"><font size="2" style="font-size: 9pt">Wherever possible, we will be emailing your acknowledgement letters along with a pdf of
+</p>
+<p>
+	Wherever possible, we will be emailing your acknowledgement letters along with a pdf of
 your membership card, which you may print out and upload to your smartphone. If you
-would like a laminated membership card, please let me know.</font></font></font>
-</li>
+would like a laminated membership card, please let me know.
+</p>
 
 </ul>
 
