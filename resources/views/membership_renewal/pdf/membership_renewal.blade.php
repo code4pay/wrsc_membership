@@ -11,6 +11,7 @@
 		@page { margin-left: 1.5cm; margin-right: 1.5cm; margin-top: 1cm; margin-bottom: 1.25cm }
 		p { margin-bottom: 0.25cm; direction: ltr; line-height: 115%; text-align: left; orphans: 2; widows: 2 }
 		a:link { color: #0000ff }
+        font { font face ="Arial";font-size:9pt}
 	</style>
 </head>
 <body lang="en-AU" link="#0000ff" dir="ltr">
