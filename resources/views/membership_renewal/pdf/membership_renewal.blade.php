@@ -9,7 +9,7 @@
 	<meta name="changed" content="2020-05-23T11:50:20.585276915"/>
 	<style type="text/css">
 		@page { margin-left: 1.5cm; margin-right: 1.5cm; margin-top: 1cm; margin-bottom: 1.25cm }
-		p { margin-bottom: 0.25cm; direction: ltr; line-height: 115%; text-align: left; orphans: 2; widows: 2 }
+		p { margin-bottom: 0.25cm; direction: ltr; line-height: 115%; text-align: left; orphans: 2; widows: 2; font-family: Arial, Helvetica, sans-serif; font-size:9px}
 		a:link { color: #0000ff }
         font { font face ="Arial";font-size:9pt}
 	</style>
