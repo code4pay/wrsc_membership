@@ -189,3 +189,8 @@ curl -L https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1-
 
 Start mailhog
  ~/go/bin/MailHog
+
+
+ # TroubleShooting
+ Laravel logs files are located in `/var/www/html/storage/logs`
+ 

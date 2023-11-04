@@ -45,7 +45,7 @@
         <div style="font-size: 7px; width: 37mm; float: left; ">
           <address>
             NPWS Licence No: MWL000100253<br />
-            CFN: 16681<br />
+            Expiry: 30/06/2026 CFN: 16681<br />
             ABN: 49 616 307 526
           </address>
           <h2 style="margin:0;">VOLUNTEER</h2>
@@ -56,7 +56,7 @@
         </div>
         <div style="font-size: 7px; width: 20mm; float:right">
           @if($user->image)
-          <img style="height:20mm; width:20mm  padding-right: 1mm;" src="card/{{ $user->image }}" />
+          <img style="height:20mm; width:20mm  padding-right: 1mm;" src="http://127.0.0.1/card/{{ $user->image }}" />
           @else
           <img style="width:20mm;  padding-right: 1mm;" src="images/blank.jpg" />
           @endif
@@ -82,11 +82,11 @@
       </ul>
       @else
       <ul>
-        <li> Agrees to comply with all DPIE/NPWS Licence conditions & WRSC constitution and policies.</li>
+        <li> Agrees to comply with all DPE/NPWS Licence conditions & WRSC constitution and policies.</li>
         <li> @if(!$user->hasAuthority('Auth to rescue')) <del> @endif Is authorised to rescue native animals and must register such wildlife within 24 hours to the relevant co-ordinator.@if(!$user->hasAuthority('Auth to rescue')) </del> @endif </li>
         <li> @if(!$user->hasAuthority('Auth to care')) <del> @endif Is authorised to partake in wildlife rehabilitation @if(!$user->hasAuthority('Auth to care')) </del> @endif </li>
-        <li> @if(!$user->hasAuthority('Auth to use firearm')) <del> @endif Holds a current NSW firearms licence and is authorised to assess and if required euthanase by firearm. @if(!$user->hasAuthority('Auth to use firearm')) </del> @endif </li>
-        <li> Must immediately notify Dept Primary Inds at <a href="mailto:invasive.species@dpi.nsw.gov.au">invasive.species@dpi.nsw.gov.au</a> upon advice or capture of a non-native reptile and follow any instructions.</li>
+        <li> @if(!$user->hasAuthority('Auth to use firearm')) <del> @endif Holds a current NSW firearms licence and is authorised to assess and if required euthanase injured wildlife by firearm. @if(!$user->hasAuthority('Auth to use firearm')) </del> @endif </li>
+        <li> Must immediately notify coordinator and Dept Primary Inds at <a href="mailto:invasive.species@dpi.nsw.gov.au">invasive.species@dpi.nsw.gov.au</a> upon advice or capture of a non-native animal and follow any instructions.</li>
         <li> Will permit the inspection of all protected animals held and any facilities associated with their care.</li>
       </ul>
       @endif
