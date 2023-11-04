@@ -193,4 +193,7 @@ Start mailhog
 
  # TroubleShooting
  Laravel logs files are located in `/var/www/html/storage/logs`
- 
+
+ ## Not seeing images on membership cards or file not found. 
+ - mPdf installed on the server needs to make a call to itself to get the membership file.  In docker sometimes the url is 127.0.0.1:8000 outside of the container but 127.0.0.1:80 in the container this prevents mPdf accessing the image as it uses 8000.  Note I am not sure of the fix for this. 
+ - To stop general internet access to the image files the route is limited to only a the local servers address.  This is set in the .ENV file LOCAL_ADDRESS="127.0.0.1"  See the web.php route file. 
