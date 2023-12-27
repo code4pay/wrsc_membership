@@ -56,7 +56,7 @@
         </div>
         <div style="font-size: 7px; width: 20mm; float:right">
           @if($user->image)
-          <img style="height:20mm; width:20mm  padding-right: 1mm;" src="http://127.0.0.1/card/{{ $user->image }}" />
+          <img style="height:20mm; width:20mm  padding-right: 1mm;" src="src="card/{{ $user->image }}" />
           @else
           <img style="width:20mm;  padding-right: 1mm;" src="images/blank.jpg" />
           @endif
